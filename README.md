@@ -77,11 +77,11 @@ The slight difference between the loss fucntion and the cost function is about t
 
 + Gradient descent is a first-order iterative optimization algorithm for finding a local minimum of a differentiable function.Gradient descent is an optimization algorithm used to optimize neural networks and many other machine learning algorithms. Our main goal in optimization is to find the local minima, and gradient descent helps us to take repeated steps in the direction opposite of the gradient of the function at the current point. This method is commonly used in machine learning (ML) and deep learning (DL) to minimize a cost/loss function
 
-![image](https://user-images.githubusercontent.com/99672298/181277933-c20d8fe2-21db-4ac5-9a19-d51e57d5e051.png)
+![Filter_Method](https://editor.analyticsvidhya.com/uploads/25665ezgif.com-gif-maker.gif)
 
 ### Linear Regression using Gradient Descent
 
-![image](https://user-images.githubusercontent.com/99672298/181279757-664c0239-b833-4378-8528-d55369534ff2.png)
+![Filter Method](https://miro.medium.com/max/1400/1*CjTBNFUEI_IokEOXJ00zKw.gif)
 
 A straight line is represented by using the formula y = m$x$ + c
 + y is the dependent variable
