@@ -104,7 +104,7 @@ Here yᵢ is the actual value and ȳᵢ is the predicted value. Lets substitute 
 
 ![image](https://user-images.githubusercontent.com/99672298/181279573-e5b8c097-87c3-4527-b249-98cb45d30dd6.png)
 
-** The loss function helps to increase and improve machine learning efficiency by providing feedback to the model, so that it can minimize error and find the global minima. Further, it continuously iterates along the direction of the negative gradient until the cost function approaches zero.
+**The loss function helps to increase and improve machine learning efficiency by providing feedback to the model, so that it can minimize error and find the global minima. Further, it continuously iterates along the direction of the negative gradient until the cost function approaches zero.**
 
 Calculating the partial derivative of the cost function with respect to slope (m), let the partial derivative of the cost function with respect to m be $D_m$
 
@@ -128,12 +128,94 @@ Dₘ is the value of the partial derivative with respect to m. Similarly lets fi
 ### Initilization
  The Starting point is a randomly selected value of slope and intercept (m & c). It is used as a starting point, to derive the first derivative or slope and then uses the tangent line to calculate the steepness of the slope. Further, this slope will inform the update to the parameters. The slope becomees steeper at eht starting point, but whenever new paramters are generated, then the steepness gradually reduces, the closer we get to the optimal value, the closer the slope of the curve gets to zero. This means that wehtn the slope of the cruve is close to zero, which is claled as that we are near to the point of convergence.
  
- #### Direction and learning Rate
+#### Direction and learning Rate
  
- These two factors are used to determine the partial derivative calculation of future iteration and allow it to the point of convergence or glabal minima.
+These two factors are used to determine the partial derivative calculation of future iteration and allow it to the point of convergence or glabal minima.
  
- ### Learning Rate 
+### Learning Rate 
  
- It is defined as the step size taken to reach the minima or lowest point
+It is defined as the step size taken to reach the minima or lowest point. It has a strong influence on performance. It controls how much the value of m (slope) and c (intercept) changes withe each step.
+ 
+Let "L" be the learning rate
+ 
++ step_size = $D_c$ x L
++ step_size = $D_m$ x learning_rate(L)
++ New_slope = old_slope - stepsize
++ New_intercept = old_intercept - stepsize
+ 
++ **Smaller learning rate:** the model will take too much time before it reaches minima might even exhaust the max iterations specified.
+
+![](https://editor.analyticsvidhya.com/uploads/26393ezgif.com-gif-maker%20(5).gif)
++ **Large (Big learning rate):** the steps taken will be large and we can even miss the minima the algorithm may not converge to the optimal point.
++ Because the steps size being too big, it simply jumping back and forth between the convex function of gradient descent. In our case even if we continue till ith iteration we will not reach the local minima.
+
+![f](https://editor.analyticsvidhya.com/uploads/81207ezgif.com-gif-maker%20(4).gif)
+
++ **The learning rate should be an optimum value.**
++ If the learning rate is high, it results in larger steps but also leads to risk of overshooting the minimum. At the same time, a low (small) learning rate shows the small step size, which compromises overall efficeincy but gives the advantage of more precision.
+
+![f](https://editor.analyticsvidhya.com/uploads/94236ezgif.com-gif-maker%20(7).gif)
+![image](https://user-images.githubusercontent.com/99672298/181450732-7108af01-d47c-4688-9438-38948430f16c.png)
 
 
+#### In summary, Gradient Descent methods steps are
+1.) Choose starting point (initialisation).
+2.) Calculate gradient at that point.
+3.) Make a scaled step in the opposite direction to the gradient
+#### The closer we get to the optimal value the closer the slope of the curve gets to 0 and when this happens which means we should take small steps, because we are close to the optimal value and when the case is opposite of this we should take big steps.
+4.) We repeat this process until our loss function is a very small value. The value of m and c that we are left with now will be the optimum values.
+
+### Challenges with Gradient Descent
+Gradient Descent works fine in most of the cases, but there are many cases where gradient descent doesn't work properly or fails to work altogether
+
+#### Gradient descent algorithm does not work for all functions. There are specific requirements. A function has to be:
++ **Continues variable and Differentiable**
+  First, what does it mean it has to be differentiable?
+If a function is differentiable it has a derivative for each point in its domain.not all functions meet these criteria. First, let’s see some examples of functions meeting this criterion:
+
+![image](https://user-images.githubusercontent.com/99672298/181440157-886e7c5a-8d2e-466f-945d-b05fb784ac90.png)
+
+Typical non-differentiable functions have a step a jump a cusp discontinuity of or infinte discontinuity:
+
+![image](https://user-images.githubusercontent.com/99672298/181440208-9bd2365c-f18c-4e5b-bd3c-e2ccd34d2ca6.png)
+
++ **Next requirement — function has to be convex.**
+
+![image](https://user-images.githubusercontent.com/99672298/181440345-5e8a10c9-0bd0-419f-8fb2-556d5c151384.png)
+
+If the data is arranges in a way that it poses a non-convex optimization problem. It is very difficult to perform optimization problem. It is very difficult to perform
+optimization using gradient descent. Gradient Descent only works for problems which have a well defined `convex optimization problems.`
+
+Even when optimizing a convex optimization problem, there may be numerous minimal points. The lowest points is called `Global minima`, where as rest of the points ratger than the global minima are called local minima. Our main aim is go to the global minima avoiding local minima. There is also a **`Saddle Point`** problem. This is a point in the data where the gradient is zero but is not an optimal point. Whenever the slope of the cost function is at zero or just close to zero, the model stops learning further.
+
+![image](https://user-images.githubusercontent.com/99672298/181446138-02faa76f-e083-47f6-b9c7-71a190d9449f.png)
+
+Apart from the global minima, there occurs some scenarios that can show this slope, which is saddle Point and local minima generates the shape similar to the global minima, where the slope of the cost funcstions increase on both side of the current ponts. The name of the saddle pont is taken by that of a horse's saddle.
+
+#### Another challenge
+
+In a deep learning neural network often model is trained with gradient descent and back propagation there can occur two more issues other than lcoal minima and saddle points.
+
+![image](https://user-images.githubusercontent.com/99672298/181450854-cca55386-f974-42e5-9d47-4c674050a5fd.png)
+
+#### Vanishing and Exploding Gradients
+
+These problems occur when the gradient is too large or too small and because of this problem the algorithms do no converge
+
++ Vanishing Gradients:
+Vanishing Gradient occurs when the gradient is smaller than expected. During backpropagation, this gradient becomes smaller that causing the decrease in the learning rate of earlier layers than the later layer of the network. Once this happens, the weight parameters update until they become insignificant.
++ Exploding Gradient:
+Exploding gradient is just opposite to the vanishing gradient as it occurs when the Gradient is too large and creates a stable model. Further, in this scenario, model weight increases, and they will be represented as NaN. This problem can be solved using the dimensionality reduction technique, which helps to minimize complexity within the model.
+
+### Types of Gradient Descent
+Based on the error in various training models, the Gradient Descent learning algorithm can be divided into Batch gradient descent, stochastic gradient descent, and mini-batch gradient descent. Let's understand these different types of gradient descent:
+
++ **Batch Gardient Descent**
+Batch gradient descent (BGD) is used to find the error for each point in the training set and update the model after evaluating all training examples. This procedure is known as the training **`epoch.`** In simple words, it is a greedy approach where we have to sum over all examples for each update.
+
+Advantages of Batch gradient descent:
++ It produces less noise in comparison to other gradient descent.
++ It produces stable gradient descent convergence.
++ It is Computationally efficient as all resources are used for all training samples.
+
++ **Stochastic gradient descent**
