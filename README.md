@@ -316,25 +316,7 @@ Here’s a pseudocode.
 + parameter = parameter – update
 + Here beta1 and beta2 are constants to keep changes in gradient and learning rate in check
 
-### Overview:
-Gradient descent refers to a minimization optimization algorithm that follows the negative of the gradient downhill of the target function to locate the minimum of the function.
-
-A downhill movement is made by first calculating how far to move in the input space, calculated as the steps size (called alpha or the learning rate) multiplied by the gradient. This is then subtracted from the current point, ensuring we move against the gradient, or down the target function.
-
-The steeper the objective function at a given point, the larger the magnitude of the gradient, and in turn, the larger the step taken in the search space. The size of the step taken is scaled using a step size hyperparameter.
-+ Step Size (alpha): Hyperparameter that controls how far to move in the search space against the gradient each iteration of the algorithm.
-+ Gradient descent is an optimization algorithm that follows the negative gradient of an objective function in order to locate the minimum of the function.
-
-A downhill movement is made by first calculating how far to move in the input space, calculated as the steps size (called alpha or the learning rate) multiplied by the gradient. This is then subtracted from the current point, ensuring we move against the gradient, or down the target function.
-
-x(t+1) = x(t) – step_size * f'(x(t))
-
-The steeper the objective function at a given point, the larger the magnitude of the gradient, and in turn, the larger the step taken in the search space. The size of the step taken is scaled using a step size hyperparameter.
-
-Step Size (alpha): Hyperparameter that controls how far to move in the search space against the gradient each iteration of the algorithm.
-If the step size is too small, the movement in the search space will be small, and the search will take a long time. If the step size is too large, the search may bounce around the search space and skip over the optima.
-
-The problem with gradient descent is that the weight update at a moment (t) is governed by the learning rate and gradient at that moment only. It doesn't take into account the past steps.
+### The problem with gradient descent is that the weight update at a moment (t) is governed by the learning rate and gradient at that moment only. It doesn't take into account the past steps.
 
 It leads to the following problems:
 
@@ -361,25 +343,6 @@ One approach to the problem is to add history to the parameter update equation b
 
 ### Momentum
 Momentum is an extension to the gradient descent optimization algorithm, often referred to as gradient descent with momentum.
-
-First, let’s break the gradient descent update equation down into two parts: the calculation of the change to the position and the update of the old position to the new position.
-
-The change in the parameters is calculated as the gradient for the point scaled by the step size.
-
-change_x = step_size * f'(x)
-The new position is calculated by simply subtracting the change from the current point
-
-x = x – change_x
-Momentum involves maintaining the change in the position and using it in the subsequent calculation of the change in position.
-
-If we think of updates over time, then the update at the current iteration or time (t) will add the change used at the previous time (t-1) weighted by the momentum hyperparameter, as follows:
-
-change_x(t) = step_size * f'(x(t-1)) + momentum * change_x(t-1)
-The update to the position is then performed as before.
-
-x(t) = x(t-1) – change_x(t)
-The change in the position accumulates magnitude and direction of changes over the iterations of the search, proportional to the size of the momentum hyperparameter.
-
 #### How come momentum is going to help us fix our earlier two problems?
 
 #### 1.) Saddle point problem 
@@ -397,24 +360,6 @@ But there is a problem with this method, it considers all the gradients over ite
 
 This can be done by using an Exponential Moving Average(EMA). An exponential moving average is a moving average that assigns a greater weight on the most recent values.
 
-In the cost surface shown above let's zoom into point C.
-
-With gradient descent, if the learning rate is too small, the weights will be updated very slowly hence convergence takes a lot of time even when the gradient is high. This is shown in the left side image below. If the learning rate is too high cost oscillates around the minima as shown in the right side image below.
-
-![image](https://user-images.githubusercontent.com/99672298/181621228-d125c270-c86e-42ff-a08e-57181696cfb4.png)
-
-How does Momentum fix this?
-
-Let's look at the last summation equation of the momentum again.
-
-Case 1: When all the past gradients have the same sign
-
-The summation term will become large and we will take large steps while updating the weights. Along the curve BC, even if the learning rate is low, all the gradients along the curve will have the same direction(sign) thus increasing the momentum and accelerating the descent.
-
-Case 2: when some of the gradients have +ve sign whereas others have -ve
-
-The summation term will become small and weight updates will be small. If the learning rate is high, the gradient at each iteration around the valley C will alter its sign between +ve and -ve and after few oscillations, the sum of past gradients will become small. Thus, making small updates in the weights from there on and damping the oscillations.
-
 **`Momentum can be interpreted as a ball rolling down a nearly horizontal incline. The ball naturally gathers momentum as gravity causes it to accelerate.`**
 
 This to some amount addresses our second problem. Gradient Descent with Momentum takes small steps in directions where the gradients oscillate and take large steps along the direction where the past gradients have the same direction(same sign). This problem with momentum is that acceleration can sometimes overshoot the search and run past our goal other side of the minima valley. While making a lot og U-turns before finally converging.
@@ -423,3 +368,50 @@ This to some amount addresses our second problem. Gradient Descent with Momentum
 #### YES!
 
 ### Nesterov Momentum
+
+![image](https://user-images.githubusercontent.com/99672298/181622949-fd237ff6-6edb-49d9-b00f-5667c348e2b4.png)
+
+A limitation of gradient descent is that it can get stuck in flat areas or bounce around if the objective function returns noisy gradients. Momentum is an approach that accelerates the progress of the search to skim across flat areas and smooth out bouncy gradients.
+
+In some cases, the acceleration of momentum can cause the search to miss or overshoot the minima at the bottom of basins or valleys. Nesterov momentum is an extension of momentum that involves calculating the decaying moving average of the gradients of projected positions in the search space rather than the actual positions themselves.
+
+While `Momentum` first computes the current gradient and then take a big jump in the direction of the updated accumulated gradient, where **`Nesterov`** first makes a big jump in the direction of the previous accumulated gradient, measures the gradient and then complete Nesterov update. This anticipatory updates  prevents us from going to fast and results in increased responsiveness and reduces oscillation.
+
+This has the effect of harnessing the accelerating benefits of momentum whilst allowing the search to slow down when approaching the optima and reduce the likelihood of missing or overshooting it.
+
+**`Look ahead before you leap`**
+### Adaptive Gradient Descent (ADAGrad)
+
+A problem with the gradient descent algorithm is that the step size (learning rate) is the same for each variable or dimension in the search space. It is possible that better performance can be achieved using a step size that is tailored to each variable, allowing larger movements in dimensions with a consistently steep gradient and smaller movements in dimensions with less steep gradients.
+
+AdaGrad is designed to specifically explore the idea of automatically tailoring the step size for each dimension in the search space.
+
+An internal variable is then maintained for each input variable that is the sum of the squared partial derivatives for the input variable observed during the search.
+
+This sum of the squared partial derivatives is then used to calculate the step size for the variable by dividing the initial step size value (e.g. hyperparameter value specified at the start of the run) divided by the square root of the sum of the squared partial derivatives.
+
+One of Adagrad’s main benefits is that it eliminates the need to manually tune the learning rate. But, Adagrad’s main weakness is its accumulation of the squared gradients in the denominator: Since every added term is positive, the accumulated sum keeps growing during training. This in turn causes the learning rate to shrink and eventually become infinitesimally small, at which point the algorithm is no longer able to acquire additional knowledge. This has the effect of stopping the search too soon, before the minima can even be located.
+
+**`Adaptive Gradients, or AdaGrad for short, is an extension of the gradient descent optimization algorithm that allows the step size in each dimension used by the optimization algorithm to be automatically adapted based on the gradients seen for the variable (partial derivatives) seen over the course of the search.`**
+
+## Root Mean Squared Propogation (RMSProp)
+
+
+
+### Overview:
+Gradient descent refers to a minimization optimization algorithm that follows the negative of the gradient downhill of the target function to locate the minimum of the function.
+
+A downhill movement is made by first calculating how far to move in the input space, calculated as the steps size (called alpha or the learning rate) multiplied by the gradient. This is then subtracted from the current point, ensuring we move against the gradient, or down the target function.
+
+The steeper the objective function at a given point, the larger the magnitude of the gradient, and in turn, the larger the step taken in the search space. The size of the step taken is scaled using a step size hyperparameter.
++ Step Size (alpha): Hyperparameter that controls how far to move in the search space against the gradient each iteration of the algorithm.
++ Gradient descent is an optimization algorithm that follows the negative gradient of an objective function in order to locate the minimum of the function.
+
+A downhill movement is made by first calculating how far to move in the input space, calculated as the steps size (called alpha or the learning rate) multiplied by the gradient. This is then subtracted from the current point, ensuring we move against the gradient, or down the target function.
+
+x(t+1) = x(t) – step_size * f'(x(t))
+
+The steeper the objective function at a given point, the larger the magnitude of the gradient, and in turn, the larger the step taken in the search space. The size of the step taken is scaled using a step size hyperparameter.
+
+Step Size (alpha): Hyperparameter that controls how far to move in the search space against the gradient each iteration of the algorithm.
+If the step size is too small, the movement in the search space will be small, and the search will take a long time. If the step size is too large, the search may bounce around the search space and skip over the optima.
