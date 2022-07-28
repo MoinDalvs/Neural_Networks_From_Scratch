@@ -237,6 +237,11 @@ Advantages of Batch gradient descent:
 + It produces stable gradient descent convergence.
 + It is Computationally efficient as all resources are used for all training samples.
 
+Disadvantages of Batch gradient descent:
++ Sometimes a stable error gradient can lead to a local minima and unlike stochastic gradient descent no noisy steps are there to help get out of the local minima
++ The entire training set can be too large to process in the memory due to which additional memory might be needed
++ Depending on computer resources it can take too long for processing all the training samples as a batch
+
 #### **Stochastic gradient descent**
 Stochastic gradient descent (SGD) is a type of gradient descent that runs one training example per iteration. Or in other words, it processes a training epoch for each example within a dataset and updates each training example's parameters one at a time. As it requires only one training example at a time, hence it is easier to store in allocated memory. However, it shows some computational efficiency losses in comparison to batch gradient systems as it shows frequent updates that require more detail and speed. 
 
@@ -255,7 +260,6 @@ Disadvantages of Stochastic Gradient descent:
 + Updating the model so frequently is more computationally expensive than other configurations of gradient descent, taking significantly longer to train models on large datasets.
 + The frequent updates can result in a noisy gradient signal, which may cause the model parameters and in turn the model error to jump around (have a higher variance over training epochs).
 + The noisy learning process down the error gradient can also make it hard for the algorithm to settle on an error minimum for the model.
-+ Sensitive to Outliers.
 
 #### **MiniBatch Gradient Descent:**
 Mini Batch gradient descent is the combination of both batch gradient descent and stochastic gradient descent. It divides the training datasets into small batch sizes then performs the updates on those batches separately. 
@@ -319,65 +323,7 @@ A downhill movement is made by first calculating how far to move in the input sp
 
 The steeper the objective function at a given point, the larger the magnitude of the gradient, and in turn, the larger the step taken in the search space. The size of the step taken is scaled using a step size hyperparameter.
 + Step Size (alpha): Hyperparameter that controls how far to move in the search space against the gradient each iteration of the algorithm.
-+ Gradient Descent With Nesterov Momentum From Scratch
-by Jason Brownlee on March 17, 2021 in Optimization
-Tweet Tweet  Share
-Last Updated on October 12, 2021
-
-Gradient descent is an optimization algorithm that follows the negative gradient of an objective function in order to locate the minimum of the function.
-
-A limitation of gradient descent is that it can get stuck in flat areas or bounce around if the objective function returns noisy gradients. Momentum is an approach that accelerates the progress of the search to skim across flat areas and smooth out bouncy gradients.
-
-In some cases, the acceleration of momentum can cause the search to miss or overshoot the minima at the bottom of basins or valleys. Nesterov momentum is an extension of momentum that involves calculating the decaying moving average of the gradients of projected positions in the search space rather than the actual positions themselves.
-
-This has the effect of harnessing the accelerating benefits of momentum whilst allowing the search to slow down when approaching the optima and reduce the likelihood of missing or overshooting it.
-
-In this tutorial, you will discover how to develop the Gradient Descent optimization algorithm with Nesterov Momentum from scratch.
-
-After completing this tutorial, you will know:
-
-Gradient descent is an optimization algorithm that uses the gradient of the objective function to navigate the search space.
-The convergence of gradient descent optimization algorithm can be accelerated by extending the algorithm and adding Nesterov Momentum.
-How to implement the Nesterov Momentum optimization algorithm from scratch and apply it to an objective function and evaluate the results.
-Kick-start your project with my new book Optimization for Machine Learning, including step-by-step tutorials and the Python source code files for all examples.
-
-Let’s get started.
-Gradient Descent With Nesterov Momentum From Scratch
-Gradient Descent With Nesterov Momentum From Scratch
-Photo by Bonnie Moreland, some rights reserved.
-
-Tutorial Overview
-This tutorial is divided into three parts; they are:
-
-Gradient Descent
-Nesterov Momentum
-Gradient Descent With Nesterov Momentum
-Two-Dimensional Test Problem
-Gradient Descent Optimization With Nesterov Momentum
-Visualization of Nesterov Momentum
-Gradient Descent
-Gradient descent is an optimization algorithm.
-
-It is technically referred to as a first-order optimization algorithm as it explicitly makes use of the first order derivative of the target objective function.
-
-First-order methods rely on gradient information to help direct the search for a minimum …
-
-— Page 69, Algorithms for Optimization, 2019.
-
-The first order derivative, or simply the “derivative,” is the rate of change or slope of the target function at a specific point, e.g. for a specific input.
-
-If the target function takes multiple input variables, it is referred to as a multivariate function and the input variables can be thought of as a vector. In turn, the derivative of a multivariate target function may also be taken as a vector and is referred to generally as the “gradient.”
-
-Gradient: First order derivative for a multivariate objective function.
-The derivative or the gradient points in the direction of the steepest ascent of the target function for a specific input.
-
-Gradient descent refers to a minimization optimization algorithm that follows the negative of the gradient downhill of the target function to locate the minimum of the function.
-
-The gradient descent algorithm requires a target function that is being optimized and the derivative function for the objective function. The target function f() returns a score for a given set of inputs, and the derivative function f'() gives the derivative of the target function for a given set of inputs.
-
-The gradient descent algorithm requires a starting point (x) in the problem, such as a randomly selected point in the input space.
-
-The derivative is then calculated and a step is taken in the input space that is expected to result in a downhill movement in the target function, assuming we are minimizing the target function.
++ Gradient descent is an optimization algorithm that follows the negative gradient of an objective function in order to locate the minimum of the function.
 
 A downhill movement is made by first calculating how far to move in the input space, calculated as the steps size (called alpha or the learning rate) multiplied by the gradient. This is then subtracted from the current point, ensuring we move against the gradient, or down the target function.
 
@@ -414,4 +360,66 @@ One approach to the problem is to add history to the parameter update equation b
 "If I am repeatedly being asked to move in the same direction then I should probably gain some confidence and start taking bigger steps in that direction. Just as a ball gains momentum while rolling down a slope." This changes is based on the metaphor of momentum from physics where accelaration in a direction can be acculmulated from past updates.
 
 ### Momentum
+Momentum is an extension to the gradient descent optimization algorithm, often referred to as gradient descent with momentum.
 
+First, let’s break the gradient descent update equation down into two parts: the calculation of the change to the position and the update of the old position to the new position.
+
+The change in the parameters is calculated as the gradient for the point scaled by the step size.
+
+change_x = step_size * f'(x)
+The new position is calculated by simply subtracting the change from the current point
+
+x = x – change_x
+Momentum involves maintaining the change in the position and using it in the subsequent calculation of the change in position.
+
+If we think of updates over time, then the update at the current iteration or time (t) will add the change used at the previous time (t-1) weighted by the momentum hyperparameter, as follows:
+
+change_x(t) = step_size * f'(x(t-1)) + momentum * change_x(t-1)
+The update to the position is then performed as before.
+
+x(t) = x(t-1) – change_x(t)
+The change in the position accumulates magnitude and direction of changes over the iterations of the search, proportional to the size of the momentum hyperparameter.
+
+#### How come momentum is going to help us fix our earlier two problems?
+
+#### 1.) Saddle point problem 
+
+#### 2.) Noisy path followed
+
+![image](https://user-images.githubusercontent.com/99672298/181620407-5b9bbd7f-7f51-4747-b644-fcc002586100.png)
+
+Now, Imagine you have a ball rolling from point A. The ball starts rolling down slowly and gathers some momentum across the slope AB. When the ball reaches point B, it has accumulated enough momentum to push itself across the plateau region B and finally following slope BC to land at the global minima C.
+
+#### How can this be used and applied to Gradient Descent?
+We can use a moving average over the past gradients. In regions where the gradient is high like AB, weight updates will be large. Thus, in a way we are gathering momentum by taking a moving average over these gradients.
+
+But there is a problem with this method, it considers all the gradients over iterations with equal weightage. The gradient at t=0 has equal weightage as that of the gradient at current iteration t. We need to use some sort of weighted average of the past gradients such that the recent gradients are given more weightage.
+
+This can be done by using an Exponential Moving Average(EMA). An exponential moving average is a moving average that assigns a greater weight on the most recent values.
+
+In the cost surface shown above let's zoom into point C.
+
+With gradient descent, if the learning rate is too small, the weights will be updated very slowly hence convergence takes a lot of time even when the gradient is high. This is shown in the left side image below. If the learning rate is too high cost oscillates around the minima as shown in the right side image below.
+
+![image](https://user-images.githubusercontent.com/99672298/181621228-d125c270-c86e-42ff-a08e-57181696cfb4.png)
+
+How does Momentum fix this?
+
+Let's look at the last summation equation of the momentum again.
+
+Case 1: When all the past gradients have the same sign
+
+The summation term will become large and we will take large steps while updating the weights. Along the curve BC, even if the learning rate is low, all the gradients along the curve will have the same direction(sign) thus increasing the momentum and accelerating the descent.
+
+Case 2: when some of the gradients have +ve sign whereas others have -ve
+
+The summation term will become small and weight updates will be small. If the learning rate is high, the gradient at each iteration around the valley C will alter its sign between +ve and -ve and after few oscillations, the sum of past gradients will become small. Thus, making small updates in the weights from there on and damping the oscillations.
+
+**`Momentum can be interpreted as a ball rolling down a nearly horizontal incline. The ball naturally gathers momentum as gravity causes it to accelerate.`**
+
+This to some amount addresses our second problem. Gradient Descent with Momentum takes small steps in directions where the gradients oscillate and take large steps along the direction where the past gradients have the same direction(same sign). This problem with momentum is that acceleration can sometimes overshoot the search and run past our goal other side of the minima valley. While making a lot og U-turns before finally converging.
+
+#### Can we do something to reduce the oscillation/ U-turns / overshooting the minima?
+#### YES!
+
+### Nesterov Momentum
