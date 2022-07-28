@@ -7,7 +7,7 @@
     - 2.1 [What is Gradient Descent?](#2.1)
     - 2.2 [The Cost function](#2.2)
     - 2.3 [Linear Regression using Gradient Descent](#2.3)
-    - 2.4 [Initilization](#2.4)
+    - 2.4 [Initialization](#2.4)
     - 2.5 [Direction and learning Rate](#2.5)
     - 2.6 [Challenges with Gradient Descent](#2.6)
     - 2.7 [Types of Gradient Descent](#2.7)
@@ -138,7 +138,7 @@ Dₘ is the value of the partial derivative with respect to m. Similarly lets fi
 
 + We repeat this process until our loss function is a very small value or ideally 0 (which means 0 error or 100% accuracy). The value of m and c that we are left with now will be the optimum values.
 
-### 2.4 Initilization<a class="anchor" id="2.4"></a>
+### 2.4 Initialization<a class="anchor" id="2.4"></a>
  The Starting point is a randomly selected value of slope and intercept (m & c). It is used as a starting point, to derive the first derivative or slope and then uses the tangent line to calculate the steepness of the slope. Further, this slope will inform the update to the parameters. The slope becomees steeper at eht starting point, but whenever new paramters are generated, then the steepness gradually reduces, the closer we get to the optimal value, the closer the slope of the curve gets to zero. This means that wehtn the slope of the cruve is close to zero, which is claled as that we are near to the point of convergence.
  
 ### 2.5 Direction and learning Rate<a class="anchor" id="2.5"></a>
@@ -249,6 +249,13 @@ In Stochastic gradient descent (SGD), learning happens on every example, and it 
 + It is easier to allocate in desired memory.
 + It is relatively fast to compute than batch gradient descent.
 + It is more efficient for large datasets.
+
+Disadvantages of Stochastic Gradient descent:
+
++ Updating the model so frequently is more computationally expensive than other configurations of gradient descent, taking significantly longer to train models on large datasets.
++ The frequent updates can result in a noisy gradient signal, which may cause the model parameters and in turn the model error to jump around (have a higher variance over training epochs).
++ The noisy learning process down the error gradient can also make it hard for the algorithm to settle on an error minimum for the model.
++ Sensitive to Outliers.
 
 #### **MiniBatch Gradient Descent:**
 Mini Batch gradient descent is the combination of both batch gradient descent and stochastic gradient descent. It divides the training datasets into small batch sizes then performs the updates on those batches separately. 
