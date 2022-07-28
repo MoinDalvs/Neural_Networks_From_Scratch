@@ -312,3 +312,99 @@ A downhill movement is made by first calculating how far to move in the input sp
 
 The steeper the objective function at a given point, the larger the magnitude of the gradient, and in turn, the larger the step taken in the search space. The size of the step taken is scaled using a step size hyperparameter.
 + Step Size (alpha): Hyperparameter that controls how far to move in the search space against the gradient each iteration of the algorithm.
++ Gradient Descent With Nesterov Momentum From Scratch
+by Jason Brownlee on March 17, 2021 in Optimization
+Tweet Tweet  Share
+Last Updated on October 12, 2021
+
+Gradient descent is an optimization algorithm that follows the negative gradient of an objective function in order to locate the minimum of the function.
+
+A limitation of gradient descent is that it can get stuck in flat areas or bounce around if the objective function returns noisy gradients. Momentum is an approach that accelerates the progress of the search to skim across flat areas and smooth out bouncy gradients.
+
+In some cases, the acceleration of momentum can cause the search to miss or overshoot the minima at the bottom of basins or valleys. Nesterov momentum is an extension of momentum that involves calculating the decaying moving average of the gradients of projected positions in the search space rather than the actual positions themselves.
+
+This has the effect of harnessing the accelerating benefits of momentum whilst allowing the search to slow down when approaching the optima and reduce the likelihood of missing or overshooting it.
+
+In this tutorial, you will discover how to develop the Gradient Descent optimization algorithm with Nesterov Momentum from scratch.
+
+After completing this tutorial, you will know:
+
+Gradient descent is an optimization algorithm that uses the gradient of the objective function to navigate the search space.
+The convergence of gradient descent optimization algorithm can be accelerated by extending the algorithm and adding Nesterov Momentum.
+How to implement the Nesterov Momentum optimization algorithm from scratch and apply it to an objective function and evaluate the results.
+Kick-start your project with my new book Optimization for Machine Learning, including step-by-step tutorials and the Python source code files for all examples.
+
+Let’s get started.
+Gradient Descent With Nesterov Momentum From Scratch
+Gradient Descent With Nesterov Momentum From Scratch
+Photo by Bonnie Moreland, some rights reserved.
+
+Tutorial Overview
+This tutorial is divided into three parts; they are:
+
+Gradient Descent
+Nesterov Momentum
+Gradient Descent With Nesterov Momentum
+Two-Dimensional Test Problem
+Gradient Descent Optimization With Nesterov Momentum
+Visualization of Nesterov Momentum
+Gradient Descent
+Gradient descent is an optimization algorithm.
+
+It is technically referred to as a first-order optimization algorithm as it explicitly makes use of the first order derivative of the target objective function.
+
+First-order methods rely on gradient information to help direct the search for a minimum …
+
+— Page 69, Algorithms for Optimization, 2019.
+
+The first order derivative, or simply the “derivative,” is the rate of change or slope of the target function at a specific point, e.g. for a specific input.
+
+If the target function takes multiple input variables, it is referred to as a multivariate function and the input variables can be thought of as a vector. In turn, the derivative of a multivariate target function may also be taken as a vector and is referred to generally as the “gradient.”
+
+Gradient: First order derivative for a multivariate objective function.
+The derivative or the gradient points in the direction of the steepest ascent of the target function for a specific input.
+
+Gradient descent refers to a minimization optimization algorithm that follows the negative of the gradient downhill of the target function to locate the minimum of the function.
+
+The gradient descent algorithm requires a target function that is being optimized and the derivative function for the objective function. The target function f() returns a score for a given set of inputs, and the derivative function f'() gives the derivative of the target function for a given set of inputs.
+
+The gradient descent algorithm requires a starting point (x) in the problem, such as a randomly selected point in the input space.
+
+The derivative is then calculated and a step is taken in the input space that is expected to result in a downhill movement in the target function, assuming we are minimizing the target function.
+
+A downhill movement is made by first calculating how far to move in the input space, calculated as the steps size (called alpha or the learning rate) multiplied by the gradient. This is then subtracted from the current point, ensuring we move against the gradient, or down the target function.
+
+x(t+1) = x(t) – step_size * f'(x(t))
+
+The steeper the objective function at a given point, the larger the magnitude of the gradient, and in turn, the larger the step taken in the search space. The size of the step taken is scaled using a step size hyperparameter.
+
+Step Size (alpha): Hyperparameter that controls how far to move in the search space against the gradient each iteration of the algorithm.
+If the step size is too small, the movement in the search space will be small, and the search will take a long time. If the step size is too large, the search may bounce around the search space and skip over the optima.
+
+The problem with gradient descent is that the weight update at a moment (t) is governed by the learning rate and gradient at that moment only. It doesn't take into account the past steps.
+
+It leads to the following problems:
+
+1.) The Saddle point Problem (plateau)
+
+![image](https://user-images.githubusercontent.com/99672298/181585064-594d61de-cc66-459b-ad54-dd082396a133.png)
+
+2.) Noisy - The path followed by the Gradient descent
+
+![image](https://user-images.githubusercontent.com/99672298/181584434-6b0f391e-a021-4f1e-88db-a4dd72e68839.png)
+![](https://miro.medium.com/max/992/1*t-kykynrtQ0olmFeNgIB0w.gif)
+
+A problem with the gradient descent algorithm is that the progression of the search space based on the gradient. For example, the search may progress downhill towards the minima, but during this progression, it may move in another direction, even uphill, this can slow down the progress of the search.
+
+![image](https://user-images.githubusercontent.com/99672298/181585689-2b0cd426-4425-413e-9f89-bc9c4d646c05.png)
+
+Another prblem let's assume the intial weight of the network under consideration corresponds to point 'P1' (Look at the below figure)  with gradient descent, the loss function decreases rapidly along the slope 'P1' to 'P2' as the gradient along this slope is high. But as soon as it reaches 'P2' the gradient becomes very low. The weight updates around 'P2' is very small, Even after many iterations, the cost moves very slowly before getting stuck at a point where the gradient eventually becomes zero. In the below case as you can see in the figure, ideally cost should have moved to the global minima point 'P3' but because the gradient disappear at point 'B', we are stuck
+
+![image](https://user-images.githubusercontent.com/99672298/181586827-0e55e9f5-9372-4344-8dfb-b44b32d8ce17.png)
+
+One approach to the problem is to add history to the parameter update equation based on the gradient encountered in the previous updates. 
+
+"If I am repeatedly being asked to move in the same direction then I should probably gain some confidence and start taking bigger steps in that direction. Just as a ball gains momentum while rolling down a slope." This changes is based on the metaphor of momentum from physics where accelaration in a direction can be acculmulated from past updates.
+
+### Momentum
+
