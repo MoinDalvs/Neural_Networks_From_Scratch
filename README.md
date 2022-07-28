@@ -170,7 +170,6 @@ Let "L" be the learning rate
 ![f](https://editor.analyticsvidhya.com/uploads/94236ezgif.com-gif-maker%20(7).gif)
 ![image](https://user-images.githubusercontent.com/99672298/181450732-7108af01-d47c-4688-9438-38948430f16c.png)
 
-
 #### In summary, Gradient Descent methods steps are
 1.) Choose starting point (initialisation).
 2.) Calculate gradient at that point.
@@ -285,4 +284,31 @@ Here’s a pseudocode.
 
 Here, our update is the same as that of vanilla gradient descent. But we introduce a new term called velocity, which considers the previous update and a constant which is called momentum.
 
-+ 
+#### **ADAGRAD**
+ADAGRAD uses adaptive technique for learning rate updation. In this algorithm, on the basis of how the gradient has been changing for all the previous iterations we try to change the learning rate.
+
+Here’s a pseudocode
++ grad_component = previous_grad_component + (gradient * gradient)
++ rate_change = square_root(grad_component) + epsilon
++ adapted_learning_rate = learning_rate * rate_change
++ update = adapted_learning_rate * gradient
++ parameter = parameter – update
+#### **ADAM**
+ADAM is one more adaptive technique which builds on adagrad and further reduces it downside. In other words, you can consider this as momentum + ADAGRAD.
+
+Here’s a pseudocode.
+
++ adapted_gradient = previous_gradient + ((gradient – previous_gradient) * (1 – beta1))
++ gradient_component = (gradient_change – previous_learning_rate)
++ adapted_learning_rate =  previous_learning_rate + (gradient_component * (1 – beta2))
++ update = adapted_learning_rate * adapted_gradient
++ parameter = parameter – update
++ Here beta1 and beta2 are constants to keep changes in gradient and learning rate in check
+
+### Overview:
+Gradient descent refers to a minimization optimization algorithm that follows the negative of the gradient downhill of the target function to locate the minimum of the function.
+
+A downhill movement is made by first calculating how far to move in the input space, calculated as the steps size (called alpha or the learning rate) multiplied by the gradient. This is then subtracted from the current point, ensuring we move against the gradient, or down the target function.
+
+The steeper the objective function at a given point, the larger the magnitude of the gradient, and in turn, the larger the step taken in the search space. The size of the step taken is scaled using a step size hyperparameter.
++ Step Size (alpha): Hyperparameter that controls how far to move in the search space against the gradient each iteration of the algorithm.
