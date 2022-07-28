@@ -1,6 +1,18 @@
-## Gradient Descent
+## 0.1 Table of Contents<a class="anchor" id="0.1"></a>
+1. [Let's talk about Differential Derivative and Partial Derivative](#1)
+    - 1.1 [What is Differential?](#1.1)
+    - 1.2 [What is Derivative?](#1.2)
+    - 1.3 [Partial Derivation (Differentiation)](#1.3)
+2. [Gradient Descent](#2)
+    - 2.1 [What is Gradient Descent?](#2.1)
+    - 2.2 [The Cost function](#2.2)
+    - 2.3 [Linear Regression using Gradient Descent](#2.3)
+    - 2.4 [Initilization](#2.4)
+    - 2.5 [Direction and learning Rate](#2.5)
+    - 2.6 [Challenges with Gradient Descent](#2.6)
+    - 2.7 [Types of Gradient Descent](#2.7)
 
-### Let's talk about Differential Derivative and Partial Derivative
+## 1. Let's talk about Differential Derivative and Partial Derivative<a class="anchor" id="1"></a>
 + To better understand the difference between the differential and derivative of a function. You need to understand the concept of a function.
   
 + A function is one of the basic concepts in mathematics that defines a relationship between a set of inputs and a set of possible outputs where each input is related to one output. Where Input variables are the independent variables and the other which is output variable is the dependent variable.
@@ -8,11 +20,11 @@
 + Take for example the statement " 'y' is a function of $x$ i.e y=$f(x)$ which means something related to y is directly related to x by some formula.
   
 + The Calculus as a tool defines the derivative of a function as the limit of a particular kind.
-### What is Differential?
+#### 1.1 What is Differential?<a class="anchor" id="1.1"></a>
 It is one of the fundamentals divisions of calculus, along with integral calculus. It is a subfield of calculus that deals with infinitesimal change in some varying quantity. The world we live in is full of interrelated quantities that change periodically.
 
 For example, the area of a circular body which changes as the radius changes or a projectile which changes with the velocity. These changing entities, in mathematical terms, are called as variables and **the rate of change of one variable with respect to another is a `derivative`**. **And the equation which represents the relationship between these variables is called a `differential equation.`**
-### What is Derivative?
+#### 1.2 What is Derivative?<a class="anchor" id="1.2"></a>
   The derivative of a function represents an instantaneous rate of change in the value of a dependent variable with respect to the change in value of the independent variable. **`It’s a fundamental tool of calculus which can also be interpreted as the slope of the tangent line.`** It measures how steep the graph of a function is at some given point on the graph.
   
 + It measures how steep the graph of a function is at some given point on the graph
@@ -29,7 +41,7 @@ For example, the area of a circular body which changes as the radius changes or 
 + $\frac{d_y}{d_x}=f(x)$
 + The derivative of a function is the slope of the function at any point and is written as $\frac{d}{d_x}$.
 + For example, the derivative of $sin(x)$ can be written as $\frac{d_{sin(x)}}{d_x}=cos(x)$
-### Partial Derivation (Differentiation)
+### 1.3 Partial Derivation (Differentiation)<a class="anchor" id="1.3"></a>
 Partial differentiation is used to differentiate mathematical functions having more than one variable in them. In ordinary differentiation, we find derivative with respect to one variable only, as function contains only one variable. So partial differentiation is more general than ordinary differentiation. **`Partial differentiation is used for finding maxima and minima in optimization problems`**.
 
 It is a derivative where we hold some independent variable as constant and find derivative with respect to another independent variable.
@@ -43,11 +55,11 @@ In ordinary differentition the same equation goes like $f_{'}$ = 8$x$ + 3$\frac{
 
 ![image](https://user-images.githubusercontent.com/99672298/181267289-b7699632-b5ec-41db-9419-473e2075f248.png)
 
-## Gradient Descent
+## 2. Gradient Descent<a class="anchor" id="2"></a>
 
 + Optimization is the core of every machine learning algorithm
 
-### What is Gradient Descent?
+### 2.1 What is Gradient Descent?<a class="anchor" id="2.1"></a>
 
 To explain Gradient Descent I’ll use the classic mountaineering example.
 
@@ -68,7 +80,7 @@ So on the y-axis, we have the cost J(θ) against our parameters θ1 and θ2 on x
 ![image](https://user-images.githubusercontent.com/99672298/181286388-e82f5cec-6c54-442a-af27-6a84d49ed69e.png)
 
 
-### The Cost function
+### 2.2 The Cost function<a class="anchor" id="2.2"></a>
 It is defind as the measurement of difference of error between actual values and expected values at the current position
 
 The slight difference between the loss fucntion and the cost function is about the error within the training of machine learning models, as loss function refers to the errors of one training example, while a cost function calculates the average error across on entire training set.
@@ -79,7 +91,7 @@ The slight difference between the loss fucntion and the cost function is about t
 
 ![Filter_Method](https://editor.analyticsvidhya.com/uploads/25665ezgif.com-gif-maker.gif)
 
-### Linear Regression using Gradient Descent
+### 2.3 Linear Regression using Gradient Descent<a class="anchor" id="2.3"></a>
 
 ![Filter Method](https://miro.medium.com/max/1400/1*CjTBNFUEI_IokEOXJ00zKw.gif)
 
@@ -125,14 +137,14 @@ Dₘ is the value of the partial derivative with respect to m. Similarly lets fi
 
 + We repeat this process until our loss function is a very small value or ideally 0 (which means 0 error or 100% accuracy). The value of m and c that we are left with now will be the optimum values.
 
-### Initilization
+### 2.4 Initilization<a class="anchor" id="2.4"></a>
  The Starting point is a randomly selected value of slope and intercept (m & c). It is used as a starting point, to derive the first derivative or slope and then uses the tangent line to calculate the steepness of the slope. Further, this slope will inform the update to the parameters. The slope becomees steeper at eht starting point, but whenever new paramters are generated, then the steepness gradually reduces, the closer we get to the optimal value, the closer the slope of the curve gets to zero. This means that wehtn the slope of the cruve is close to zero, which is claled as that we are near to the point of convergence.
  
-#### Direction and learning Rate
+### 2.5 Direction and learning Rate<a class="anchor" id="2.5"></a>
  
 These two factors are used to determine the partial derivative calculation of future iteration and allow it to the point of convergence or glabal minima.
  
-### Learning Rate 
+#### Learning Rate 
  
 It is defined as the step size taken to reach the minima or lowest point. It has a strong influence on performance. It controls how much the value of m (slope) and c (intercept) changes withe each step.
  
@@ -165,7 +177,7 @@ Let "L" be the learning rate
 #### The closer we get to the optimal value the closer the slope of the curve gets to 0 and when this happens which means we should take small steps, because we are close to the optimal value and when the case is opposite of this we should take big steps.
 4.) We repeat this process until our loss function is a very small value. The value of m and c that we are left with now will be the optimum values.
 
-### Challenges with Gradient Descent
+### 2.6 Challenges with Gradient Descent<a class="anchor" id="2.6"></a>
 Gradient Descent works fine in most of the cases, but there are many cases where gradient descent doesn't work properly or fails to work altogether
 
 #### Gradient descent algorithm does not work for all functions. There are specific requirements. A function has to be:
@@ -207,7 +219,7 @@ Vanishing Gradient occurs when the gradient is smaller than expected. During bac
 + Exploding Gradient:
 Exploding gradient is just opposite to the vanishing gradient as it occurs when the Gradient is too large and creates a stable model. Further, in this scenario, model weight increases, and they will be represented as NaN. This problem can be solved using the dimensionality reduction technique, which helps to minimize complexity within the model.
 
-### Types of Gradient Descent
+### 2.7 Types of Gradient Descent<a class="anchor" id="2.7"></a>
 Based on the error in various training models, the Gradient Descent learning algorithm can be divided into Batch gradient descent, stochastic gradient descent, and mini-batch gradient descent. Let's understand these different types of gradient descent:
 
 + **Batch Gardient Descent**
