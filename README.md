@@ -55,6 +55,7 @@ In ordinary differentition the same equation goes like $f_{'}$ = 8$x$ + 3$\frac{
 
 ![image](https://user-images.githubusercontent.com/99672298/181267289-b7699632-b5ec-41db-9419-473e2075f248.png)
 
+[Table of Content](#0.1)
 ## 2. Gradient Descent<a class="anchor" id="2"></a>
 
 + Optimization is the core of every machine learning algorithm
@@ -209,20 +210,27 @@ Apart from the global minima, there occurs some scenarios that can show this slo
 In a deep learning neural network often model is trained with gradient descent and back propagation there can occur two more issues other than lcoal minima and saddle points.
 
 ![image](https://user-images.githubusercontent.com/99672298/181450854-cca55386-f974-42e5-9d47-4c674050a5fd.png)
+![26 07 2022_16 09 00_REC](https://user-images.githubusercontent.com/99672298/181470460-29085cba-cda1-4238-a4b0-e7591a57b1b2.png)
 
 #### Vanishing and Exploding Gradients
 
 These problems occur when the gradient is too large or too small and because of this problem the algorithms do no converge
+
+![04 07 2022_20 05 34_REC](https://user-images.githubusercontent.com/99672298/181470768-e2af8e65-7b04-4f1b-ab99-f00162cc7930.png)
 
 + Vanishing Gradients:
 Vanishing Gradient occurs when the gradient is smaller than expected. During backpropagation, this gradient becomes smaller that causing the decrease in the learning rate of earlier layers than the later layer of the network. Once this happens, the weight parameters update until they become insignificant.
 + Exploding Gradient:
 Exploding gradient is just opposite to the vanishing gradient as it occurs when the Gradient is too large and creates a stable model. Further, in this scenario, model weight increases, and they will be represented as NaN. This problem can be solved using the dimensionality reduction technique, which helps to minimize complexity within the model.
 
+![26 07 2022_16 09 30_REC](https://user-images.githubusercontent.com/99672298/181470534-006f49ed-3ce4-4e1f-a76c-fe5599a75ad9.png)
+
 ### 2.7 Types of Gradient Descent<a class="anchor" id="2.7"></a>
 Based on the error in various training models, the Gradient Descent learning algorithm can be divided into Batch gradient descent, stochastic gradient descent, and mini-batch gradient descent. Let's understand these different types of gradient descent:
 
-+ **Batch Gardient Descent**
+![26 07 2022_16 07 56_REC](https://user-images.githubusercontent.com/99672298/181470298-c33c0863-7914-41ff-90ac-b06fad97cea4.png)
+
+#### **Batch Gardient Descent**
 Batch gradient descent (BGD) is used to find the error for each point in the training set and update the model after evaluating all training examples. This procedure is known as the training **`epoch.`** In simple words, it is a greedy approach where we have to sum over all examples for each update.
 
 Advantages of Batch gradient descent:
@@ -230,4 +238,51 @@ Advantages of Batch gradient descent:
 + It produces stable gradient descent convergence.
 + It is Computationally efficient as all resources are used for all training samples.
 
-+ **Stochastic gradient descent**
+#### **Stochastic gradient descent**
+Stochastic gradient descent (SGD) is a type of gradient descent that runs one training example per iteration. Or in other words, it processes a training epoch for each example within a dataset and updates each training example's parameters one at a time. As it requires only one training example at a time, hence it is easier to store in allocated memory. However, it shows some computational efficiency losses in comparison to batch gradient systems as it shows frequent updates that require more detail and speed. 
+
+Further, due to frequent updates, it is also treated as a noisy gradient. However, sometimes it can be helpful in finding the global minimum and also escaping the local minimum.
+
+Advantages of Stochastic gradient descent:
+
+In Stochastic gradient descent (SGD), learning happens on every example, and it consists of a few advantages over other gradient descent.
+
++ It is easier to allocate in desired memory.
++ It is relatively fast to compute than batch gradient descent.
++ It is more efficient for large datasets.
+
+#### **MiniBatch Gradient Descent:**
+Mini Batch gradient descent is the combination of both batch gradient descent and stochastic gradient descent. It divides the training datasets into small batch sizes then performs the updates on those batches separately. 
+
+Splitting training datasets into smaller batches make a balance to maintain the computational efficiency of batch gradient descent and speed of stochastic gradient descent. Hence, we can achieve a special type of gradient descent with higher computational efficiency and less noisy gradient descent.
+
+Advantages of Mini Batch gradient descent:
+
++ It is easier to fit in allocated memory.
++ It is computationally efficient.
++ It produces stable gradient descent convergence.
+
+### Variants of Gradient Descent Algorithm
+
+#### **Vanilla Gradient Descent**
+This is the simplest form of gradient descent technique. Here, vanilla means pure / without any adulteration. Its main feature is that we take small steps in the direction of the minima by taking gradient of the cost function.
+
+Let’s look at its pseudocode.
++ update = learning_rate * gradient_of_parameters
++ parameters = parameters - update
+
+Here, we see that we make an update to the parameters by taking gradient of the parameters. And multiplying it by a learning rate, which is essentially a constant number suggesting how fast we want to go the minimum. Learning rate is a hyper-parameter and should be treated with care when choosing its value.
+
+![image](https://user-images.githubusercontent.com/99672298/181469887-dd53f973-c13c-42d9-bcd8-a32f5cfc2f84.png)
+
+#### **Gradient Descent with Momentum**
+Here, we tweak the above algorithm in such a way that we pay heed to the prior step before taking the next step.
+
+Here’s a pseudocode.
++ update = learning_rate * gradient
++ velocity = previous_update * momentum
++ parameter = parameter + velocity – update
+
+Here, our update is the same as that of vanilla gradient descent. But we introduce a new term called velocity, which considers the previous update and a constant which is called momentum.
+
++ 
