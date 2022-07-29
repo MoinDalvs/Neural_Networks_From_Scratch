@@ -63,6 +63,8 @@ In ordinary differentition the same equation goes like $f_{'}$ = 8$x$ + 3$\frac{
 [Table of Content](#0.1)
 ## 2. Gradient Descent<a class="anchor" id="2"></a>
 
+![01 07 2022_23 33 59_REC](https://user-images.githubusercontent.com/99672298/181736933-b8257ea0-c86a-4a7e-b188-b0b09c031643.png)
+
 + Optimization is the core of every machine learning algorithm
 
 ### 2.1 What is Gradient Descent?<a class="anchor" id="2.1"></a>
@@ -85,7 +87,7 @@ Suppose we want to find out the best parameters (θ1) and (θ2) for our learning
 So on the y-axis, we have the cost J(θ) against our parameters θ1 and θ2 on x-axis and z-axis respectively. Here, hills are represented by red region, which have high cost, and valleys are represented by blue region, which have low cost.
 
 ![image](https://user-images.githubusercontent.com/99672298/181286388-e82f5cec-6c54-442a-af27-6a84d49ed69e.png)
-
+![28 06 2022_11 06 50_REC](https://user-images.githubusercontent.com/99672298/181739571-fd6c011a-ec82-4b3f-979d-0ec7d0382d42.png)
 
 ### 2.2 The Cost function<a class="anchor" id="2.2"></a>
 ___
@@ -111,9 +113,11 @@ A straight line is represented by using the formula y = m$x$ + c
 + c is the y intercept
 
 ![image](https://user-images.githubusercontent.com/99672298/181279168-8949b883-3cb1-4a6f-a7d6-70a506a67ff8.png)
+![28 06 2022_11 15 26_REC](https://user-images.githubusercontent.com/99672298/181739676-ab46314b-e12f-4596-b8ad-01ee6bcacdb6.png)
 
 #### (MSE) Loss Function
 ___
+
 We will use the Mean Squared Error function to calculate the loss. There are three steps in this function:
 
 + Find the difference between the actual y and predicted y value(y = mx + c), for a given x.
@@ -152,15 +156,18 @@ Dₘ is the value of the partial derivative with respect to m. Similarly lets fi
 ### 2.4 Initialization<a class="anchor" id="2.4"></a>
 ___
  The Starting point is a randomly selected value of slope and intercept (m & c). It is used as a starting point, to derive the first derivative or slope and then uses the tangent line to calculate the steepness of the slope. Further, this slope will inform the update to the parameters. The slope becomees steeper at eht starting point, but whenever new paramters are generated, then the steepness gradually reduces, the closer we get to the optimal value, the closer the slope of the curve gets to zero. This means that wehtn the slope of the cruve is close to zero, which is claled as that we are near to the point of convergence.
- 
+
+![02 07 2022_11 29 16_REC](https://user-images.githubusercontent.com/99672298/181737076-62bdea0e-c817-4f1d-abbb-823adc48b56e.png)
+![28 06 2022_15 21 14_REC](https://user-images.githubusercontent.com/99672298/181740063-af623d4e-ac3e-4ece-a460-e6db9e906899.png)
+
 ### 2.5 Direction and learning Rate<a class="anchor" id="2.5"></a>
 ___
- 
+
 These two factors are used to determine the partial derivative calculation of future iteration and allow it to the point of convergence or glabal minima.
- 
+
 #### Learning Rate 
 ___
- 
+
 It is defined as the step size taken to reach the minima or lowest point. It has a strong influence on performance. It controls how much the value of m (slope) and c (intercept) changes withe each step.
  
 Let "L" be the learning rate
@@ -186,11 +193,33 @@ Let "L" be the learning rate
 
 #### In summary, Gradient Descent methods steps are
 ___
-1.) Choose starting point (initialisation).
-2.) Calculate gradient at that point.
+
+1.) Choose starting point (initialisation).\
+2.) Calculate gradient at that point.\
 3.) Make a scaled step in the opposite direction to the gradient
 #### The closer we get to the optimal value the closer the slope of the curve gets to 0 and when this happens which means we should take small steps, because we are close to the optimal value and when the case is opposite of this we should take big steps.
 4.) We repeat this process until our loss function is a very small value. The value of m and c that we are left with now will be the optimum values.
+
+![12 05 2022_16 18 16_REC](https://user-images.githubusercontent.com/99672298/181741402-f87b9ed0-dc55-4f0e-8eba-e721000dcdd5.png)
+![29 06 2022_11 49 50_REC](https://user-images.githubusercontent.com/99672298/181743311-a7211485-a49e-46b6-ba79-e47be229809a.png)
+![12 05 2022_16 17 32_REC](https://user-images.githubusercontent.com/99672298/181741930-cf91b410-eff4-4f20-8c0a-7c7e3e4b4289.png)
+![29 06 2022_11 50 05_REC](https://user-images.githubusercontent.com/99672298/181744015-b42eff82-5aaf-4e23-8dc7-c89fc4afe6bd.png)
+![29 06 2022_11 50 21_REC](https://user-images.githubusercontent.com/99672298/181744168-33a9f243-7de1-4c99-836d-a845b9a98ec7.png)
+![29 06 2022_11 49 33_REC](https://user-images.githubusercontent.com/99672298/181742233-8438053b-3b95-4d83-86a5-284dab348a55.png)
+![29 06 2022_11 51 02_REC](https://user-images.githubusercontent.com/99672298/181744370-362df2ee-ca9a-4223-9b9c-e025a91d76c1.png)
+![12 05 2022_19 10 11_REC](https://user-images.githubusercontent.com/99672298/181742542-f6e91382-8088-4f40-86c1-98773f9e2117.png)
+![29 06 2022_11 54 26_REC](https://user-images.githubusercontent.com/99672298/181744604-a04be59a-4889-4619-b09b-28d25f218757.png)
+![29 06 2022_11 54 46_REC](https://user-images.githubusercontent.com/99672298/181744612-eb3d9fbd-1bce-4cd3-bf29-b2cc9d9daf03.png)
+![29 06 2022_11 55 24_REC](https://user-images.githubusercontent.com/99672298/181744615-cce2a3af-048b-4852-b134-f691c87da5e7.png)
+![29 06 2022_11 55 43_REC](https://user-images.githubusercontent.com/99672298/181744617-7d913019-01d3-4901-96fb-9519aa54e1a0.png)
+![29 06 2022_11 56 09_REC](https://user-images.githubusercontent.com/99672298/181744620-492926e1-079e-471c-bb27-1e0d66ca96b0.png)
+![29 06 2022_11 57 27_REC](https://user-images.githubusercontent.com/99672298/181744623-a6ecf67e-e6b2-4761-9d14-7d8f8d00f607.png)
+![12 05 2022_19 15 24_REC](https://user-images.githubusercontent.com/99672298/181744946-8d3759b3-87a3-4053-98af-df5c6a894a4f.png)
+![12 05 2022_19 15 41_REC](https://user-images.githubusercontent.com/99672298/181744987-bca3efb7-0ff6-43e3-ad21-f97b0c9e1f8a.png)
+![12 05 2022_19 18 06_REC](https://user-images.githubusercontent.com/99672298/181745066-6f930ef2-7067-49a1-ab81-be169809be61.png)
+![29 06 2022_12 19 31_REC](https://user-images.githubusercontent.com/99672298/181745412-42b15105-4057-4a1d-bb57-61a05d60915b.png)
+![29 06 2022_12 33 18_REC](https://user-images.githubusercontent.com/99672298/181745438-b47586a6-1dc5-4c5e-8789-84fd3356fd4e.png)
+![28 06 2022_12 58 57_REC](https://user-images.githubusercontent.com/99672298/181739963-a47dacc5-6947-4486-a88a-fdc8ead1d80d.png)
 
 [Table of Content](#0.1)
 
@@ -265,6 +294,10 @@ Disadvantages of Batch gradient descent:
 
 #### **Stochastic gradient descent**
 ___
+![29 06 2022_12 34 35_REC](https://user-images.githubusercontent.com/99672298/181745492-c0b3afb7-cb68-4893-9eba-5f0bfeff9236.png)
+
+So there is a thing called Stochastic Gradient Descent that uses a randomly selected subset of the data at every step rather than the full dataset. This reduces the time spent calculating the derivatives of the Loss function.
+
 Stochastic gradient descent (SGD) is a type of gradient descent that runs one training example per iteration. Or in other words, it processes a training epoch for each example within a dataset and updates each training example's parameters one at a time. As it requires only one training example at a time, hence it is easier to store in allocated memory. However, it shows some computational efficiency losses in comparison to batch gradient systems as it shows frequent updates that require more detail and speed. 
 
 Further, due to frequent updates, it is also treated as a noisy gradient. However, sometimes it can be helpful in finding the global minimum and also escaping the local minimum.
@@ -284,18 +317,34 @@ Disadvantages of Stochastic Gradient descent:
 + The noisy learning process down the error gradient can also make it hard for the algorithm to settle on an error minimum for the model.
 
 ![image](https://user-images.githubusercontent.com/99672298/181701953-5b86bd6b-e290-46bf-9602-22eb201cde57.png)
+![02 07 2022_12 14 04_REC](https://user-images.githubusercontent.com/99672298/181738300-3a2a2ffb-880e-44c6-842d-eb978775f8f1.png)
 
 #### **MiniBatch Gradient Descent:**
 ___
+
+![04 07 2022_14 54 15_REC](https://user-images.githubusercontent.com/99672298/181737881-7dd5b705-2c20-49d2-a8ee-810745013a9e.png)
+
 Mini Batch gradient descent is the combination of both batch gradient descent and stochastic gradient descent. It divides the training datasets into small batch sizes then performs the updates on those batches separately. 
 
 Splitting training datasets into smaller batches make a balance to maintain the computational efficiency of batch gradient descent and speed of stochastic gradient descent. Hence, we can achieve a special type of gradient descent with higher computational efficiency and less noisy gradient descent.
+
+![29 06 2022_12 35 31_REC](https://user-images.githubusercontent.com/99672298/181746128-55005f6e-a1d3-4d22-9c44-6b5927e345f0.png)
+![29 06 2022_12 35 09_REC](https://user-images.githubusercontent.com/99672298/181746139-9ba5de7d-ef81-4e86-9302-8756714985f8.png)
+![29 06 2022_12 34 52_REC](https://user-images.githubusercontent.com/99672298/181746161-16650553-15b0-4935-86f4-c1f964740e6e.png)
 
 Advantages of Mini Batch gradient descent:
 
 + It is easier to fit in allocated memory.
 + It is computationally efficient.
 + It produces stable gradient descent convergence.
+
+![29 06 2022_12 35 52_REC](https://user-images.githubusercontent.com/99672298/181746223-cc6c98ac-9484-467a-8250-40dcb32c6867.png)
+![29 06 2022_12 36 14_REC](https://user-images.githubusercontent.com/99672298/181746244-54ca7426-799c-4b5e-b76b-53b9463d6967.png)
+![1_xtdBbCo-4iDMWim4R49JVg](https://user-images.githubusercontent.com/99672298/181737797-11f2b578-c9d5-4e1c-82cd-5fa4670442e8.png)
+![1_OwX5ky1lqycOIH2LiwSCyQ](https://user-images.githubusercontent.com/99672298/181737758-4dfb1c80-5455-4bcf-9cfb-91dafb191d94.png)
+![02 07 2022_11 45 36_REC](https://user-images.githubusercontent.com/99672298/181738253-0cd9e1f3-7f2d-415c-94e7-d1920cfbcf1a.png)
+![28 06 2022_22 45 47_REC](https://user-images.githubusercontent.com/99672298/181740448-fa7de855-4ed7-4e9a-9f42-61e319c3f3e9.png)
+![28 06 2022_23 19 49_REC](https://user-images.githubusercontent.com/99672298/181740549-16bbb914-d89d-4c5d-91df-d35a9bb55c8b.png)
 
 [Table of Content](#0.1)
 
@@ -316,6 +365,9 @@ Here, we see that we make an update to the parameters by taking gradient of the 
 
 #### **Gradient Descent with Momentum**
 ___
+
+![28 06 2022_16 18 21_REC](https://user-images.githubusercontent.com/99672298/181740272-71c61c55-ad5e-4d2c-b2b0-601d76197ebd.png)
+
 Here, we tweak the above algorithm in such a way that we pay heed to the prior step before taking the next step.
 
 Here’s a pseudocode.
@@ -325,7 +377,7 @@ Here’s a pseudocode.
 
 Here, our update is the same as that of vanilla gradient descent. But we introduce a new term called velocity, which considers the previous update and a constant which is called momentum.
 
-https://miro.medium.com/max/1190/1*TbKrVIsMZg28TK-rxeoAIg.png
+![image](https://user-images.githubusercontent.com/99672298/181737688-bd1dd8fc-cd39-4248-a9c7-d939e3829a37.png)
 
 #### **ADAGRAD**
 ___
@@ -538,8 +590,9 @@ ADAM is an extension of gradient descent that adds a first and second moment of 
 ___
 Gradient descent refers to a minimization optimization algorithm that follows the negative of the gradient downhill of the target function to locate the minimum of the function.
 
-![](https://miro.medium.com/max/1400/0*oqm7QVnI9-inFGCc.gif)
+![26 07 2022_16 07 35_REC](https://user-images.githubusercontent.com/99672298/181737475-8d1251ee-815e-41c8-8e56-7413f71f0b5f.png)
 
+![](https://miro.medium.com/max/1400/0*oqm7QVnI9-inFGCc.gif)
 
 A downhill movement is made by first calculating how far to move in the input space, calculated as the steps size (called alpha or the learning rate) multiplied by the gradient. This is then subtracted from the current point, ensuring we move against the gradient, or down the target function.
 
@@ -551,10 +604,15 @@ A downhill movement is made by first calculating how far to move in the input sp
 
 x(t+1) = x(t) – step_size * f'(x(t))
 
+![26 07 2022_16 07 12_REC](https://user-images.githubusercontent.com/99672298/181737533-465351c9-ee18-4a79-b6a9-2f222fd96cc9.png)
+
 The steeper the objective function at a given point, the larger the magnitude of the gradient, and in turn, the larger the step taken in the search space. The size of the step taken is scaled using a step size hyperparameter.
 
 Step Size (alpha): Hyperparameter that controls how far to move in the search space against the gradient each iteration of the algorithm.
 If the step size is too small, the movement in the search space will be small, and the search will take a long time. If the step size is too large, the search may bounce around the search space and skip over the optima.
+
+![29 06 2022_12 20 14_REC](https://user-images.githubusercontent.com/99672298/181745213-8a536a87-7245-4365-b67c-de6df086d26b.png)
+
 ___
 
 [Table of Content](#0.1)
