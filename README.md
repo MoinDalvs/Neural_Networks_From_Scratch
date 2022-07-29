@@ -23,6 +23,7 @@
   
 + The Calculus as a tool defines the derivative of a function as the limit of a particular kind.
 #### 1.1 What is Differential?<a class="anchor" id="1.1"></a>
+___
 It is one of the fundamentals divisions of calculus, along with integral calculus. It is a subfield of calculus that deals with infinitesimal change in some varying quantity. The world we live in is full of interrelated quantities that change periodically.
 
 For example, the area of a circular body which changes as the radius changes or a projectile which changes with the velocity. These changing entities, in mathematical terms, are called as variables and **the rate of change of one variable with respect to another is a `derivative`**. **And the equation which represents the relationship between these variables is called a `differential equation.`**
@@ -44,6 +45,8 @@ For example, the area of a circular body which changes as the radius changes or 
 + The derivative of a function is the slope of the function at any point and is written as $\frac{d}{d_x}$.
 + For example, the derivative of $sin(x)$ can be written as $\frac{d_{sin(x)}}{d_x}=cos(x)$
 ### 1.3 Partial Derivation (Differentiation)<a class="anchor" id="1.3"></a>
+___
+
 Partial differentiation is used to differentiate mathematical functions having more than one variable in them. In ordinary differentiation, we find derivative with respect to one variable only, as function contains only one variable. So partial differentiation is more general than ordinary differentiation. **`Partial differentiation is used for finding maxima and minima in optimization problems`**.
 
 It is a derivative where we hold some independent variable as constant and find derivative with respect to another independent variable.
@@ -63,6 +66,7 @@ In ordinary differentition the same equation goes like $f_{'}$ = 8$x$ + 3$\frac{
 + Optimization is the core of every machine learning algorithm
 
 ### 2.1 What is Gradient Descent?<a class="anchor" id="2.1"></a>
+___
 
 To explain Gradient Descent I’ll use the classic mountaineering example.
 
@@ -84,6 +88,7 @@ So on the y-axis, we have the cost J(θ) against our parameters θ1 and θ2 on x
 
 
 ### 2.2 The Cost function<a class="anchor" id="2.2"></a>
+___
 It is defind as the measurement of difference of error between actual values and expected values at the current position
 
 The slight difference between the loss fucntion and the cost function is about the error within the training of machine learning models, as loss function refers to the errors of one training example, while a cost function calculates the average error across on entire training set.
@@ -95,6 +100,7 @@ The slight difference between the loss fucntion and the cost function is about t
 ![Filter_Method](https://editor.analyticsvidhya.com/uploads/25665ezgif.com-gif-maker.gif)
 
 ### 2.3 Linear Regression using Gradient Descent<a class="anchor" id="2.3"></a>
+___
 
 ![Filter Method](https://miro.medium.com/max/1400/1*CjTBNFUEI_IokEOXJ00zKw.gif)
 
@@ -107,6 +113,7 @@ A straight line is represented by using the formula y = m$x$ + c
 ![image](https://user-images.githubusercontent.com/99672298/181279168-8949b883-3cb1-4a6f-a7d6-70a506a67ff8.png)
 
 #### (MSE) Loss Function
+___
 We will use the Mean Squared Error function to calculate the loss. There are three steps in this function:
 
 + Find the difference between the actual y and predicted y value(y = mx + c), for a given x.
@@ -143,13 +150,16 @@ Dₘ is the value of the partial derivative with respect to m. Similarly lets fi
 [Table of Content](#0.1)
 
 ### 2.4 Initialization<a class="anchor" id="2.4"></a>
+___
  The Starting point is a randomly selected value of slope and intercept (m & c). It is used as a starting point, to derive the first derivative or slope and then uses the tangent line to calculate the steepness of the slope. Further, this slope will inform the update to the parameters. The slope becomees steeper at eht starting point, but whenever new paramters are generated, then the steepness gradually reduces, the closer we get to the optimal value, the closer the slope of the curve gets to zero. This means that wehtn the slope of the cruve is close to zero, which is claled as that we are near to the point of convergence.
  
 ### 2.5 Direction and learning Rate<a class="anchor" id="2.5"></a>
+___
  
 These two factors are used to determine the partial derivative calculation of future iteration and allow it to the point of convergence or glabal minima.
  
 #### Learning Rate 
+___
  
 It is defined as the step size taken to reach the minima or lowest point. It has a strong influence on performance. It controls how much the value of m (slope) and c (intercept) changes withe each step.
  
@@ -175,6 +185,7 @@ Let "L" be the learning rate
 ![image](https://user-images.githubusercontent.com/99672298/181450732-7108af01-d47c-4688-9438-38948430f16c.png)
 
 #### In summary, Gradient Descent methods steps are
+___
 1.) Choose starting point (initialisation).
 2.) Calculate gradient at that point.
 3.) Make a scaled step in the opposite direction to the gradient
@@ -184,6 +195,7 @@ Let "L" be the learning rate
 [Table of Content](#0.1)
 
 ### 2.6 Challenges with Gradient Descent<a class="anchor" id="2.6"></a>
+___
 Gradient Descent works fine in most of the cases, but there are many cases where gradient descent doesn't work properly or fails to work altogether
 
 #### Gradient descent algorithm does not work for all functions. There are specific requirements. A function has to be:
@@ -218,6 +230,7 @@ In a deep learning neural network often model is trained with gradient descent a
 ![26 07 2022_16 09 00_REC](https://user-images.githubusercontent.com/99672298/181470460-29085cba-cda1-4238-a4b0-e7591a57b1b2.png)
 
 #### Vanishing and Exploding Gradients
+___
 
 These problems occur when the gradient is too large or too small and because of this problem the algorithms do no converge
 
@@ -231,11 +244,13 @@ Exploding gradient is just opposite to the vanishing gradient as it occurs when 
 ![26 07 2022_16 09 30_REC](https://user-images.githubusercontent.com/99672298/181470534-006f49ed-3ce4-4e1f-a76c-fe5599a75ad9.png)
 
 ### 2.7 Types of Gradient Descent<a class="anchor" id="2.7"></a>
+___
 Based on the error in various training models, the Gradient Descent learning algorithm can be divided into Batch gradient descent, stochastic gradient descent, and mini-batch gradient descent. Let's understand these different types of gradient descent:
 
 ![26 07 2022_16 07 56_REC](https://user-images.githubusercontent.com/99672298/181470298-c33c0863-7914-41ff-90ac-b06fad97cea4.png)
 
 #### **Batch Gardient Descent**
+___
 Batch gradient descent (BGD) is used to find the error for each point in the training set and update the model after evaluating all training examples. This procedure is known as the training **`epoch.`** In simple words, it is a greedy approach where we have to sum over all examples for each update.
 
 Advantages of Batch gradient descent:
@@ -249,6 +264,7 @@ Disadvantages of Batch gradient descent:
 + Depending on computer resources it can take too long for processing all the training samples as a batch
 
 #### **Stochastic gradient descent**
+___
 Stochastic gradient descent (SGD) is a type of gradient descent that runs one training example per iteration. Or in other words, it processes a training epoch for each example within a dataset and updates each training example's parameters one at a time. As it requires only one training example at a time, hence it is easier to store in allocated memory. However, it shows some computational efficiency losses in comparison to batch gradient systems as it shows frequent updates that require more detail and speed. 
 
 Further, due to frequent updates, it is also treated as a noisy gradient. However, sometimes it can be helpful in finding the global minimum and also escaping the local minimum.
@@ -270,6 +286,7 @@ Disadvantages of Stochastic Gradient descent:
 ![image](https://user-images.githubusercontent.com/99672298/181701953-5b86bd6b-e290-46bf-9602-22eb201cde57.png)
 
 #### **MiniBatch Gradient Descent:**
+___
 Mini Batch gradient descent is the combination of both batch gradient descent and stochastic gradient descent. It divides the training datasets into small batch sizes then performs the updates on those batches separately. 
 
 Splitting training datasets into smaller batches make a balance to maintain the computational efficiency of batch gradient descent and speed of stochastic gradient descent. Hence, we can achieve a special type of gradient descent with higher computational efficiency and less noisy gradient descent.
@@ -283,8 +300,10 @@ Advantages of Mini Batch gradient descent:
 [Table of Content](#0.1)
 
 ### 2.8 Variants of Gradient Descent Algorithm<a class="anchor" id="2.8"></a>
+___
 
 #### **Vanilla Gradient Descent**
+___
 This is the simplest form of gradient descent technique. Here, vanilla means pure / without any adulteration. Its main feature is that we take small steps in the direction of the minima by taking gradient of the cost function.
 
 Let’s look at its pseudocode.
@@ -296,6 +315,7 @@ Here, we see that we make an update to the parameters by taking gradient of the 
 ![image](https://user-images.githubusercontent.com/99672298/181469887-dd53f973-c13c-42d9-bcd8-a32f5cfc2f84.png)
 
 #### **Gradient Descent with Momentum**
+___
 Here, we tweak the above algorithm in such a way that we pay heed to the prior step before taking the next step.
 
 Here’s a pseudocode.
@@ -308,6 +328,7 @@ Here, our update is the same as that of vanilla gradient descent. But we introdu
 https://miro.medium.com/max/1190/1*TbKrVIsMZg28TK-rxeoAIg.png
 
 #### **ADAGRAD**
+___
 ADAGRAD uses adaptive technique for learning rate updation. In this algorithm, on the basis of how the gradient has been changing for all the previous iterations we try to change the learning rate.
 
 Here’s a pseudocode
@@ -317,6 +338,7 @@ Here’s a pseudocode
 + update = adapted_learning_rate * gradient
 + parameter = parameter – update
 #### **ADAM**
+___
 ADAM is one more adaptive technique which builds on adagrad and further reduces it downside. In other words, you can consider this as momentum + ADAGRAD.
 
 Here’s a pseudocode.
@@ -329,6 +351,7 @@ Here’s a pseudocode.
 + Here beta1 and beta2 are constants to keep changes in gradient and learning rate in check
 
 ### The problem with gradient descent is that the weight update at a moment (t) is governed by the learning rate and gradient at that moment only. It doesn't take into account the past steps.
+___
 
 It leads to the following problems:
 
@@ -354,6 +377,7 @@ One approach to the problem is to add history to the parameter update equation b
 "If I am repeatedly being asked to move in the same direction then I should probably gain some confidence and start taking bigger steps in that direction. Just as a ball gains momentum while rolling down a slope." This changes is based on the metaphor of momentum from physics where accelaration in a direction can be acculmulated from past updates.
 
 ### Momentum
+___
 Momentum is an extension to the gradient descent optimization algorithm, often referred to as gradient descent with momentum.
 #### How come momentum is going to help us fix our earlier two problems?
 
@@ -380,6 +404,7 @@ This to some amount addresses our second problem. Gradient Descent with Momentum
 #### YES!
 
 ### Nesterov Momentum
+___
 
 ![image](https://user-images.githubusercontent.com/99672298/181622949-fd237ff6-6edb-49d9-b00f-5667c348e2b4.png)
 
@@ -396,6 +421,7 @@ This has the effect of harnessing the accelerating benefits of momentum whilst a
 **`Look ahead before you leap`**
 
 ### Adaptive Gradient Descent (ADAGrad)
+___
 
 A problem with the gradient descent algorithm is that the step size (learning rate) is the same for each variable or dimension in the search space. It is possible that better performance can be achieved using a step size that is tailored to each variable, allowing larger movements in dimensions with a consistently steep gradient and smaller movements in dimensions with less steep gradients.
 
@@ -410,6 +436,7 @@ One of Adagrad’s main benefits is that it eliminates the need to manually tune
 **`Adaptive Gradients, or AdaGrad for short, is an extension of the gradient descent optimization algorithm that allows the step size in each dimension used by the optimization algorithm to be automatically adapted based on the gradients seen for the variable (partial derivatives) seen over the course of the search.`**
 
 ## Root Mean Squared Propogation (RMSProp)
+___
 Root Mean Squared Propagation, or RMSProp, is an extension of gradient descent and the AdaGrad version of gradient descent that uses a decaying average of partial gradients in the adaptation of the step size for each parameter. 
 
 The use of a decaying moving average allows the algorithm to forget early gradients and focus on the most recently observed partial gradients seen during the progress of the search, overcoming the limitation of AdaGrad.
@@ -443,6 +470,7 @@ RMSprop and Adadelta have both been developed independently around the same time
 ![image](https://user-images.githubusercontent.com/99672298/181702611-58176549-a318-440b-a68c-2ed9144efc2f.png)
 
 ### Ada-Delta
+___
 
 A limitation of gradient descent is that it uses the same step size (learning rate) for each input variable. AdaGradn and RMSProp are extensions to gradient descent that add a self-adaptive learning rate for each parameter for the objective function.
 
@@ -469,6 +497,7 @@ After independently deriving the RMSProp update, the authors noticed that the un
 Adadelta is an extension of Adagrad that seeks to reduce its aggressive, monotonically decreasing learning rate. Instead of accumulating all past squared gradients, Adadelta restricts the window of accumulated past gradients to some fixed size
 
 ### Adaptive Movement Estimation (ADAM)
+___
 
 The Adaptive Movement Estimation or ADAM for short is an extension to gradient and a natural successor to technique like Adagrad and RMSProp that automatically adapts a learning rate for each input varibale for the objective function and further smoothens the search process by using an exponentially decreasing moving average of the gradient.
 
@@ -488,7 +517,8 @@ Adam bears the fruits from both world AdaGrad and RMSProp. In addition to storin
 
 ![image](https://user-images.githubusercontent.com/99672298/181701433-ff0bf689-5424-4bfa-8e19-6d7ce5a6831c.png)
 
-## Nesterov Accelerated Adaptive Moment Estimation (NADAM)
+### Nesterov Accelerated Adaptive Moment Estimation (NADAM)
+___
 
 ![image](https://user-images.githubusercontent.com/99672298/181702035-ce939619-f028-4ca9-b6c5-7178617b0259.png)
 
@@ -505,6 +535,7 @@ ADAM is an extension of gradient descent that adds a first and second moment of 
 [Table of Content](#0.1)
 
 ### 2.9 Overview:<a class="anchor" id="2.9"></a>
+___
 Gradient descent refers to a minimization optimization algorithm that follows the negative of the gradient downhill of the target function to locate the minimum of the function.
 
 ![](https://miro.medium.com/max/1400/0*oqm7QVnI9-inFGCc.gif)
@@ -524,5 +555,6 @@ The steeper the objective function at a given point, the larger the magnitude of
 
 Step Size (alpha): Hyperparameter that controls how far to move in the search space against the gradient each iteration of the algorithm.
 If the step size is too small, the movement in the search space will be small, and the search will take a long time. If the step size is too large, the search may bounce around the search space and skip over the optima.
+___
 
 [Table of Content](#0.1)
