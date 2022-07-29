@@ -11,6 +11,8 @@
     - 2.5 [Direction and learning Rate](#2.5)
     - 2.6 [Challenges with Gradient Descent](#2.6)
     - 2.7 [Types of Gradient Descent](#2.7)
+    - 2.8 [Variants of Gradient Descent Algorithm](#2.8)
+    - 2.9 [Overview](#2.9)
 
 ## 1. Let's talk about Differential Derivative and Partial Derivative<a class="anchor" id="1"></a>
 + To better understand the difference between the differential and derivative of a function. You need to understand the concept of a function.
@@ -138,6 +140,8 @@ Dₘ is the value of the partial derivative with respect to m. Similarly lets fi
 
 + We repeat this process until our loss function is a very small value or ideally 0 (which means 0 error or 100% accuracy). The value of m and c that we are left with now will be the optimum values.
 
+[Table of Content](#0.1)
+
 ### 2.4 Initialization<a class="anchor" id="2.4"></a>
  The Starting point is a randomly selected value of slope and intercept (m & c). It is used as a starting point, to derive the first derivative or slope and then uses the tangent line to calculate the steepness of the slope. Further, this slope will inform the update to the parameters. The slope becomees steeper at eht starting point, but whenever new paramters are generated, then the steepness gradually reduces, the closer we get to the optimal value, the closer the slope of the curve gets to zero. This means that wehtn the slope of the cruve is close to zero, which is claled as that we are near to the point of convergence.
  
@@ -176,6 +180,8 @@ Let "L" be the learning rate
 3.) Make a scaled step in the opposite direction to the gradient
 #### The closer we get to the optimal value the closer the slope of the curve gets to 0 and when this happens which means we should take small steps, because we are close to the optimal value and when the case is opposite of this we should take big steps.
 4.) We repeat this process until our loss function is a very small value. The value of m and c that we are left with now will be the optimum values.
+
+[Table of Content](#0.1)
 
 ### 2.6 Challenges with Gradient Descent<a class="anchor" id="2.6"></a>
 Gradient Descent works fine in most of the cases, but there are many cases where gradient descent doesn't work properly or fails to work altogether
@@ -261,6 +267,8 @@ Disadvantages of Stochastic Gradient descent:
 + The frequent updates can result in a noisy gradient signal, which may cause the model parameters and in turn the model error to jump around (have a higher variance over training epochs).
 + The noisy learning process down the error gradient can also make it hard for the algorithm to settle on an error minimum for the model.
 
+![image](https://user-images.githubusercontent.com/99672298/181701953-5b86bd6b-e290-46bf-9602-22eb201cde57.png)
+
 #### **MiniBatch Gradient Descent:**
 Mini Batch gradient descent is the combination of both batch gradient descent and stochastic gradient descent. It divides the training datasets into small batch sizes then performs the updates on those batches separately. 
 
@@ -272,7 +280,9 @@ Advantages of Mini Batch gradient descent:
 + It is computationally efficient.
 + It produces stable gradient descent convergence.
 
-### Variants of Gradient Descent Algorithm
+[Table of Content](#0.1)
+
+### 2.8 Variants of Gradient Descent Algorithm<a class="anchor" id="2.8"></a>
 
 #### **Vanilla Gradient Descent**
 This is the simplest form of gradient descent technique. Here, vanilla means pure / without any adulteration. Its main feature is that we take small steps in the direction of the minima by taking gradient of the cost function.
@@ -294,6 +304,8 @@ Here’s a pseudocode.
 + parameter = parameter + velocity – update
 
 Here, our update is the same as that of vanilla gradient descent. But we introduce a new term called velocity, which considers the previous update and a constant which is called momentum.
+
+https://miro.medium.com/max/1190/1*TbKrVIsMZg28TK-rxeoAIg.png
 
 #### **ADAGRAD**
 ADAGRAD uses adaptive technique for learning rate updation. In this algorithm, on the basis of how the gradient has been changing for all the previous iterations we try to change the learning rate.
@@ -379,7 +391,10 @@ While `Momentum` first computes the current gradient and then take a big jump in
 
 This has the effect of harnessing the accelerating benefits of momentum whilst allowing the search to slow down when approaching the optima and reduce the likelihood of missing or overshooting it.
 
+![image](https://user-images.githubusercontent.com/99672298/181702525-3eb51256-3255-4035-b540-5c13648a3560.png)
+
 **`Look ahead before you leap`**
+
 ### Adaptive Gradient Descent (ADAGrad)
 
 A problem with the gradient descent algorithm is that the step size (learning rate) is the same for each variable or dimension in the search space. It is possible that better performance can be achieved using a step size that is tailored to each variable, allowing larger movements in dimensions with a consistently steep gradient and smaller movements in dimensions with less steep gradients.
@@ -395,11 +410,105 @@ One of Adagrad’s main benefits is that it eliminates the need to manually tune
 **`Adaptive Gradients, or AdaGrad for short, is an extension of the gradient descent optimization algorithm that allows the step size in each dimension used by the optimization algorithm to be automatically adapted based on the gradients seen for the variable (partial derivatives) seen over the course of the search.`**
 
 ## Root Mean Squared Propogation (RMSProp)
+Root Mean Squared Propagation, or RMSProp, is an extension of gradient descent and the AdaGrad version of gradient descent that uses a decaying average of partial gradients in the adaptation of the step size for each parameter. 
 
+The use of a decaying moving average allows the algorithm to forget early gradients and focus on the most recently observed partial gradients seen during the progress of the search, overcoming the limitation of AdaGrad.
 
+RMSProp is designed to accelerate the optimization process, e.g. decrease the number of function evaluations required to reach the optima, or to improve the capability of the optimization algorithm, e.g. result in a better final result.
 
-### Overview:
+It is related to another extension to gradient descent called Adaptive Gradient, or AdaGrad.
+
+AdaGrad is designed to specifically explore the idea of automatically tailoring the step size (learning rate) for each parameter in the search space. This is achieved by first calculating a step size for a given dimension, then using the calculated step size to make a movement in that dimension using the partial derivative. This process is then repeated for each dimension in the search space.
+
+Adagrad calculates the step size for each parameter by first summing the partial derivatives for the parameter seen so far during the search, then dividing the initial step size hyperparameter by the square root of the sum of the squared partial derivatives.
+
+AdaGrad shrinks the learning rate according to the entire history of the squared gradient and may have made the learning rate too small before arriving at such a convex structure.
+
+**`RMSProp extends Adagrad to avoid the effect of a monotonically decreasing learning rate.`**
+
+RMSProp can be thought of as an extension of AdaGrad in that it uses a decaying average or moving average of the partial derivatives instead of the sum in the calculation of the learning rate for each parameter.
+
+This is achieved by adding a new hyperparameter we will call rho that acts like momentum for the partial derivatives.
+
+RMSProp maintains a decaying average of squared gradients.
+
+Using a decaying moving average of the partial derivative allows the search to forget early partial derivative values and focus on the most recently seen shape of the search space.
+
+RMSProp uses an exponentially decaying average to discard history from the extreme past so that it can converge rapidly after finding a convex bowl, as if it were an instance of the AdaGrad algorithm initialized within that bowl.
+
+The RMSprop optimizer is similar to the gradient descent algorithm with momentum. The RMSprop optimizer restricts the oscillations in the vertical direction. Therefore, we can increase our learning rate and our algorithm could take larger steps in the horizontal direction converging faster. The difference between RMSprop and gradient descent is on how the gradients are calculated.
+
+RMSprop and Adadelta have both been developed independently around the same time stemming from the need to resolve Adagrad’s radically diminishing learning rates. RMSprop divides the learning rate by an exponentially decaying average of squared gradients.
+
+![image](https://user-images.githubusercontent.com/99672298/181702611-58176549-a318-440b-a68c-2ed9144efc2f.png)
+
+### Ada-Delta
+
+A limitation of gradient descent is that it uses the same step size (learning rate) for each input variable. AdaGradn and RMSProp are extensions to gradient descent that add a self-adaptive learning rate for each parameter for the objective function.
+
+Adadelta can be considered a further extension of gradient descent that builds upon AdaGrad and RMSProp and changes the calculation of the custom step size so that the units are consistent and in turn no longer requires an initial learning rate hyperparameter.
+
+Adadelta is designed to accelerate the optimization process, e.g. decrease the number of function evaluations required to reach the optima, or to improve the capability of the optimization algorithm, e.g. result in a better final result.
+
+It is best understood as an extension of the AdaGrad and RMSProp algorithms.
+
+AdaGrad is an extension of gradient descent that calculates a step size (learning rate) for each parameter for the objective function each time an update is made. The step size is calculated by first summing the partial derivatives for the parameter seen so far during the search, then dividing the initial step size hyperparameter by the square root of the sum of the squared partial derivatives.
+
+RMSProp can be thought of as an extension of AdaGrad in that it uses a decaying average or moving average of the partial derivatives instead of the sum in the calculation of the step size for each parameter. This is achieved by adding a new hyperparameter “rho” that acts like a momentum for the partial derivatives.
+
+Adadelta is a further extension of RMSProp designed to improve the convergence of the algorithm and to remove the need for a manually specified initial learning rate.
+
+The idea presented in this paper was derived from ADAGRAD in order to improve upon the two main drawbacks of the method: 1) the continual decay of learning rates throughout training, and 2) the need for a manually selected global learning rate.
+
+The decaying moving average of the squared partial derivative is calculated for each parameter, as with RMSProp. The key difference is in the calculation of the step size for a parameter that uses the decaying average of the delta or change in parameter.
+
+This choice of numerator was to ensure that both parts of the calculation have the same units.
+
+After independently deriving the RMSProp update, the authors noticed that the units in the update equations for gradient descent, momentum and Adagrad do not match. To fix this, they use an exponentially decaying average of the square updates
+
+Adadelta is an extension of Adagrad that seeks to reduce its aggressive, monotonically decreasing learning rate. Instead of accumulating all past squared gradients, Adadelta restricts the window of accumulated past gradients to some fixed size
+
+### Adaptive Movement Estimation (ADAM)
+
+The Adaptive Movement Estimation or ADAM for short is an extension to gradient and a natural successor to technique like Adagrad and RMSProp that automatically adapts a learning rate for each input varibale for the objective function and further smoothens the search process by using an exponentially decreasing moving average of the gradient.
+
+This involves maintaining a first and second moment of the gradient that is an exponentially decaying mean gradient and variance for each input variables.
+
+Adam can be described as a combination of two other extention of Stochastic gradient descent.
+
+The two combined advantages come from 
+
+1.) Adaptive Gradient Algorithm (AdaGrad) that maintains a per-parameter learning rate that improves performance on problems with sparse gradients (e.g. natural language and computer vision problems).
+
+2.) Root Mean Square Propagation (RMSProp) that also maintains per-parameter learning rates that are adapted based on the average of recent magnitudes of the gradients for the weight (e.g. how quickly it is changing). This means the algorithm does well on online and non-stationary problems (e.g. noisy).
+
+Adam bears the fruits from both world AdaGrad and RMSProp. In addition to storing an exponentially decaying average of past squared gradients, Adam also keeps an exponentially decaying average of past gradients similar to momentum.
+
+![image](https://user-images.githubusercontent.com/99672298/181702663-3976e135-3b23-4907-83f6-5f517089d7f9.png)
+
+![image](https://user-images.githubusercontent.com/99672298/181701433-ff0bf689-5424-4bfa-8e19-6d7ce5a6831c.png)
+
+## Nesterov Accelerated Adaptive Moment Estimation (NADAM)
+
+![image](https://user-images.githubusercontent.com/99672298/181702035-ce939619-f028-4ca9-b6c5-7178617b0259.png)
+
+As we know by now, which the limitation of gradient descent is the progess of the search can slow down if the gradient becomes flat or large curvature. Momentum was added to gradient descent that incorporates some inertia to overshoot the problem. Some times overshoot can be a problem which can be further improved by incorporating the gradient to project new position rather than the current position looking at the future rather than the past like Momentum, called as Nesterov's Accelerated Gradient.
+
+Another limitation of gradient descent is that a single step size (learning rate) is used for all input variables. Extensions to gradient descent like the Adaptive Movement Estimation (Adam) algorithm that uses a separate step size for each input variable but may result in a step size that rapidly decreases to very small values.
+
+Nesterov-accelerated Adaptive Moment Estimation, or the Nadam, is an extension of the Adam algorithm that incorporates Nesterov momentum and can result in better performance of the optimization algorithm.
+
+ADAM is an extension of gradient descent that adds a first and second moment of the gradient and automatically adapts a learning rate for each parameter that is being optimized. NAG is an extension to momentum where the update is performed using the gradient of the projected update to the parameter rather than the actual current variable value. This has the effect of slowing down the search when the optima is located rather than overshooting, in some situations.
+
+![image](https://user-images.githubusercontent.com/99672298/181702773-71ff0115-0df7-4892-a800-c8c974d7642c.png)
+
+[Table of Content](#0.1)
+
+### 2.9 Overview:<a class="anchor" id="2.9"></a>
 Gradient descent refers to a minimization optimization algorithm that follows the negative of the gradient downhill of the target function to locate the minimum of the function.
+
+![image](https://user-images.githubusercontent.com/99672298/181694288-0a8c4425-1515-4dcf-b7f2-23c4d4ed3e0b.png)
+
 
 A downhill movement is made by first calculating how far to move in the input space, calculated as the steps size (called alpha or the learning rate) multiplied by the gradient. This is then subtracted from the current point, ensuring we move against the gradient, or down the target function.
 
@@ -415,3 +524,5 @@ The steeper the objective function at a given point, the larger the magnitude of
 
 Step Size (alpha): Hyperparameter that controls how far to move in the search space against the gradient each iteration of the algorithm.
 If the step size is too small, the movement in the search space will be small, and the search will take a long time. If the step size is too large, the search may bounce around the search space and skip over the optima.
+
+[Table of Content](#0.1)
