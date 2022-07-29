@@ -507,7 +507,7 @@ ADAM is an extension of gradient descent that adds a first and second moment of 
 ### 2.9 Overview:<a class="anchor" id="2.9"></a>
 Gradient descent refers to a minimization optimization algorithm that follows the negative of the gradient downhill of the target function to locate the minimum of the function.
 
-![image](https://user-images.githubusercontent.com/99672298/181694288-0a8c4425-1515-4dcf-b7f2-23c4d4ed3e0b.png)
+![](https://miro.medium.com/max/1400/0*oqm7QVnI9-inFGCc.gif)
 
 
 A downhill movement is made by first calculating how far to move in the input space, calculated as the steps size (called alpha or the learning rate) multiplied by the gradient. This is then subtracted from the current point, ensuring we move against the gradient, or down the target function.
