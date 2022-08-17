@@ -6,6 +6,7 @@
 2. [Gradient Descent](#2)
     - 2.1 [What is Gradient Descent?](#2.1)
     - 2.2 [The Cost function](#2.2)
+      -2.2 A) [The Difference between Loss and Cost Function](#2.2A)
     - 2.3 [Linear Regression using Gradient Descent](#2.3)
     - 2.4 [Initialization](#2.4)
     - 2.5 [Direction and learning Rate](#2.5)
@@ -98,6 +99,45 @@ The slight difference between the loss fucntion and the cost function is about t
 + Gradient descent is an optimization algorithm that works iteratively to find the model parameters with minimal cost or error values. If we go through a formal definition of Gradient descent
 
 + Gradient descent is a first-order iterative optimization algorithm for finding a local minimum of a differentiable function.Gradient descent is an optimization algorithm used to optimize neural networks and many other machine learning algorithms. Our main goal in optimization is to find the local minima, and gradient descent helps us to take repeated steps in the direction opposite of the gradient of the function at the current point. This method is commonly used in machine learning (ML) and deep learning (DL) to minimize a cost/loss function
+
+#### 2.2 A) The difference between the Loss Function and the Cost Function<a class="anchor" id="2.2A"></a>
+
+#### Loss Functions
+The loss function quantifies how much a model \boldsymbol{f}‘s prediction \boldsymbol{\hat{y} \equiv f(\mathbf{x})} deviates from the ground truth \boldsymbol{y \equiv y(\mathbf{x})} for one particular object \mathbf{x}. So, when we calculate loss, we do it for a single object in the training or test sets.
+
+There are many different loss functions we can choose from, and each has its advantages and shortcomings. In general, any distance metric defined over the space of target values can act as a loss function.
+
+Example: the Square and Absolute Losses in Regression
+Very often, we use the square(d) error as the loss function in regression problems:
+
+![Filter_Method](https://www.baeldung.com/wp-content/ql-cache/quicklatex.com-55cdb152abd779c1153eba17ff703543_l3.svg)
+
+For instance, let’s say that our model predicts a flat’s price (in thousands of dollars) based on the number of rooms, area (m^2), floor, and the neighborhood in the city (A or B). Let’s suppose that its prediction for \mathbf{x} = \begin{bmatrix} 4, 70, 1, A \end{bmatrix} is USD 110k. If the actual selling price is USD 105k, then the square loss is:
+
+![Filter_Method](https://www.baeldung.com/wp-content/ql-cache/quicklatex.com-c3c793b54c64edf52d286a303fd1dc6c_l3.svg)
+
+Another loss function we often use for regression is the absolute loss:
+
+![Filter_Method](https://www.baeldung.com/wp-content/ql-cache/quicklatex.com-84c87f085f9982b6bc21afd953ec995a_l3.svg)
+
+In our example with apartment prices, its value will be:
+
+![Filter_Method](https://www.baeldung.com/wp-content/ql-cache/quicklatex.com-d9d8f4b2520f21bf8a7416387fbba268_l3.svg)
+
+Choosing the loss function isn’t an easy task. Through cost, loss plays a critical role in fitting a model.
+
+#### Cost Functions
+The term cost is often used as synonymous with loss. However, some authors make a clear difference between the two. For them, the cost function measures the model’s error on a group of objects, whereas the loss function deals with a single data instance.
+
+So, if L is our loss function, then we calculate the cost function by aggregating the loss L over the training, validation, or test data \mathcal{D}= \left\{ (\mathbf{x}_i, y_i) \right\}_{i=1}^{n}. For example, we can compute the cost as the mean loss:
+
+![Filter_Method](https://www.baeldung.com/wp-content/ql-cache/quicklatex.com-a1db1deca69cb960993357d35c5d47cf_l3.svg)
+
+But, nothing stops us from using the median, the summary statistic less sensitive to outliers:
+
+![Filter_Method](https://www.baeldung.com/wp-content/ql-cache/quicklatex.com-bc20907c9597f07aa054f74770e3ae93_l3.svg)
+
+The cost functions serve two purposes. First, its value for the test data estimates our model’s performance on unseen objects. That allows us to compare different models and choose the best. Second, we use it to train our models.
 
 ![Filter_Method](https://editor.analyticsvidhya.com/uploads/25665ezgif.com-gif-maker.gif)
 
