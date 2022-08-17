@@ -6,7 +6,7 @@
 2. [Gradient Descent](#2)
     - 2.1 [What is Gradient Descent?](#2.1)
     - 2.2 [The Cost function](#2.2)
-      -2.2 A) [The Difference between Loss and Cost Function](#2.2A)
+    - -2.2 A) [The Difference between Loss and Cost Function](#2.2A)
     - 2.3 [Linear Regression using Gradient Descent](#2.3)
     - 2.4 [Initialization](#2.4)
     - 2.5 [Direction and learning Rate](#2.5)
