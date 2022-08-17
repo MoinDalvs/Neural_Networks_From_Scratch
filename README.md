@@ -20,7 +20,7 @@
   
 + A function is one of the basic concepts in mathematics that defines a relationship between a set of inputs and a set of possible outputs where each input is related to one output. Where Input variables are the independent variables and the other which is output variable is the dependent variable.
   
-+ Take for example the statement " 'y' is a function of $x$ i.e y=$f(x)$ which means something related to y is directly related to x by some formula.
++ Take for example the statement " 'y' is a function of $x$ i.e y= $f(x)$ which means something related to y is directly related to x by some formula.
   
 + The Calculus as a tool defines the derivative of a function as the limit of a particular kind.
 #### 1.1 What is Differential?<a class="anchor" id="1.1"></a>
