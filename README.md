@@ -1,3 +1,6 @@
+### `Read and catch up on content:`
+- [Gradient Descent article](https://github.com/MoinDalvs/Gradient_Descent_For_beginners/blob/main/README.md) :books:
+
 ## 0.1 Table of Contents<a class="anchor" id="0.1"></a>
 1. [Let's talk about Differential Derivative and Partial Derivative](#1)
     - 1.1 [What is Differential?](#1.1)
