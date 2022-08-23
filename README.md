@@ -5,15 +5,7 @@
 1. [Let's talk about Neural Networks.](#1)
 2. [Some Basic Concepts Related to Neural Networks](#2)
     - 2.1 [Different layers of a Neural Network](#2.1)
-    - 2.2 [The Cost function](#2.2)
-    - - 2.2 A) [The Difference between Loss and Cost Function](#2.2A)
-    - 2.3 [Linear Regression using Gradient Descent](#2.3)
-    - 2.4 [Initialization](#2.4)
-    - 2.5 [Direction and learning Rate](#2.5)
-    - 2.6 [Challenges with Gradient Descent](#2.6)
-    - 2.7 [Types of Gradient Descent](#2.7)
-    - 2.8 [Variants of Gradient Descent Algorithm](#2.8)
-    - 2.9 [Overview](#2.9)
+    - 2.2 [The Cost function](#2.2)    
 
 ## 1. Let's talk about Neural Networks<a class="anchor" id="1"></a>
 
@@ -64,7 +56,7 @@ This is the layer where complex computations happen. The more your model has hid
 
 ##### The whole process described in point 3 is performed in each hidden layers. After passing through every hidden layers we move to the last layer i.e our output layer which gives us the final output. 
 ##### **`This process explained above is known as forward Propogation.`**
-##### After getting the predictions from the output layers, the error is calculated i.e the difference between the actual and the predicted output. If the error is large then steps are take to minimize the error and for the same purpose Back propogation is performed.
+##### After getting the predictions from the output layers, the error is calculated i.e the difference between the actual and the predicted output. If the error is large then steps are take to minimize the error and for the same purpose **`Back propogation is performed.`**
 
 ![12203Schematic-diagram-of-backpropagation-training-algorithm-and-typical-neuron-model_W640](https://user-images.githubusercontent.com/99672298/186192225-d825db1d-cbde-4176-9f65-566a24308904.jpg)
 ![21 08 2022_16 11 48_REC](https://user-images.githubusercontent.com/99672298/186192374-d465b7bb-b318-4525-834d-6021eb919209.png)
@@ -86,5 +78,4 @@ Once an input layer is determined, weight are assigned. These weights help deter
 
 All inputs are then multiplied by their respective weights and then summed. Afterwards, the output is passed through an activation function, which determines the output. If the ouput exceeds a given threshold, it 'fires' (or activates) the node, passing data to the next layer in the network. This results in the output of one node becoming in the input of the next node.
 
-#### 
 
