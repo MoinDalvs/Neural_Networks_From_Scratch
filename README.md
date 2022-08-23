@@ -3,7 +3,7 @@
 
 ## 0.1 Table of Contents<a class="anchor" id="0.1"></a>
 1. [Let's talk about Neural Networks.](#1)
-    - 1.1 [What is Differential?](#1.1)
+    - 1.1 [Some Basic Concepts Related to Neural Networks](#1.1)
     - 1.2 [What is Derivative?](#1.2)
     - 1.3 [Partial Derivation (Differentiation)](#1.3)
 2. [Gradient Descent](#2)
@@ -24,4 +24,10 @@ Supervised learning can be used on both structured and unstructered data. For ex
 	
 In contrast, unstructured data refers to things like audio, raw audio, or images where you might want to recognize what's in the image or text (like object detection and OCR Optical character recognition). Here, the features might be the pixel values in an image or the individual words in a piece of text. It's not really clear what each pixel of the image represents and therefore this falls under the unstructured data.
 	
-Simple machine learning algorithms work well with structured
+Simple machine learning algorithms work well with structured data. But when it comes to unstructured data, their performance tends to take a quite dip. This where Neural Netowrks does their magic , which have proven to be so effective and useful. They perform exceptionally well on structured data.
+
+![image](https://user-images.githubusercontent.com/99672298/186084176-5830c906-fb90-4fb6-ba05-66496934f10b.png)
+
+As the Amount of data icreases, the performance of data learning algorithms, like SVM and logistic regression, does not improve infacts it tends to plateau after a certain point. In the case of neural networks as the amount of data increases the performance of the model increases.
+
+### 1.1 Some Basic Concepts Related to Neural Networks<a class="anchor" id="1.1"></a>
