@@ -865,6 +865,82 @@ Similarly, in some cases suppose the initial weights assigned to the network gen
 
 ![image](https://user-images.githubusercontent.com/99672298/186481678-13391e6e-e56c-47cf-80c8-1d9b63bf8d85.png)
 
+#### Solutions 
+Now that we are well aware of the vanishing/exploding gradients problems, it’s time to learn some techniques that can be used to fix the respective problems.
+
+#### 1. Proper Weight Initialization 
++ The variance of outputs of each layer should be equal to the variance of its inputs.
++ The gradients should have equal variance before and after flowing through a layer in the reverse direction.
+
+Although it is impossible for both conditions to hold for any layer in the network until and unless the number of inputs to the layer ( fanin ) is equal to the number of neurons in the layer ( fanout ), but they proposed a well-proven compromise that works incredibly well in practice: randomly initialize the connection weights for each layer in the network as described in the following equation which is popularly known as Xavier initialization (after the author’s first name) or Glorot initialization (after his last name).
+
+where  fanavg = ( fanin + fanout ) / 2
+
++ Normal distribution with mean 0 and variance σ2 = 1/ $fan_avg$
++ Or a uniform distribution between -r  and +r , with r = sqrt( 3 / $fan_avg$ )         
+
+Following are some more very popular weight initialization strategies for different activation functions, they only differ by the scale of variance and by the usage of either $fan_avg$ or $fan_in$ 
+
+![image](https://user-images.githubusercontent.com/99672298/186491040-2fe3a27c-042f-4c79-9436-df0aea1adfbb.png)
+
+Using the above initialization strategies can significantly speed up the training and increase the odds of gradient descent converging at a lower generalization error. 
+
+![image](https://user-images.githubusercontent.com/99672298/186491279-c3651e9c-74e3-4d87-b519-5648f670ac59.png)
+
+	he_avg_init = keras.initializers.VarianceScaling(scale=2., mode='fan_avg', distribution='uniform')
+
+#### 2. Using Non-saturating Activation Functions
+ 
+In an earlier section, while studying the nature of sigmoid activation function, we observed that its nature of saturating for larger inputs (negative or positive) came out to be a major reason behind the vanishing of gradients thus making it non-recommendable to use in the hidden layers of the network.
+
+So to tackle the issue regarding the saturation of activation functions like sigmoid and tanh, we must use some other non-saturating functions like ReLu and its alternatives.
+
+ReLU ( Rectified Linear Unit )
+
+![image](https://user-images.githubusercontent.com/99672298/186491425-cc4ebc69-c3d7-4a7b-8b3a-c863e1cde0b0.png)
+
++ Relu(z) = max(0,z)
++ Outputs 0 for any negative input.
++ Range: [0, infinity]
+
+Unfortunately, the ReLu function is also not a perfect pick for the intermediate layers of the network “in some cases”. It suffers from a problem known as dying ReLus wherein some neurons just die out, meaning they keep on throwing 0 as outputs with the advancement in training.
+
+Some popular alternative functions of the ReLU that mitigates the problem of vanishing gradients when used as activation for the intermediate layers of the network  are LReLU, PReLU, ELU, SELU :
+
+LReLU (Leaky ReLU)
+
++ LeakyReLUα(z) = max(αz, z)
++ The amount of “leak” is controlled by the hyperparameter α, it is the slope of the function for z < 0.
++ The smaller slope for the leak ensures that the neurons powered by leaky Relu never die; although they might venture into a state of coma for a long training phase they always have a chance to eventually wake up.
++ α can also be trained, that is, the model learns the value of α during training. This variant wherein α is now considered a parameter rather than a hyperparameter is called parametric leaky ReLu (PReLU).
+
+ELU (Exponential Linear Unit)
+
++ For z < 0, it takes on negative values which allow the unit to have an average output closer to 0 thus alleviating the vanishing gradient problem
++ For z < 0, the gradients are non zero. This avoids the dead neurons problem.
++ For α = 1, the function is smooth everywhere, this speeds up the gradient descent since it does not bounce right and left around z=0.
++ A scaled version of this function ( SELU: Scaled ELU ) is also used very often in Deep Learning.
+
+#### 3. Batch Normalization
+ 
+
+Using He initialization along with any variant of the ReLU activation function can significantly reduce the chances of vanishing/exploding problems at the beginning. However, it does not guarantee that the problem won’t reappear during training.
+
+The Following key points explain the intuition behind BN and how it works:
+
+It consists of adding an operation in the model just before or after the activation function of each hidden layer.
+This operation simply zero-centers and normalizes each input, then scales and shifts the result using two new parameter vectors per layer: one for scaling, the other for shifting.
+In other words, the operation lets the model learn the optimal scale and mean of each of the layer’s inputs.
+To zero-center and normalize the inputs, the algorithm needs to estimate each input’s mean and standard deviation.
+It does so by evaluating the mean and standard deviation of the input over the current mini-batch (hence the name “Batch Normalization”).
+
+![image](https://user-images.githubusercontent.com/99672298/186492785-589797f1-56a3-4f6e-93a3-8e963ee27af1.png)
+![image](https://user-images.githubusercontent.com/99672298/186492862-e80b3d5f-7792-4524-970d-3ac790527ee3.png)
+
+#### Gradient Clipping
+
+![image](https://user-images.githubusercontent.com/99672298/186493069-6f44c8a3-013c-4597-837a-05c21205f260.png)
+
 [Table of Content](#0.1)
 
 ## 6. Regularization <a class="anchor" id="6"></a>
