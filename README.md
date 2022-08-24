@@ -256,6 +256,11 @@ In this heuristic, we multiplied the randomly generated values of W by:
 
 + 👉 Using an extra scaling factor in Xavier initialization, He-et-al Initialization, etc can solve the above issue to some extent. That’s why these are the more recommended weight initialization methods among all.
 
+#### Key Points to Remember
++ **`Weights should be small`**
++ **`Weights should not be same`**
++ **`Weights should have good amount of variance`**
+
 [Table of Content](#0.1)
 
 ## 4 Activation Functions<a class="anchor" id="4"></a>
@@ -799,7 +804,7 @@ When updating the curve, to know in which direction and how much to change or up
 
 [Table of Content](#0.1)
 
-## 5. Regularization 
+## 5. Regularization <a class="anchor" id="5"></a>
 
 
 
