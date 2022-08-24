@@ -14,11 +14,16 @@
 	- 3.6 [Best Practices for Weight Initialization](#3.6)
 4. [Activation Functions](#4)
  	- 4.1 [Why do we need Activation Function in Neural Network?](#4.1)
- 	- 4.2 [Why are deep neural networks hard to train?](#4.2)
- 	- 4.3 [Basic Types of Neural Network Activation Function](#4.3)
+ 	- 4.2 [Basic Types of Neural Network Activation Function](#4.2)
+ 	- 4.3 [Non-Linear Neural Networks Activation Functions](#4.3)
  	- 4.4 [How to choose the right Activation Function?](#4.4)
-5. [Regularization](#5)
-6. [Step by Step Working of the Artificial Neural Network](#6)
+5. [Why are deep neural networks hard to train?](#5)
+	- 5.1 [Vanishing Gradient Descent](#5.1)
+	- 5.2 [Exploding Gradient Descent](#5.2)
+	- 5.3 [Why do the gradients even vanish/explode?](#5.3)
+	- 5.4 [How to know if our model is suffering from the Exploding/Vanishing gradient problem?](#5.4)
+6. [Regularization](#6)
+8. [Step by Step Working of the Artificial Neural Network](#7)
    
 
 ## 1. Let's talk about Neural Networks<a class="anchor" id="1"></a>
@@ -414,10 +419,12 @@ Rectified linear unit or ReLU is most widely used activation function right now 
 We use Leaky ReLU function instead of ReLU to avoid this unfitting, in Leaky ReLU range is expanded which enhances the performance.
 
 [Table of Content](#0.1)
-
+___
 ### 4.3 Non-Linear Neural Networks Activation Functions<a class="anchor" id="4.3"></a>
 	
 #### Sigmoid / Logistic Activation Function 
+
+![30 06 2022_16 21 10_REC](https://user-images.githubusercontent.com/99672298/186486535-bb15b142-e027-4e83-b9ec-8765caf31114.png)
 
 The sigmoid activation function is used mostly as it does its task with great efficiency, it basically is a probabilistic approach towards decision making and ranges in between 0 to 1, so when we have to make a decision or to predict an output we use this activation function because of the range is the minimum, therefore, prediction would be more accurate.
 
@@ -464,6 +471,7 @@ ___
 #### Tanh Function (Hyperbolic Tangent)
 
 ![image](https://user-images.githubusercontent.com/99672298/186445494-e48d8e01-9799-424f-a388-9896b20d3842.png)
+![30 06 2022_19 27 44_REC](https://user-images.githubusercontent.com/99672298/186486571-d263d21f-d021-4338-a343-2d07caed2cc8.png)
 
 Tanh function is very similar to the sigmoid/logistic activation function, and even has the same S-shape with the difference in output range of -1 to 1. In Tanh, the larger the input (more positive), the closer the output value will be to 1.0, whereas the smaller the input (more negative), the closer the output will be to -1.0.
 
@@ -495,13 +503,14 @@ Mathematically it can be represented as:
 Have a look at the gradient of the tanh activation function to understand its limitations.
 
 	💡 Note:  Although both sigmoid and tanh face vanishing gradient issue, tanh is zero centered, and the gradients are not restricted to move in a certain direction. Therefore, in practice, tanh nonlinearity is always preferred to sigmoid nonlinearity.
-
+___
 #### ReLU Function
 #### ReLU stands for Rectified Linear Unit. 
 
 ![15 08 2022_20 52 09_REC](https://user-images.githubusercontent.com/99672298/186446640-b91ecb44-1653-4965-9770-b4d79ce097af.png)
 ![15 08 2022_22 32 34_REC](https://user-images.githubusercontent.com/99672298/186446717-20b03278-b045-4583-83fe-3c93430e5985.png)
 ![15 08 2022_22 35 43_REC](https://user-images.githubusercontent.com/99672298/186446754-0ff06be1-2465-4d00-ad00-6fcc29209b1d.png)
+![25 07 2022_15 44 31_REC](https://user-images.githubusercontent.com/99672298/186486411-0f662157-7108-4a29-9c34-d9b098b36fc2.png)
 
 The rectified linear activation function, or ReLU activation function, is perhaps the most common function used for hidden layers.
 
@@ -551,12 +560,13 @@ Mathematically it can be represented as:
 The negative side of the graph makes the gradient value zero. Due to this reason, during the backpropagation process, the weights and biases for some neurons are not updated. This can create dead neurons which never get activated. 
 
 All the negative input values become zero immediately, which decreases the model’s ability to fit or train from the data properly. 
-
+___
 #### Leaky ReLU Function
 Leaky ReLU is an improved version of ReLU function to solve the Dying ReLU problem as it has a small positive slope in the negative area.
 
 ![15 08 2022_22 38 17_REC](https://user-images.githubusercontent.com/99672298/186446907-59de1579-70bd-4126-af2d-65e3868e3f9d.png)
 ![15 08 2022_22 39 33_REC](https://user-images.githubusercontent.com/99672298/186446942-6bb11bff-4748-4c1c-afeb-36e336c641b7.png)
+![25 07 2022_15 58 11_REC](https://user-images.githubusercontent.com/99672298/186486465-09d77226-91b9-4f5c-bfe9-14d0dcd1bce3.png)
 
 It is an attempt to solve the dying ReLU problem
 
@@ -587,7 +597,7 @@ Here is the derivative of the Leaky ReLU function.
 
 + The predictions may not be consistent for negative input values. 
 + The gradient for negative values is a small value that makes the learning of model parameters time-consuming.
-
+___
 #### Parametric ReLU Function
 Parametric ReLU is another variant of ReLU that aims to solve the problem of gradient’s becoming zero for the left half of the axis. 
 
@@ -607,7 +617,7 @@ Where "a" is the slope parameter for negative values.
 The parameterized ReLU function is used when the leaky ReLU function still fails at solving the problem of dead neurons, and the relevant information is not successfully passed to the next layer. 
 
 This function’s limitation is that it may perform differently for different problems depending upon the value of slope parameter a.
-
+___
 #### Exponential Linear Units (ELUs) Function
 Exponential Linear Unit, or ELU for short, is also a variant of ReLU that modifies the slope of the negative part of the function. 
 
@@ -638,12 +648,24 @@ Mathematically it can be represented as:
 
 ![image](https://user-images.githubusercontent.com/99672298/186449165-43115b5f-3b4f-4d67-9c3f-20835e459db8.png)
 
+#### Argmax Function
+Argmax Function
+The argmax, or “arg max,” mathematical function returns the index in the list that contains the largest value.
+
+Think of it as the meta version of max: one level of indirection above max, pointing to the position in the list that has the max value rather than the value itself.
+
+![image](https://user-images.githubusercontent.com/99672298/186483749-83d04449-f002-4f0a-a39a-d5d3fc3d1937.png)
+![22 08 2022_16 55 26_REC](https://user-images.githubusercontent.com/99672298/186483862-933931e4-fa67-4b30-9bda-b7df7fc8e856.png)
+![22 08 2022_16 55 56_REC](https://user-images.githubusercontent.com/99672298/186483887-be975c24-0027-475b-bdbf-9002a4233702.png)
+___
 #### Softmax Function
 Before exploring the ins and outs of the Softmax activation function, we should focus on its building block—the sigmoid/logistic activation function that works on calculating probability values. 
 
-The output of the sigmoid function was in the range of 0 to 1, which can be thought of as probability. 
+The output of the sigmoid function was in the range of 0 to 1, which can be interpreted of as Predicted "probabilities". 
 
-But—
+But— **`💡Note: The word "probabilities is in quotes because we should not put a lot of trust in their accuracy, is that they are in part dependent on the Weights and Biases in the Neural Network and these factors in turn, depends on the randomly selected initial values and if we change those values, we can end up with different such factors that give us a Neural Network that is just as good at classifying the data and different raw output values give us different SoftMax Output values`**
+
+**`In other words, the predicted "probabilities" don't just depend on the input values but also on the random initial values for the Weights and Biases. So don't put a lot of trust in the accuracy of these predicted "probabilities"`**
 
 This function faces certain problems.
 
@@ -666,11 +688,12 @@ It is most commonly used as an activation function for the last layer of the neu
 Mathematically it can be represented as:
 
 ![image](https://user-images.githubusercontent.com/99672298/186453254-b004ef32-ba41-49ea-9741-cd2f0a3bf946.png)
+![22 08 2022_19 25 29_REC](https://user-images.githubusercontent.com/99672298/186486317-ace0c63a-218d-459c-81d5-e0b469d692dd.png)
 
 Softmax is used mainly at the last layer i.e output layer for decision making the same as sigmoid activation works, the softmax basically gives value to the input variable according to their weight and the sum of these weights is eventually one.
 
 For Binary classification, both sigmoid, as well as softmax, are equally approachable but in case of multi-class classification problem we generally use softmax and cross-entropy along with it.
-
+___
 #### Swish
 It is a self-gated activation function developed by researchers at Google. 
 
@@ -692,7 +715,7 @@ Here are a few advantages of the Swish activation function over ReLU:
 + Small negative values were zeroed out in ReLU activation function. However, those negative values may still be relevant for capturing patterns underlying the data. Large negative values are zeroed out for reasons of sparsity making it a win-win situation.
 + The swish function being non-monotonous enhances the expression of input data and weight to be learnt.
 +  This function does not suffer from vanishing gradient problems
-
+___
 #### Gaussian Error Linear Unit (GELU)
 The Gaussian Error Linear Unit (GELU) activation function is compatible with BERT, ROBERTa, ALBERT, and other top NLP models. This activation function is motivated by combining properties from dropout, zoneout, and ReLUs. 
 
@@ -713,7 +736,7 @@ Mathematically it can be represented as:
 ![image](https://user-images.githubusercontent.com/99672298/186454124-1515ca0a-fe6d-414d-87e1-7744f3cbd63d.png)
 
 GELU nonlinearity is better than ReLU and ELU activations and finds performance improvements across all tasks in domains of computer vision, natural language processing, and speech recognition.
-
+___
 #### Scaled Exponential Linear Unit (SELU)
 SELU was defined in self-normalizing networks and takes care of internal normalization which means each layer preserves the mean and variance from the previous layers. SELU enables this normalization by adjusting the mean and variance. 
 
@@ -733,11 +756,11 @@ Here’s the main advantage of SELU over ReLU:
 
 Internal normalization is faster than external normalization, which means the network converges faster.
 SELU is a relatively newer activation function and needs more papers on architectures such as CNNs and RNNs, where it is comparatively explored.
-
+___
 #### Maxout 
 
 ![15 08 2022_23 02 35_REC](https://user-images.githubusercontent.com/99672298/186458363-3fb7d19d-93f0-4cfc-988c-a6d0290144ea.png)
-
+___
 #### Softplus Function
 · Softplus was proposed by Dugas in 2001, given by the relationship,
 
@@ -750,8 +773,10 @@ f(x)=log (1+e^x)
 ![image](https://user-images.githubusercontent.com/99672298/186454960-2945434a-6fd1-4402-b1cc-b25e8bb64133.png)
 ![15 08 2022_23 07 21_REC](https://user-images.githubusercontent.com/99672298/186458423-bb91f073-9dde-4257-8e12-1d82febcbfad.png)
 ![62b18a8dc83132e1a479b65d_neural-network-activation-function-cheat-sheet](https://user-images.githubusercontent.com/99672298/186478248-1b743493-b770-4646-b7da-eed1ffa7be0c.jpeg)
+![26 07 2022_16 06 11_REC](https://user-images.githubusercontent.com/99672298/186486769-1d7f37c8-f1b4-42c1-b729-b10e0f99f4af.png)
 
-### 4.3 How to choose the right Activation Function?<a class="anchor" id="4.3"></a>
+___
+### 4.4 How to choose the right Activation Function?<a class="anchor" id="4.4"></a>
 
 #### Activation for Output Layers
 The output layer is the layer in a neural network model that directly outputs a prediction.
@@ -795,7 +820,7 @@ The activation function used in hidden layers is typically chosen based on the t
 ![image](https://user-images.githubusercontent.com/99672298/186456403-3fe911da-913b-4890-a435-0a4a30b06e00.png)
 
 	And hey—use this cheatsheet to consolidate all the knowledge on the Neural Network Activation Functions that you've just acquired :)
-
+___
 #### Why derivative/differentiation is used?
 When updating the curve, to know in which direction and how much to change or update the curve depending upon the slope.That is why we use differentiation in almost every part of Machine Learning and Deep Learning.
 
@@ -809,7 +834,7 @@ There are two challenges you might encounter when training your deep neural netw
 
 Let's discuss them in more detail.
 
-### Vanishing Gradients
+### 5.1 Vanishing Gradients<a class="anchor" id="5.1"></a>
 Vanishing –
 As the backpropagation algorithm advances downwards(or backward) from the output layer towards the input layer, the gradients often get smaller and smaller and approach zero which eventually leaves the weights of the initial or lower layers nearly unchanged. As a result, the gradient descent never converges to the optimum. This is known as the vanishing gradients problem.
 Like the sigmoid function, certain activation functions squish an ample input space into a small output space between 0 and 1. 
@@ -818,7 +843,7 @@ Therefore, a large change in the input of the sigmoid function will cause a smal
 
 However, when more layers are used, it can cause the gradient to be too small for training to work effectively. 
 
-### Exploding Gradients
+### 5.2 Exploding Gradients<a class="anchor" id="5.2"></a>
 Exploding –
 On the contrary, in some cases, the gradients keep on getting larger and larger as the backpropagation algorithm progresses. This, in turn, causes very large weight updates and causes the gradient descent to diverge. This is known as the exploding gradients problem.
 Exploding gradients are problems where significant error gradients accumulate and result in very large updates to neural network model weights during training. 
@@ -827,7 +852,7 @@ An unstable network can result when there are exploding gradients, and the learn
 
 The values of the weights can also become so large as to overflow and result in something called NaN values. 
 
-### Why do the gradients even vanish/explode?
+### 5.3 Why do the gradients even vanish/explode?<a class="anchor" id="5.3"></a>
 Certain activation functions, like the logistic function (sigmoid), have a very huge difference between the variance of their inputs and the outputs. In simpler words, they shrink and transform a larger input space into a smaller output space that lies between the range of [0,1].
 
 ![image](https://user-images.githubusercontent.com/99672298/186479457-51c30945-40bf-4302-8be1-1bcded533b64.png)
@@ -835,6 +860,10 @@ Certain activation functions, like the logistic function (sigmoid), have a very 
 Observing the above graph of the Sigmoid function, we can see that for larger inputs (negative or positive), it saturates at 0 or 1 with a derivative very close to zero. Thus, when the backpropagation algorithm chips in, it virtually has no gradients to propagate backward in the network, and whatever little residual gradients exist keeps on diluting as the algorithm progresses down through the top layers. So, this leaves nothing for the lower layers.
 
 Similarly, in some cases suppose the initial weights assigned to the network generate some large loss. Now the gradients can accumulate during an update and result in very large gradients which eventually results in large updates to the network weights and leads to an unstable network. The parameters can sometimes become so large that they overflow and result in NaN values.
+
+### 5.4 How to know if our model is suffering from the Exploding/Vanishing gradient problem?<a class="anchor" id="5.4"></a>
+
+![image](https://user-images.githubusercontent.com/99672298/186481678-13391e6e-e56c-47cf-80c8-1d9b63bf8d85.png)
 
 [Table of Content](#0.1)
 
