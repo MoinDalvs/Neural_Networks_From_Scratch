@@ -5,7 +5,8 @@
 1. [Let's talk about Neural Networks.](#1)
 2. [Some Basic Concepts Related to Neural Networks](#2)
     - 2.1 [Different layers of a Neural Network](#2.1)
-    - 2.2 [The Cost function](#2.2)    
+    - 2.2 [Step by Step Working of the Artificial Neural Network](#2.2)
+    - 2.3 [Weight and Bias initialization](#2.3)    
 
 ## 1. Let's talk about Neural Networks<a class="anchor" id="1"></a>
 
@@ -38,7 +39,7 @@ This is the layer where complex computations happen. The more your model has hid
 
 #### **`Output Layer:-`** From the diagram given above ther is only on node in the ouput layer, but don't think that is always like that in every neural network model. The number of nodes in the output layer completely depends upon the problem that we have taken. If we have a binary classification problem then the output node is going to be 1 but in the case of multi-class classification, the output nodes can be more than 1.
 
-### 2.2 Step by Step Working of the Artificial Neural Network<a class="anchor" id="2.1"></a>
+### 2.2 Step by Step Working of the Artificial Neural Network<a class="anchor" id="2.2"></a>
 
 ![image](https://user-images.githubusercontent.com/99672298/186180131-164203c5-dabd-466e-a6d9-b0874dd7edd0.png)
 ![image](https://user-images.githubusercontent.com/99672298/186179926-b40a240c-90aa-4cc8-a1e4-82b7392515c2.png)
@@ -78,4 +79,133 @@ Once an input layer is determined, weight are assigned. These weights help deter
 
 All inputs are then multiplied by their respective weights and then summed. Afterwards, the output is passed through an activation function, which determines the output. If the ouput exceeds a given threshold, it 'fires' (or activates) the node, passing data to the next layer in the network. This results in the output of one node becoming in the input of the next node.
 
+### 2.3 Weight and Bias initialization<a class="anchor" id="2.3"></a>
+
+Weight initialization is an important consideration in the design of a neural network model.
+
+Building even a simple neural network can be a confusing task and upon that tuning it to get a better result is extremely tedious. But, the first step that comes in consideration while building a neural network is the initialization of parameters, if done correctly then optimization will be achieved in the least time otherwise converging to a minima using gradient descent will be impossible.
+
+Basic notations
+Consider an L layer neural network, which has L-1 hidden layers and 1 input and output layer each. The parameters (weights and biases) for layer l are represented as
+
+![image](https://user-images.githubusercontent.com/99672298/186379787-d673f2b1-73d7-4218-8c05-3f815289c22e.png)
+
+The nodes in neural networks are composed of parameters referred to as weights used to calculate a weighted sum of the inputs.
+
+Neural network models are fit using an optimization algorithm called stochastic gradient descent that incrementally changes the network weights to minimize a loss function, hopefully resulting in a set of weights for the mode that is capable of making useful predictions.
+
+This optimization algorithm requires a starting point in the space of possible weight values from which to begin the optimization process. Weight initialization is a procedure to set the weights of a neural network to small random values that define the starting point for the optimization (learning or training) of the neural network model.
+
+`training deep models is a sufficiently difficult task that most algorithms are strongly affected by the choice of initialization. The initial point can determine whether the algorithm converges at all, with some initial points being so unstable that the algorithm encounters numerical difficulties and fails altogether.`
+	
+Each time, a neural network is initialized with a different set of weights, resulting in a different starting point for the optimization process, and potentially resulting in a different final set of weights with different performance characteristics.
+
++ **Zero initialization**
++ **Random initialization**
++ **`Zero initialization :`**
+
+In general practice biases are initialized with 0 and weights are initialized with random numbers, what if weights are initialized with 0?
+
+In order to understand let us consider we applied sigmoid activation function for the output layer.
+
+![image](https://user-images.githubusercontent.com/99672298/186380171-febdf940-b5d6-4ee1-91a5-dfe643215971.png)
+
+If all the weights are initialized with 0, the derivative with respect to loss function is the same for every w in W[l], thus all weights have the same value in subsequent iterations. This makes hidden units symmetric and continues for all the n iterations i.e. setting weights to 0 does not make it better than a linear model. An important thing to keep in mind is that biases have no effect what so ever when initialized with 0.
+
+W[l] = np.random.zeros((l-1,l))
+
+let us consider a neural network with only three hidden layers with ReLu activation function in hidden layers and sigmoid for the output layer.
+
+Using the above neural network on the dataset “make circles” from sklearn.datasets, the result obtained as the following :
+
+for 15000 iterations, loss = 0.6931471805599453, accuracy = 50 %
+
+![image](https://user-images.githubusercontent.com/99672298/186380403-222b7c53-2e45-4fe5-83d0-4ccfa2e7037c.png)
+
+clearly, zero initialization isn’t successful in classification.
+
+We cannot initialize all weights to the value 0.0 as the optimization algorithm results in some asymmetry in the error gradient to begin searching effectively.
+
+Historically, weight initialization follows simple heuristics, such as:
+
++ Small random values in the range [-0.3, 0.3]
++ Small random values in the range [0, 1]
++ Small random values in the range [-1, 1]
++ These heuristics continue to work well in general.
+
+`We almost always initialize all the weights in the model to values drawn randomly from a Gaussian or uniform distribution. The choice of Gaussian or uniform distribution does not seem to matter very much, but has not been exhaustively studied. The scale of the initial distribution, however, does have a large effect on both the outcome of the optimization procedure and on the ability of the network to generalize.`
+
++  **`Random initialization :`**
+
+Assigning random values to weights is better than just 0 assignment. But there is one thing to keep in my mind is that what happens if weights are initialized high values or very low values and what is a reasonable initialization of weight values.
+
+a) If weights are initialized with very high values the term np.dot(W,X)+b becomes significantly higher and if an activation function like sigmoid() is applied, the function maps its value near to 1 where the slope of gradient changes slowly and learning takes a lot of time.
+
+b) If weights are initialized with low values it gets mapped to 0, where the case is the same as above.
+
+This problem is often referred to as the vanishing gradient.
+
+To see this let us see the example we took above but now the weights are initialized with very large values instead of 0 :
+
+W[l] = np.random.randn(l-1,l)*10
+
+Neural network is the same as earlier, using this initialization on the dataset “make circles” from sklearn.datasets, the result obtained as the following :
+
+for 15000 iterations, loss = 0.38278397192120406, accuracy = 86 %
+
+![image](https://user-images.githubusercontent.com/99672298/186380638-9c4352f0-b4fd-4c23-8cef-7fddbd6ceba6.png)
+
+This solution is better but doesn’t properly fulfil the needs so, let us see a new technique.
+
+#### New Initialization techniques
+
++ **Weight Initialization for ReLU**
+ 
+As we saw above that with large or 0 initialization of weights(W), not significant result is obtained even if we use appropriate initialization of weights it is probable that training process is going to take longer time. There are certain problems associated with it :
+
+a) If the model is too large and takes many days to train then what
+
+b) What about vanishing/exploding gradient problem
+
+The “xavier” weight initialization was found to have problems when used to initialize networks that use the rectified linear (ReLU) activation function.
+
+As such, a modified version of the approach was developed specifically for nodes and layers that use ReLU activation, popular in the hidden layers of most multilayer Perceptron and convolutional neural network models.
+
+The current standard approach for initialization of the weights of neural network layers and nodes that use the rectified linear (ReLU) activation function is called “he” initialization.
+
+These were some problems that stood in the path for many years but in 2015, He et al. (2015) proposed activation aware initialization of weights (for ReLu) that was able to resolve this problem. ReLu and leaky ReLu also solves the problem of vanishing gradient.
+
+He initialization: we just simply multiply random initialization with
+
+![image](https://user-images.githubusercontent.com/99672298/186381495-05b8773d-882b-44b3-bc66-d89b8bcf0a4d.png)
+
+To see how effective this solution is, let us use the previous dataset and neural network we took for above initialization and results are :
+
+for 15000 iterations, loss =0.07357895962677366, accuracy = 96 %
+
+![image](https://user-images.githubusercontent.com/99672298/186381560-ab064e4e-b796-45aa-b710-d8219d09abd3.png)
+
+Surely, this is an improvement over the previous techniques.
+
+There are also some other techniques other than He initialization in use that is comparatively better than old techniques and are used frequently.
+
++ **Weight Initialization for Sigmoid and Tanh**
+
+The current standard approach for initialization of the weights of neural network layers and nodes that use the Sigmoid or TanH activation function is called “glorot” or “xavier” initialization.
+
+There are two versions of this weight initialization method, which we will refer to as “xavier” and “normalized xavier.”
+
+`Glorot and Bengio proposed to adopt a properly scaled uniform distribution for initialization. This is called “Xavier” initialization […] Its derivation is based on the assumption that the activations are linear. This assumption is invalid for ReLU and PReLU.`
+
+Both approaches were derived assuming that the activation function is linear, nevertheless, they have become the standard for nonlinear activation functions like Sigmoid and Tanh, but not ReLU.
+
+Xavier initialization: It is same as He initialization but it is used for Sigmoid and tanh() activation function, in this method 2 is replaced with 1.
+
+![image](https://user-images.githubusercontent.com/99672298/186381877-664cc64a-6a5b-40d0-a48e-812a24d16737.png)
+
+Some also use the following technique for initialization :
+
+![image](https://user-images.githubusercontent.com/99672298/186381925-5af62ac0-d74e-4fb4-ab33-fdee411215cd.png)
+
+These methods serve as good starting points for initialization and mitigate the chances of exploding or vanishing gradients. They set the weights neither too much bigger than 1, nor too much less than 1. So, the gradients do not vanish or explode too quickly. **They help avoid slow convergence, also ensuring that we do not keep oscillating off the minima.**
 
