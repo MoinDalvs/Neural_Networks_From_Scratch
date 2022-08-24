@@ -4,10 +4,18 @@
 ## 0.1 Table of Contents<a class="anchor" id="0.1"></a>
 1. [Let's talk about Neural Networks.](#1)
 2. [Some Basic Concepts Related to Neural Networks](#2)
-    - 2.1 [Different layers of a Neural Network](#2.1)
-    - 2.2 [Weight and Bias initialization](#2.2) 
-    - 2.3 [Activation Functions](#2.3)
-    - 2.4 [Step by Step Working of the Artificial Neural Network](#2.4)
+	- 2.1 [Different layers of a Neural Network](#2.1)
+3. [Weight and Bias initialization](#3)
+	- 3.1 [Why Weight Initialization?](#3.1)
+	- 3.2 [Zero initialization](#3.2)
+	- 3.3 [Random initialization (Initialized weights randomly)](#3.3)
+	- 3.4 [Weight Initialization for ReLU](#3.4)
+	- 3.5 [Weight Initialization for Sigmoid and Tanh](#3.5)
+	- 3.6 [Best Practices for Weight Initialization](#3.6)
+4. [Activation Functions](#4)
+ 	- 4.1 [Why do we need Activation Function in Neural Network?](#4.1)
+ 	- 4.2 [Basic Types of Neural Network Activation Function](#4.2)
+5 [Step by Step Working of the Artificial Neural Network](#5)
    
 
 ## 1. Let's talk about Neural Networks<a class="anchor" id="1"></a>
@@ -44,9 +52,10 @@ It is the process of updating and finding the optimal values of weights or ceoff
 
 #### **`Output Layer:-`** From the diagram given above ther is only on node in the ouput layer, but don't think that is always like that in every neural network model. The number of nodes in the output layer completely depends upon the problem that we have taken. If we have a binary classification problem then the output node is going to be 1 but in the case of multi-class classification, the output nodes can be more than 1.
 
-### 2.2 Weight and Bias initialization<a class="anchor" id="2.2"></a>
+## 3 Weight and Bias initialization<a class="anchor" id="3"></a>
 
-#### Why Weight Initialization?
+### 3.1 Why Weight Initialization?<a class="anchor" id="3.1"></a>
+
 Its main objective is to prevent layer activation outputs from exploding or vanishing gradients during the forward propagation. If either of the problems occurs, loss gradients will either be too large or too small, and the network will take more time to converge if it is even able to do so at all.
 
 If we initialized the weights correctly, then our objective i.e, optimization of loss function will be achieved in the least time otherwise converging to a minimum using gradient descent will be impossible.
@@ -73,7 +82,7 @@ Each time, a neural network is initialized with a different set of weights, resu
 + **Zero initialization**
 + **Random initialization**
 
-+ **`Zero initialization :`**
+### + **`3.2 Zero initialization :`**<a class="anchor" id="3.2"></a>
 
 In general practice biases are initialized with 0 and weights are initialized with random numbers, what if weights are initialized with 0?
 
@@ -106,7 +115,7 @@ Historically, weight initialization follows simple heuristics, such as:
 
 `We almost always initialize all the weights in the model to values drawn randomly from a Gaussian or uniform distribution. The choice of Gaussian or uniform distribution does not seem to matter very much, but has not been exhaustively studied. The scale of the initial distribution, however, does have a large effect on both the outcome of the optimization procedure and on the ability of the network to generalize.`
 
-+  **`Random initialization (Initialized weights randomly):`**
+### +  **`3.3 Random initialization (Initialized weights randomly):`**<a class="anchor" id="3.3"></a>
 
 – This technique tries to address the problems of zero initialization since it prevents neurons from learning the same features of their inputs since our goal is to make each neuron learn different functions of its input and this technique gives much better accuracy than zero initialization.
 
@@ -153,9 +162,9 @@ for 15000 iterations, loss = 0.38278397192120406, accuracy = 86 %
 
 This solution is better but doesn’t properly fulfil the needs so, let us see a new technique.
 
-#### New Initialization techniques
+### New Initialization techniques 
 
-+ **Weight Initialization for ReLU**
+### + **3.4 Weight Initialization for ReLU**<a class="anchor" id="3.4"></a>
  
 As we saw above that with large or 0 initialization of weights(W), not significant result is obtained even if we use appropriate initialization of weights it is probable that training process is going to take longer time. There are certain problems associated with it :
 
@@ -185,7 +194,7 @@ Surely, this is an improvement over the previous techniques.
 
 There are also some other techniques other than He initialization in use that is comparatively better than old techniques and are used frequently.
 
-+ **Weight Initialization for Sigmoid and Tanh**
+### + **3.5 Weight Initialization for Sigmoid and Tanh**<a class="anchor" id="3.5"></a>
 
 The current standard approach for initialization of the weights of neural network layers and nodes that use the Sigmoid or TanH activation function is called “glorot” or “xavier” initialization.
 
@@ -205,7 +214,7 @@ Some also use the following technique for initialization :
 
 These methods serve as good starting points for initialization and mitigate the chances of exploding or vanishing gradients. They set the weights neither too much bigger than 1, nor too much less than 1. So, the gradients do not vanish or explode too quickly. **They help avoid slow convergence, also ensuring that we do not keep oscillating off the minima.**
 
-#### Best Practices for Weight Initialization
+### 3.6 Best Practices for Weight Initialization<a class="anchor" id="3.6"></a>
 
 👉 Use RELU or leaky RELU as the activation function, as they both are relatively robust to the vanishing or exploding gradient problems (especially for networks that are not too deep). In the case of leaky RELU, they never have zero gradients. Thus they never die and training continues.
 
@@ -242,17 +251,21 @@ In this heuristic, we multiplied the randomly generated values of W by:
 
 + 👉 Using an extra scaling factor in Xavier initialization, He-et-al Initialization, etc can solve the above issue to some extent. That’s why these are the more recommended weight initialization methods among all.
 
-### 2.3 Activation Functions<a class="anchor" id="2.3"></a>
+### 4 Activation Functions<a class="anchor" id="4"></a>
 
 #### Activation Function: 
 It decieds whether a neuron should be activated or not. This means that it will decide whether the neurons input to the network is important or not in the process of prediction.
 
-#### Why do we need Activation Function in Neural Network?
+### 4.1 Why do we need Activation Function in Neural Network?<a class="anchor" id="4.1"></a>
 Well, the purpose of an activation function is to add non- linearity to the neural network. If we have a neural network working without the activation functions. In that case, every neuron will only be performed a linear transformation on the inputs using weights and biases. It's because it doesn't matter how many hidden layers we attach in the neural networks, all layers will behave in the same way because the composition of two linear functions is a linear function itself.
 
 Although, the nerual network becomes simpler learning model any complex taks is impossible and our model would be just a linear regression model.
 
-### 2.4 Step by Step Working of the Artificial Neural Network<a class="anchor" id="2.4"></a>
+### 4.2 Basic Types of Neural Network Activation Function<a class="anchor" id="4.2"></a>
+
+#### 
+
+### 5 Step by Step Working of the Artificial Neural Network<a class="anchor" id="5"></a>
 
 #### Steps of Training a Neural Network
 Training a neural network consists of the following basic steps:
