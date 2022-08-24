@@ -251,7 +251,7 @@ In this heuristic, we multiplied the randomly generated values of W by:
 
 + 👉 Using an extra scaling factor in Xavier initialization, He-et-al Initialization, etc can solve the above issue to some extent. That’s why these are the more recommended weight initialization methods among all.
 
-### 4 Activation Functions<a class="anchor" id="4"></a>
+## 4 Activation Functions<a class="anchor" id="4"></a>
 
 #### Activation Function: 
 It decieds whether a neuron should be activated or not. This means that it will decide whether the neurons input to the network is important or not in the process of prediction.
