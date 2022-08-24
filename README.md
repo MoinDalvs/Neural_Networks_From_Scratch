@@ -50,10 +50,27 @@ As the Amount of data icreases, the performance of data learning algorithms, lik
 
 This is the layer where complex computations happen. The more your model has hidden layers, the more complex the model will be. This is kind of like a black box of the neural network where the model learns complex relations present in the data.
 
-#### Backpropoation:
+#### **`Backpropoation:`**
 It is the process of updating and finding the optimal values of weights or ceofficients which helps the model to minimize the error (loss function). The weights are updated with the help of optimizers we talked about in [Gradient Descent article](https://github.com/MoinDalvs/Gradient_Descent_For_beginners/blob/main/README.md). The weights of the network connections are repeatedly adjusted to minimize the difference between tha actual and the observed values. It aims to minimize the cost function by adjusting the network weights and biases. The cost funciton gradient determine the level of adjustment with respect to parameters like activation funciton , weights, biases etc.
 
+![12203Schematic-diagram-of-backpropagation-training-algorithm-and-typical-neuron-model_W640](https://user-images.githubusercontent.com/99672298/186192225-d825db1d-cbde-4176-9f65-566a24308904.jpg)
+
++ **`After propagating the input features forward to the output layer through the various hidden layers consisting of different/same activation functions, we come up with a predicted probability of a sample belonging to the positive class ( generally, for classification tasks).`**
++ **`Now, the backpropagation algorithm propagates backward from the output layer to the input layer calculating the error gradients on the way.`**
++ **`Once the computation for gradients of the cost function w.r.t each parameter (weights and biases) in the neural network is done, the algorithm takes a gradient descent step towards the minimum to update the value of each parameter in the network using these gradients.`**
+
+![21 08 2022_16 11 48_REC](https://user-images.githubusercontent.com/99672298/186192374-d465b7bb-b318-4525-834d-6021eb919209.png)
+![21 08 2022_16 12 32_REC](https://user-images.githubusercontent.com/99672298/186192472-05b6502a-b717-4f17-b1b8-fb77e3105e82.png)
+![21 08 2022_16 14 54_REC](https://user-images.githubusercontent.com/99672298/186192598-32234ca5-849b-4fe9-92bd-994f216a5817.png)
+![21 08 2022_16 13 45_REC](https://user-images.githubusercontent.com/99672298/186192523-52532cfb-807f-48a0-9b9d-da4bdbed6c60.png)
+![21 08 2022_16 25 14_REC](https://user-images.githubusercontent.com/99672298/186192689-98928ce5-a99a-4f13-9fd6-0c86590a5e93.png)
+![21 08 2022_16 24 42_REC](https://user-images.githubusercontent.com/99672298/186192794-78b6992c-d389-49fd-b7d3-87c5557cf351.png)
+![21 08 2022_16 25 58_REC](https://user-images.githubusercontent.com/99672298/186192721-6aedb39d-d42e-48b0-8254-2c202c03f4d1.png)
+![21 08 2022_16 26 30_REC](https://user-images.githubusercontent.com/99672298/186193081-504eb1f6-739b-48ae-adb7-4d1d9c4df65a.png)
+___
 #### **`Output Layer:-`** From the diagram given above ther is only on node in the ouput layer, but don't think that is always like that in every neural network model. The number of nodes in the output layer completely depends upon the problem that we have taken. If we have a binary classification problem then the output node is going to be 1 but in the case of multi-class classification, the output nodes can be more than 1.
+
+![image](https://user-images.githubusercontent.com/99672298/186179926-b40a240c-90aa-4cc8-a1e4-82b7392515c2.png)
 
 [Table of Content](#0.1)
 
@@ -297,25 +314,6 @@ Although, the nerual network becomes simpler learning model any complex taks is 
 
 ![image](https://user-images.githubusercontent.com/99672298/186457519-261e2f28-a975-4865-a3dd-86aaf496f9e7.png)
 
-### 4.2 Why are deep neural networks hard to train?<a class="anchor" id="4.2"></a>
-There are two challenges you might encounter when training your deep neural networks.
-
-Let's discuss them in more detail.
-
-#### Vanishing Gradients
-Like the sigmoid function, certain activation functions squish an ample input space into a small output space between 0 and 1. 
-
-Therefore, a large change in the input of the sigmoid function will cause a small change in the output. Hence, the derivative becomes small. For shallow networks with only a few layers that use these activations, this isn’t a big problem. 
-
-However, when more layers are used, it can cause the gradient to be too small for training to work effectively. 
-
-#### Exploding Gradients
-Exploding gradients are problems where significant error gradients accumulate and result in very large updates to neural network model weights during training. 
-
-An unstable network can result when there are exploding gradients, and the learning cannot be completed. 
-
-The values of the weights can also become so large as to overflow and result in something called NaN values. 
-
 #### Activation for Hidden Layers
 A hidden layer in a neural network is a layer that receives input from another layer (such as another hidden layer or an input layer) and provides output to another layer (such as another hidden layer or an output layer).
 
@@ -325,7 +323,7 @@ A neural network may have more hidden than 1 layers.
 
 Typically, a differentiable nonlinear activation function is used in the hidden layers of a neural network. This allows the model to learn more complex functions than a network trained using a linear activation function.
 
-### 4.3 Basic Types of Neural Network Activation Function<a class="anchor" id="4.3"></a>
+### 4.2 Basic Types of Neural Network Activation Function<a class="anchor" id="4.2"></a>
 
 #### Types of Activation Functions
 
@@ -417,7 +415,8 @@ We use Leaky ReLU function instead of ReLU to avoid this unfitting, in Leaky ReL
 
 [Table of Content](#0.1)
 
-#### 10 Non-Linear Neural Networks Activation Functions
+### 4.3 Non-Linear Neural Networks Activation Functions<a class="anchor" id="4.3"></a>
+	
 #### Sigmoid / Logistic Activation Function 
 
 The sigmoid activation function is used mostly as it does its task with great efficiency, it basically is a probabilistic approach towards decision making and ranges in between 0 to 1, so when we have to make a decision or to predict an output we use this activation function because of the range is the minimum, therefore, prediction would be more accurate.
@@ -750,8 +749,9 @@ f(x)=log (1+e^x)
 
 ![image](https://user-images.githubusercontent.com/99672298/186454960-2945434a-6fd1-4402-b1cc-b25e8bb64133.png)
 ![15 08 2022_23 07 21_REC](https://user-images.githubusercontent.com/99672298/186458423-bb91f073-9dde-4257-8e12-1d82febcbfad.png)
+![62b18a8dc83132e1a479b65d_neural-network-activation-function-cheat-sheet](https://user-images.githubusercontent.com/99672298/186478248-1b743493-b770-4646-b7da-eed1ffa7be0c.jpeg)
 
-### 4.4 How to choose the right Activation Function?<a class="anchor" id="4.4"></a>
+### 4.3 How to choose the right Activation Function?<a class="anchor" id="4.3"></a>
 
 #### Activation for Output Layers
 The output layer is the layer in a neural network model that directly outputs a prediction.
@@ -796,7 +796,7 @@ The activation function used in hidden layers is typically chosen based on the t
 
 	And hey—use this cheatsheet to consolidate all the knowledge on the Neural Network Activation Functions that you've just acquired :)
 
-#### Why derivative/differentiation is used ?
+#### Why derivative/differentiation is used?
 When updating the curve, to know in which direction and how much to change or update the curve depending upon the slope.That is why we use differentiation in almost every part of Machine Learning and Deep Learning.
 
 ![image](https://user-images.githubusercontent.com/99672298/186456509-eb80052d-81db-4a4a-bb32-fb9775dc13a5.png)
@@ -804,13 +804,48 @@ When updating the curve, to know in which direction and how much to change or up
 
 [Table of Content](#0.1)
 
-## 5. Regularization <a class="anchor" id="5"></a>
+## 5 Why are deep neural networks hard to train?<a class="anchor" id="5"></a>
+There are two challenges you might encounter when training your deep neural networks.
+
+Let's discuss them in more detail.
+
+### Vanishing Gradients
+Vanishing –
+As the backpropagation algorithm advances downwards(or backward) from the output layer towards the input layer, the gradients often get smaller and smaller and approach zero which eventually leaves the weights of the initial or lower layers nearly unchanged. As a result, the gradient descent never converges to the optimum. This is known as the vanishing gradients problem.
+Like the sigmoid function, certain activation functions squish an ample input space into a small output space between 0 and 1. 
+
+Therefore, a large change in the input of the sigmoid function will cause a small change in the output. Hence, the derivative becomes small. For shallow networks with only a few layers that use these activations, this isn’t a big problem. 
+
+However, when more layers are used, it can cause the gradient to be too small for training to work effectively. 
+
+### Exploding Gradients
+Exploding –
+On the contrary, in some cases, the gradients keep on getting larger and larger as the backpropagation algorithm progresses. This, in turn, causes very large weight updates and causes the gradient descent to diverge. This is known as the exploding gradients problem.
+Exploding gradients are problems where significant error gradients accumulate and result in very large updates to neural network model weights during training. 
+
+An unstable network can result when there are exploding gradients, and the learning cannot be completed. 
+
+The values of the weights can also become so large as to overflow and result in something called NaN values. 
+
+### Why do the gradients even vanish/explode?
+Certain activation functions, like the logistic function (sigmoid), have a very huge difference between the variance of their inputs and the outputs. In simpler words, they shrink and transform a larger input space into a smaller output space that lies between the range of [0,1].
+
+![image](https://user-images.githubusercontent.com/99672298/186479457-51c30945-40bf-4302-8be1-1bcded533b64.png)
+
+Observing the above graph of the Sigmoid function, we can see that for larger inputs (negative or positive), it saturates at 0 or 1 with a derivative very close to zero. Thus, when the backpropagation algorithm chips in, it virtually has no gradients to propagate backward in the network, and whatever little residual gradients exist keeps on diluting as the algorithm progresses down through the top layers. So, this leaves nothing for the lower layers.
+
+Similarly, in some cases suppose the initial weights assigned to the network generate some large loss. Now the gradients can accumulate during an update and result in very large gradients which eventually results in large updates to the network weights and leads to an unstable network. The parameters can sometimes become so large that they overflow and result in NaN values.
+
+[Table of Content](#0.1)
+
+## 6. Regularization <a class="anchor" id="6"></a>
 
 
 
 
+[Table of Content](#0.1)
 
-## 6. Step by Step Working of the Artificial Neural Network<a class="anchor" id="6"></a>
+## 7. Step by Step Working of the Artificial Neural Network<a class="anchor" id="7"></a>
 
 #### Steps of Training a Neural Network
 Training a neural network consists of the following basic steps:
@@ -828,11 +863,10 @@ For Example,
 
 For a neural network having 2 layers, i.e. one hidden layer. (Here bias term is not added just for the simplicity)
 
-#### Forward Propogation
+#### **`Forward Propogation`**
 ![image](https://user-images.githubusercontent.com/99672298/186383610-8bdd9799-dd13-4861-a595-ba790970d193.png)
-#### Backward Propogation
+#### **`Backward Propogation`**
 ![image](https://user-images.githubusercontent.com/99672298/186383655-a975f9e3-41a5-4c0b-86f4-d77573f2a574.png)
-![image](https://user-images.githubusercontent.com/99672298/186179926-b40a240c-90aa-4cc8-a1e4-82b7392515c2.png)
 
 + **1.) In the first step, Input units are passed i.e data is passes with some weights attached to it to the hidden layers. WE can have any number of hidden layers.**
 + **2.) Each hidden layers consists of neurons. All the inputs are connected to neuron (each).**
@@ -847,16 +881,6 @@ For a neural network having 2 layers, i.e. one hidden layer. (Here bias term is 
 ##### The whole process described in point 3 is performed in each hidden layers. After passing through every hidden layers we move to the last layer i.e our output layer which gives us the final output. 
 ##### **`This process explained above is known as forward Propogation.`**
 ##### After getting the predictions from the output layers, the error is calculated i.e the difference between the actual and the predicted output. If the error is large then steps are take to minimize the error and for the same purpose **`Back propogation is performed.`**
-
-![12203Schematic-diagram-of-backpropagation-training-algorithm-and-typical-neuron-model_W640](https://user-images.githubusercontent.com/99672298/186192225-d825db1d-cbde-4176-9f65-566a24308904.jpg)
-![21 08 2022_16 11 48_REC](https://user-images.githubusercontent.com/99672298/186192374-d465b7bb-b318-4525-834d-6021eb919209.png)
-![21 08 2022_16 12 32_REC](https://user-images.githubusercontent.com/99672298/186192472-05b6502a-b717-4f17-b1b8-fb77e3105e82.png)
-![21 08 2022_16 14 54_REC](https://user-images.githubusercontent.com/99672298/186192598-32234ca5-849b-4fe9-92bd-994f216a5817.png)
-![21 08 2022_16 13 45_REC](https://user-images.githubusercontent.com/99672298/186192523-52532cfb-807f-48a0-9b9d-da4bdbed6c60.png)
-![21 08 2022_16 25 14_REC](https://user-images.githubusercontent.com/99672298/186192689-98928ce5-a99a-4f13-9fd6-0c86590a5e93.png)
-![21 08 2022_16 24 42_REC](https://user-images.githubusercontent.com/99672298/186192794-78b6992c-d389-49fd-b7d3-87c5557cf351.png)
-![21 08 2022_16 25 58_REC](https://user-images.githubusercontent.com/99672298/186192721-6aedb39d-d42e-48b0-8254-2c202c03f4d1.png)
-![21 08 2022_16 26 30_REC](https://user-images.githubusercontent.com/99672298/186193081-504eb1f6-739b-48ae-adb7-4d1d9c4df65a.png)
 
 #### So long story short
 
