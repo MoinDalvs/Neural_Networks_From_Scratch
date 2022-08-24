@@ -254,18 +254,205 @@ In this heuristic, we multiplied the randomly generated values of W by:
 ## 4 Activation Functions<a class="anchor" id="4"></a>
 
 #### Activation Function: 
-It decieds whether a neuron should be activated or not. This means that it will decide whether the neurons input to the network is important or not in the process of prediction.
+
+![image](https://user-images.githubusercontent.com/99672298/186180131-164203c5-dabd-466e-a6d9-b0874dd7edd0.png)
+![image](https://user-images.githubusercontent.com/99672298/186179961-02f7183d-85ea-41dd-bd5a-4bd3acfb39b6.png)
+
+An activation function in a neural network defines how the weighted sum of the input is transformed into an output from a node or nodes in a layer of the network.
+
+It decides whether a neuron should be activated or not. This means that it will decide whether the neurons input to the network is important or not in the process of prediction.
+
+Sometimes the activation function is called a “transfer function.” If the output range of the activation function is limited, then it may be called a “squashing function.” Many activation functions are nonlinear and may be referred to as the “nonlinearity” in the layer or the network design.
+
+The choice of activation function has a large impact on the capability and performance of the neural network, and different activation functions may be used in different parts of the model.
+
+Technically, the activation function is used within or after the internal processing of each node in the network, although networks are designed to use the same activation function for all nodes in a layer.
+
+A network may have three types of layers: input layers that take raw input from the domain, hidden layers that take input from another layer and pass output to another layer, and output layers that make a prediction.
+
+All hidden layers typically use the same activation function. The output layer will typically use a different activation function from the hidden layers and is dependent upon the type of prediction required by the model.
+
+Activation functions are also typically differentiable, meaning the first-order derivative can be calculated for a given input value. This is required given that neural networks are typically trained using the backpropagation of error algorithm that requires the derivative of prediction error in order to update the weights of the model.
+
+There are many different types of activation functions used in neural networks, although perhaps only a small number of functions used in practice for hidden and output layers.
+
+Let’s take a look at the activation functions used for each type of layer in turn.
 
 ### 4.1 Why do we need Activation Function in Neural Network?<a class="anchor" id="4.1"></a>
-Well, the purpose of an activation function is to add non- linearity to the neural network. If we have a neural network working without the activation functions. In that case, every neuron will only be performed a linear transformation on the inputs using weights and biases. It's because it doesn't matter how many hidden layers we attach in the neural networks, all layers will behave in the same way because the composition of two linear functions is a linear function itself.
+Well, the purpose of an activation function is to add non-linearity to the neural network. If we have a neural network working without the activation functions. In that case, every neuron will only be performed a linear transformation on the inputs using weights and biases. It's because it doesn't matter how many hidden layers we attach in the neural networks, all layers will behave in the same way because the composition of two linear functions is a linear function itself.
 
 Although, the nerual network becomes simpler learning model any complex taks is impossible and our model would be just a linear regression model.
 
+#### Activation for Hidden Layers
+A hidden layer in a neural network is a layer that receives input from another layer (such as another hidden layer or an input layer) and provides output to another layer (such as another hidden layer or an output layer).
+
+A hidden layer does not directly contact input data or produce outputs for a model, at least in general.
+
+A neural network may have more hidden than 1 layers.
+
+Typically, a differentiable nonlinear activation function is used in the hidden layers of a neural network. This allows the model to learn more complex functions than a network trained using a linear activation function.
+
 ### 4.2 Basic Types of Neural Network Activation Function<a class="anchor" id="4.2"></a>
 
-#### 
+#### Types of Activation Functions
 
-### 5 Step by Step Working of the Artificial Neural Network<a class="anchor" id="5"></a>
+We have divided all the essential neural networks in three major parts:
+
+A. Binary step function
+
+B. Linear function
+
+C. Non linear activation function
+
+#### A. Binary Step Neural Network Activation Function
+ 
+1. Binary Step Function
+ 
+This activation function very basic and it comes to mind every time if we try to bound output. It is basically a threshold base classifier, in this, we decide some threshold value to decide output that neuron should be activated or deactivated.
+
+Binary step function depends on a threshold value that decides whether a neuron should be activated or not. 
+
+The input fed to the activation function is compared to a certain threshold; if the input is greater than it, then the neuron is activated, else it is deactivated, meaning that its output is not passed on to the next hidden layer.
+
+![image](https://user-images.githubusercontent.com/99672298/186428859-9f4c9b96-7da5-4a1c-bb47-5f1ad424d526.png)
+![image](https://user-images.githubusercontent.com/99672298/186428922-9bbf30bb-13a5-46ed-9cb5-620fce35bb28.png)
+
+In this, we decide the threshold value to 0. It is very simple and useful to classify binary problems or classifier.
+
+Here are some of the limitations of binary step function:
+
++ It cannot provide multi-value outputs—for example, it cannot be used for multi-class classification problems. 
++ The gradient of the step function is zero, which causes a hindrance in the backpropagation process.
+
+#### B. Linear Neural Network Activation Function
+ 
+2. Linear Function
+ 
+It is a simple straight line activation function where our function is directly proportional to the weighted sum of neurons or input. Linear activation functions are better in giving a wide range of activations and a line of a positive slope may increase the firing rate as the input rate increases.
+
+In binary, either a neuron is firing or not. If you know gradient descent in deep learning then you would notice that in this function derivative is constant.
+
+Y = mZ
+
+Where derivative with respect to Z is constant m. The meaning gradient is also constant and it has nothing to do with Z. In this, if the changes made in backpropagation will be constant and not dependent on Z so this will not be good for learning. 
+
+In this, our second layer is the output of a linear function of previous layers input. Wait a minute, what have we learned in this that if we compare our all the layers and remove all the layers except the first and last then also we can only get an output which is a linear function of the first layer.
+
+In this the activation is proportional to the input which means the function doesn't do anything to the weighted sum of the input, it simply spits out the value it was given.
+
+The linear activation function, also known as "no activation," or "identity function" (multiplied x1.0), is where the activation is proportional to the input.
+
+![image](https://user-images.githubusercontent.com/99672298/186430449-7b4e123f-b15c-454b-9484-3d314f70dd16.png)
+
+Mathematically it can be represented as:
+
+![image](https://user-images.githubusercontent.com/99672298/186430668-2ecf6c6c-22b5-418b-b035-bbbb002c12ad.png)
+
+However, a linear activation function has two major problems :
+
++ It’s not possible to use backpropagation as the derivative of the function is a constant and has no relation to the input x. 
++ All layers of the neural network will collapse into one if a linear activation function is used. No matter the number of layers in the neural network, the last layer will still be a linear function of the first layer. So, essentially, a linear activation function turns the neural network into just one layer.
+
+#### C. Non Linear Neural Network Activation Function
+
+The linear activation function shown above is simply a linear regression model. 
+
+Because of its limited power, this does not allow the model to create complex mappings between the network’s inputs and outputs. 
+
+**Non-linear activation function solve the following limitations of linear activation functions:**
+
++ They allow backpropagation because now the derivative function would be related to the input, and it’s possible to go back and understand which weights in the input neurons can provide a better prediction.
++ They allow the stacking of multiple layers of neurons as the output would now be a non-linear combination of input passed through multiple layers. Any output can be represented as a functional computation in a neural network.
+
+3. ReLU( Rectified Linear unit) Activation function
+ 
+Rectified linear unit or ReLU is most widely used activation function right now which ranges from 0 to infinity, All the negative values are converted into zero, and this conversion rate is so fast that neither it can map nor fit into data properly which creates a problem, but where there is a problem there is a solution.
+
+![image](https://user-images.githubusercontent.com/99672298/186431603-d57c4793-ecf0-4e63-ab11-c92db66418a4.png)
+
+We use Leaky ReLU function instead of ReLU to avoid this unfitting, in Leaky ReLU range is expanded which enhances the performance.
+
+#### 10 Non-Linear Neural Networks Activation Functions
+#### Sigmoid / Logistic Activation Function 
+
+The sigmoid activation function is used mostly as it does its task with great efficiency, it basically is a probabilistic approach towards decision making and ranges in between 0 to 1, so when we have to make a decision or to predict an output we use this activation function because of the range is the minimum, therefore, prediction would be more accurate.
+
+This function takes any real value as input and outputs values in the range of 0 to 1. 
+
+The larger the input (more positive), the closer the output value will be to 1.0, whereas the smaller the input (more negative), the closer the output will be to 0.0, as shown below.
+
+![image](https://user-images.githubusercontent.com/99672298/186431840-9cc7635b-b597-474c-a8a2-6beb821997cf.png)
+
+Mathematically it can be represented as:
+
+![image](https://user-images.githubusercontent.com/99672298/186431932-8fabc628-6d55-4789-bf7d-3ac22b2c8f8a.png)
+
+Here’s why sigmoid/logistic activation function is one of the most widely used functions:
+
++ It is commonly used for models where we have to predict the probability as an output. Since probability of anything exists only between the range of 0 and 1, sigmoid is the right choice because of its range.
++ The function is differentiable and provides a smooth gradient, i.e., preventing jumps in output values. This is represented by an S-shape of the sigmoid activation function. 
+
+The limitations of sigmoid function are discussed below:
+
+The sigmoid function causes a problem mainly termed as vanishing gradient problem which occurs because we convert large input in between the range of 0 to 1 and therefore their derivatives become much smaller which does not give satisfactory output. To solve this problem another activation function such as ReLU is used where we do not have a small derivative problem.
+
+As we can see from the above Figure, the gradient values are only significant for range -3 to 3, and the graph gets much flatter in other regions. 
+
+It implies that for values greater than 3 or less than -3, the function will have very small gradients. As the gradient value approaches zero, the network ceases to learn and suffers from the Vanishing gradient problem.
+
+The output of the logistic function is not symmetric around zero. So the output of all the neurons will be of the same sign. This makes the training of the neural network more difficult and unstable.
+
+The derivative of the function is f'(x) = sigmoid(x)*(1-sigmoid(x)). 
+
+![15 08 2022_20 30 01_REC](https://user-images.githubusercontent.com/99672298/186432936-96eb2ec6-38f0-4aae-b5a7-0bd094d69759.png)
+![image](https://user-images.githubusercontent.com/99672298/186433142-6aacecdd-3dc2-454b-a82d-a8598ea77dc5.png)
+![15 08 2022_20 42 50_REC](https://user-images.githubusercontent.com/99672298/186433960-edca5375-13d9-4f17-aa56-2a8e28087aba.png)
+![image](https://user-images.githubusercontent.com/99672298/186434148-cc9a2c8c-ec65-4bc4-8baf-5a14c0f4d149.png)
+___
+#### Tanh Function (Hyperbolic Tangent)
+Tanh function is very similar to the sigmoid/logistic activation function, and even has the same S-shape with the difference in output range of -1 to 1. In Tanh, the larger the input (more positive), the closer the output value will be to 1.0, whereas the smaller the input (more negative), the closer the output will be to -1.0.
+
+This activation function is slightly better than the sigmoid function, like the sigmoid function it is also used to predict or to differentiate between two classes but it maps the negative input into negative quantity only and ranges in between -1 to  1.
+
+![image](https://user-images.githubusercontent.com/99672298/186433618-329390d6-e265-4466-a857-50cf189f6ef2.png)
+![image](https://user-images.githubusercontent.com/99672298/186434653-a56990e3-961e-4afc-a20a-a747934cba52.png)
+
+As you can see— it also faces the problem of vanishing gradients similar to the sigmoid activation function. Plus the gradient of the tanh function is much steeper as compared to the sigmoid function.
+
+![15 08 2022_20 47 58_REC](https://user-images.githubusercontent.com/99672298/186434316-120da1d4-bb7c-4014-9f1d-0cdb1e8ea60a.png)
+
+Mathematically it can be represented as:
+
+![image](https://user-images.githubusercontent.com/99672298/186434452-c6e5be4b-b3e4-44d3-bff1-f5353194ebb3.png)
+
+**Advantages of using this activation function are:**
+
+The output of the tanh activation function is Zero centered; hence we can easily map the output values as strongly negative, neutral, or strongly positive.
+Usually used in hidden layers of a neural network as its values lie between -1 to; therefore, the mean for the hidden layer comes out to be 0 or very close to it. It helps in centering the data and makes learning for the next layer much easier.
+Have a look at the gradient of the tanh activation function to understand its limitations.
+
+	💡 Note:  Although both sigmoid and tanh face vanishing gradient issue, tanh is zero centered, and the gradients are not restricted to move in a certain direction. Therefore, in practice, tanh nonlinearity is always preferred to sigmoid nonlinearity.
+
+#### ReLU Function
+#### ReLU stands for Rectified Linear Unit. 
+
+The rectified linear activation function, or ReLU activation function, is perhaps the most common function used for hidden layers.
+
+It is common because it is both simple to implement and effective at overcoming the limitations of other previously popular activation functions, such as Sigmoid and Tanh. Specifically, it is less susceptible to vanishing gradients that prevent deep models from being trained, although it can suffer from other problems like saturated or “dead” units.
+
+Although it gives an impression of a linear function, ReLU has a derivative function and allows for backpropagation while simultaneously making it computationally efficient. 
+
+The main catch here is that the ReLU function does not activate all the neurons at the same time. 
+
+The ReLU function is calculated as follows:
+
+max(0.0, x)
+
+This means that if the input value (x) is negative, then a value 0.0 is returned, otherwise, the value is returned.
+
+The neurons will only be deactivated if the output of the linear transformation is less than 0.
+
+### 5. Step by Step Working of the Artificial Neural Network<a class="anchor" id="5"></a>
 
 #### Steps of Training a Neural Network
 Training a neural network consists of the following basic steps:
@@ -283,12 +470,11 @@ For Example,
 
 For a neural network having 2 layers, i.e. one hidden layer. (Here bias term is not added just for the simplicity)
 
+#### Forward Propogation
 ![image](https://user-images.githubusercontent.com/99672298/186383610-8bdd9799-dd13-4861-a595-ba790970d193.png)
+#### Backward Propogation
 ![image](https://user-images.githubusercontent.com/99672298/186383655-a975f9e3-41a5-4c0b-86f4-d77573f2a574.png)
-
-![image](https://user-images.githubusercontent.com/99672298/186180131-164203c5-dabd-466e-a6d9-b0874dd7edd0.png)
 ![image](https://user-images.githubusercontent.com/99672298/186179926-b40a240c-90aa-4cc8-a1e4-82b7392515c2.png)
-![image](https://user-images.githubusercontent.com/99672298/186179961-02f7183d-85ea-41dd-bd5a-4bd3acfb39b6.png)
 
 + **1.) In the first step, Input units are passed i.e data is passes with some weights attached to it to the hidden layers. WE can have any number of hidden layers.**
 + **2.) Each hidden layers consists of neurons. All the inputs are connected to neuron (each).**
