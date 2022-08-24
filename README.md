@@ -6,7 +6,8 @@
 2. [Some Basic Concepts Related to Neural Networks](#2)
     - 2.1 [Different layers of a Neural Network](#2.1)
     - 2.2 [Weight and Bias initialization](#2.2) 
-    - 2.3 [Step by Step Working of the Artificial Neural Network](#2.3)
+    - 2.3 [Activation Functions](#2.3)
+    - 2.4 [Step by Step Working of the Artificial Neural Network](#2.4)
    
 
 ## 1. Let's talk about Neural Networks<a class="anchor" id="1"></a>
@@ -37,6 +38,9 @@ As the Amount of data icreases, the performance of data learning algorithms, lik
 #### **`Hidden layers:-`** It is the set of neurons where all the computations are performed on the input data. There can be any number of hidden layers in a neural network. The simplest network consists of a single hidden layer.
 
 This is the layer where complex computations happen. The more your model has hidden layers, the more complex the model will be. This is kind of like a black box of the neural network where the model learns complex relations present in the data.
+
+#### Backpropoation:
+It is the process of updating and finding the optimal values of weights or ceofficients which helps the model to minimize the error (loss function). The weights are updated with the help of optimizers we talked about in [Gradient Descent article](https://github.com/MoinDalvs/Gradient_Descent_For_beginners/blob/main/README.md). The weights of the network connections are repeatedly adjusted to minimize the difference between tha actual and the observed values. It aims to minimize the cost function by adjusting the network weights and biases. The cost funciton gradient determine the level of adjustment with respect to parameters like activation funciton , weights, biases etc.
 
 #### **`Output Layer:-`** From the diagram given above ther is only on node in the ouput layer, but don't think that is always like that in every neural network model. The number of nodes in the output layer completely depends upon the problem that we have taken. If we have a binary classification problem then the output node is going to be 1 but in the case of multi-class classification, the output nodes can be more than 1.
 
@@ -238,7 +242,17 @@ In this heuristic, we multiplied the randomly generated values of W by:
 
 + 👉 Using an extra scaling factor in Xavier initialization, He-et-al Initialization, etc can solve the above issue to some extent. That’s why these are the more recommended weight initialization methods among all.
 
-### 2.3 Step by Step Working of the Artificial Neural Network<a class="anchor" id="2.3"></a>
+### 2.3 Activation Functions<a class="anchor" id="2.3"></a>
+
+#### Activation Function: 
+It decieds whether a neuron should be activated or not. This means that it will decide whether the neurons input to the network is important or not in the process of prediction.
+
+#### Why do we need Activation Function in Neural Network?
+Well, the purpose of an activation function is to add non- linearity to the neural network. If we have a neural network working without the activation functions. In that case, every neuron will only be performed a linear transformation on the inputs using weights and biases. It's because it doesn't matter how many hidden layers we attach in the neural networks, all layers will behave in the same way because the composition of two linear functions is a linear function itself.
+
+Although, the nerual network becomes simpler learning model any complex taks is impossible and our model would be just a linear regression model.
+
+### 2.4 Step by Step Working of the Artificial Neural Network<a class="anchor" id="2.4"></a>
 
 #### Steps of Training a Neural Network
 Training a neural network consists of the following basic steps:
@@ -249,8 +263,7 @@ Training a neural network consists of the following basic steps:
 
 + **Step-3:** Compute the loss function: The loss function includes both the actual label y and predicted label y_hat in its expression. It shows how far our predictions from the actual target, and our main objective is to minimize the loss function.
 
-+ **Step-4:** Backward Propagation: In backpropagation, we find the gradients of the loss function, which is a function of y and y_hat, and gradients wrt A, W, and b called dA, dW, and db. By using these gradients, we update the values of the parameters from the last layer to the first layer.
-
++ **Step-4:** Backward Propagation: In backpropagation, we find the gradients of the loss function, which is a function of y and y_hat, and gradients wrt A, W, and b called dA, dW, and db. By using these gradients, we update the values of the parameters from the last layer to the first layer. 
 + **Step-5:** Repeat steps 2–4 for n epochs till we observe that the loss function is minimized, without overfitting the train data.
 
 For Example,
@@ -297,3 +310,5 @@ If the output of any individual node is above the specified threshold value, tha
 Once an input layer is determined, weight are assigned. These weights help determine the importance of any given variable, with larger ones contributing more significantly to the output compared to other inputs
 
 All inputs are then multiplied by their respective weights and then summed. Afterwards, the output is passed through an activation function, which determines the output. If the ouput exceeds a given threshold, it 'fires' (or activates) the node, passing data to the next layer in the network. This results in the output of one node becoming in the input of the next node.
+
+
