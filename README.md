@@ -22,7 +22,8 @@
 	- 5.2 [Exploding Gradient Descent](#5.2)
 	- 5.3 [Why do the gradients even vanish/explode?](#5.3)
 	- 5.4 [How to know if our model is suffering from the Exploding/Vanishing gradient problem?](#5.4)
-6. [Regularization](#6)
+6. [How to avoid Overfitting of Neural Networks?](#6)
+	- 6.1 [What is Regularization?](#6.1)
 8. [Step by Step Working of the Artificial Neural Network](#7)
    
 
@@ -923,7 +924,6 @@ ELU (Exponential Linear Unit)
 
 #### 3. Batch Normalization
  
-
 Using He initialization along with any variant of the ReLU activation function can significantly reduce the chances of vanishing/exploding problems at the beginning. However, it does not guarantee that the problem won’t reappear during training.
 
 The Following key points explain the intuition behind BN and how it works:
@@ -943,9 +943,134 @@ It does so by evaluating the mean and standard deviation of the input over the c
 
 [Table of Content](#0.1)
 
-## 6. Regularization <a class="anchor" id="6"></a>
+## 6. How to avoid Overfitting of Neural Networks?<a class="anchor" id="6"></a>
 
+One of the most important aspects when training neural network is avoiding overfitting and also one of the most common problems data science professionals face. Have you come across a situation where your model performed exceptionally well on train data but was not able to predict test data. 
 
+![image](https://user-images.githubusercontent.com/99672298/186583811-e6b289cf-a745-4dd3-a48f-00b3ee28bd9c.png)
+
+Have you seen this image before? As we move towards the right in this image, our model tries to learn too well the details and the noise from the training data, which ultimately results in poor performance on the unseen data.
+
+In other words, while going towards the right, the complexity of the model increases such that the training error reduces but the testing error doesn’t. This is shown in the image below.
+Overfitting refers to the phenomenon where a neural network models the training data very well but fails when it sees new data from the same problem. Overfitting is caused by noise in the training data that the neural network picks up during training and learns it as an underlying concept of the data. The model on the right side above is with a high complexity is able to pick up and learn patterns even noise in the data that are just caused by some random fluctuation or error.
+
+On the other hand, the lower complexity network on the left side models the distribution much better by not trying too hard to model each data pattern individually.
+
+![image](https://user-images.githubusercontent.com/99672298/186583922-2b5016d6-68b2-456b-b291-12c2f259b420.png)
+
+Overfitting causes the neurla network model to perform very well during training phase but the performance gets much worse during inference time whrn faced with new data. Less complex neural networks are less susceptible to overfitting. To prevent overfitting or a high variance we must use something
+
+### 6.1 What is Regularization?<a class="anchor" id="6.1"></a>
+
+A universal problem in machine learning has been making an algorithm that performs equally well on training data and any new samples or test dataset. Techniques used in machine learning that have specifically been designed to cater to reducing test error, mostly at the expense of increased training error, are globally known as regularization.
+
+Regularization is a technique which makes slight modifications to the learning algorithm such that the model generalizes better. This in turn improves the model’s performance on the unseen data as well.
+
+![Filter_Method](https://miro.medium.com/max/1296/1*Fy1M8W2VAiDOae65Glxj6A.gif)
+
+Regularization may be defined as any modification or change in the learning algorithm that helps reduce its error over a test dataset, commonly known as generalization error but not on the supplied or training dataset.
+
+In learning algorithms, there are many variants of regularization techniques, each of which tries to cater to different challenges. These can be listed down straightforwardly based on the kind of challenge the technique is trying to deal with:
+
++ Some try to put extra constraints on the learning of an ML model, like adding restrictions on the range/type of parameter values.
++ Some add more terms in the objective or cost function, like a soft constraint on the parameter values. More often than not, a careful selection of the right constraints and penalties in the cost function contributes to a massive boost in the model's performance, specifically on the test dataset.
++ These extra terms can also be encoded based on some prior information that closely relates to the dataset or the problem statement.
++ One of the most commonly used regularization techniques is creating ensemble models, which take into account the collective decision of multiple models, each trained with different samples of data.
+
+The main aim of regularization is to reduce the over-complexity of the machine learning models and help the model learn a simpler function to promote generalization.
+
+![Filter Method](https://miro.medium.com/max/1400/1*9qFJk_wPzoSD_6c0jLsNzw.gif)
+
+#### Bias-Variance Tradeoff
+
+Bias vs variance tradeoff graph here sheds a bit more light on the nuances of this topic and demarcation:
+
+![image](https://user-images.githubusercontent.com/99672298/186588607-d6505209-5c2c-4c8e-9153-b5aeafedf968.png)
+![image](https://user-images.githubusercontent.com/99672298/186588944-d4726b22-3faf-4aef-9ece-af8b6f29b3bb.png)
+![image](https://user-images.githubusercontent.com/99672298/186589069-0cd31bc1-b35b-4ed0-b959-627acccf8f3f.png)
+
+Regularization of an estimator works by trading increased bias for reduced variance. An effective regularize will be the one that makes the best trade between bias and variance, and the end-product of the tradeoff should be a significant reduction in variance at minimum expense to bias. In simpler terms, this would mean low variance without immensely increasing the bias value.
+
+#### How does Regularization help reduce Overfitting?
+Let’s consider a neural network which is overfitting on the training data as shown in the image below.
+
+![image](https://user-images.githubusercontent.com/99672298/186585470-2c550c57-672a-4d4b-8973-193cb3eadf14.png)
+
+If you have studied the concept of regularization **in machine learning, you will have a fair idea that regularization penalizes the coefficients. In deep learning, it actually penalizes the weight matrices of the nodes.**
+
+Assume that our regularization coefficient is so high that some of the weight matrices are nearly equal to zero.
+
+![image](https://user-images.githubusercontent.com/99672298/186585521-0f9d8f0a-00c9-4182-a1dd-e688d6a42c61.png)
+
+This will result in a much simpler linear network and slight underfitting of the training data.
+
+Such a large value of the regularization coefficient is not that useful. We need to optimize the value of regularization coefficient in order to obtain a well-fitted model as shown in the image below.
+
+![image](https://user-images.githubusercontent.com/99672298/186585551-a843464a-083f-4aad-a8d0-7ee48b4f91c3.png)
+
+#### Different Regularization Techniques in Deep Learning
+Now that we have an understanding of how regularization helps in reducing overfitting, we’ll learn a few different techniques in order to apply regularization in deep learning.
+
+#### L2 & L1 regularization
+L1 and L2 are the most common types of regularization. These update the general cost function by adding another term known as the regularization term.
+
+Cost function = Loss (say, binary cross entropy) + Regularization term
+
+Due to the addition of this regularization term, the values of weight matrices decrease because it assumes that a neural network with smaller weight matrices leads to simpler models. Therefore, it will also reduce overfitting to quite an extent.
+
+However, this regularization term differs in L1 and L2.
+
+#### In L2, we have:
+
+The Regression model that uses L2 regularization is called Ridge Regression.
+
+![image](https://user-images.githubusercontent.com/99672298/186591282-b71ef870-5848-4f71-87d8-3d5557e5ca6c.png)
+
+![image](https://user-images.githubusercontent.com/99672298/186586182-1b8f58f6-31b3-45d7-a0e9-adea8643029b.png)
+
+Regularization adds the penalty as model complexity increases. The regularization parameter (lambda) penalizes all the parameters except intercept so that the model generalizes the data and won’t overfit. Ridge regression adds **“squared magnitude of the coefficient”** as penalty term to the loss function. Here the box part in the above image represents the L2 regularization element/term.
+
+Lambda is a hyperparameter.
+
+If lambda is zero, then it is equivalent to OLS.
+
+Ordinary Least Square or OLS, is a stats model which also helps us in identifying more significant features that can have a heavy influence on the output.
+
+But if lambda is very large, then it will add too much weight, and it will lead to under-fitting. Important points to be considered about L2 can be listed below:
+
++ Ridge regularization forces the weights to be small but does not make them zero and does not give the sparse solution.
++ Ridge is not robust to outliers as square terms blow up the error differences of the outliers, and the regularization term tries to fix it by penalizing the weights.
++ Ridge regression performs better when all the input features influence the output, and all with weights are of roughly equal size.
++ L2 regularization can learn complex data patterns
+
+Here, lambda is the regularization parameter. It is the hyperparameter whose value is optimized for better results. **`L2 regularization is also known as weight decay as it forces the weights to decay towards zero (but not exactly zero).`**
+
+#### In L1, we have:
+
+Lasso Regression (Least Absolute Shrinkage and Selection Operator) adds “Absolute value of magnitude” of coefficient, as penalty term to the loss function.
+
+Lasso shrinks the less important feature’s coefficient to zero; thus, removing some feature altogether. So, this works well for feature selection in case we have a huge number of features.
+
+![image](https://user-images.githubusercontent.com/99672298/186589224-d9de4588-db1d-4db3-805c-b7d47ec15ba5.png)
+
+![image](https://user-images.githubusercontent.com/99672298/186586233-498f471b-3331-4853-9f50-07660595a5db.png)
+
++ **`L1 regularization is that it is easy to implement and can be trained as a one-shot thing, meaning that once it is trained you are done with it and can just use the parameter vector and weights.`**
++ **`L1 regularization is robust in dealing with outliers. It creates sparsity in the solution (most of the coefficients of the solution are zero), which means the less important features or noise terms will be zero. It makes L1 regularization robust to outliers.`**
+
+To understand the above mentioned point, let us go through the following example and try to understand what it means when an algorithm is said to be sensitive to outliers
+
++ For instance we are trying to classify images of various birds of different species and have a neural network with a few hundred parameters.
++ We find a sample of birds of one species, which we have no reason to believe are of any different species from all the others.
++ We add this image to the training set and try to train the neural network. This is like throwing an outlier into the mix of all the others. By looking at the edge of the hyperspace where the hyperplane is closest to, we pick up on this outlier, but by the time we’ve got to the hyperplane it’s quite far from the plane and is hence an outlier.
++ The solution in such cases is to perform iterative dropout. L1 regularization is a one-shot solution, but in the end we are going to have to make some kind of hard decision on where to cut off the edges of the hyperspace.
++ Iterative dropout is a method of deciding exactly where to cut off. It is a little more expensive in terms of training time, but in the end it might give us an easier decision about how far the hyperspace edges are.
+
+**`Along with shrinking coefficients, the lasso performs feature selection, as well. (Remember the ‘selection‘ in the lasso full-form?) Because some of the coefficients become exactly zero, which is equivalent to the particular feature being excluded from the model.`**
+
+**`In this, we penalize the absolute value of the weights. Unlike L2, the weights may be reduced to zero here. Hence, it is very useful when we are trying to compress our model. Otherwise, we usually prefer L2 over it.`**
+
+![image](https://user-images.githubusercontent.com/99672298/186586553-6b31764f-562e-4473-a8b7-2ced4d49f5d7.png)
 
 
 [Table of Content](#0.1)
