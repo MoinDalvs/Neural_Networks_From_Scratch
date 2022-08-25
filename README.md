@@ -26,9 +26,10 @@
 	- 6.1 [What is Regularization?](#6.1)
 	- 6.2 [What is Dropout?](#6.2)
 	- 6.3 [What is Neural Network Pruning?](#6.3)
+	- 6.4 [Early stopping](#6.4)
 8. [Step by Step Working of the Artificial Neural Network](#7)
    
-
+   
 ## 1. Let's talk about Neural Networks<a class="anchor" id="1"></a>
 
 <img width="720" height='580' alt="" src="https://user-images.githubusercontent.com/99672298/186175978-c9737e54-f6a0-4f4a-924a-1b33061780fa.png">
@@ -1229,7 +1230,7 @@ Pruning can take many different forms, with the approach chosen based on our des
 
 ![image](https://user-images.githubusercontent.com/99672298/186634887-84db438a-8b0c-4673-8977-e760164e6201.png)
 
-+ **`Structured and Unstructured Pruning`**
++ **Structured and Unstructured Pruning**
 
 + + **Remove weights or neurons?**
 
@@ -1282,6 +1283,23 @@ With pruning, there is a tradeoff between model performance and efficiency. You 
  + If you only have a partial understanding of the distribution shifts throughout training and pruning, prune moderately.
  + If you can account for all movements in the data distribution throughout training and pruning, prune to the maximum extent possible.
  + When retraining, specifically consider data augmentation to maximize the prune potential.
+ 
+### Early stopping<a class="anchor" id="6.4"></a>
+Early stopping is a kind of cross-validation strategy where we keep one part of the training set as the validation set. When we see that the performance on the validation set is getting worse, we immediately stop the training on the model. This is known as early stopping.
+
+![image](https://user-images.githubusercontent.com/99672298/186644374-708a8c7b-a962-4799-ac38-3f74d4de1225.png)
+
+In the above image, we will stop training at the dotted line since after that our model will start overfitting on the training data.
+
+In keras, we can apply early stopping using the callbacks function. Below is the sample code for it.
+
+![image](https://user-images.githubusercontent.com/99672298/186644437-dfbaece0-24ef-4e0c-943b-0a5dfa7881c2.png)
+
+Here, monitor denotes the quantity that needs to be monitored and ‘val_err’ denotes the validation error.
+
+Patience denotes the number of epochs with no further improvement after which the training will be stopped. For better understanding, let’s take a look at the above image again. After the dotted line, each epoch will result in a higher value of validation error. Therefore, 5 epochs after the dotted line (since our patience is equal to 5), our model will stop because no further improvement is seen.
+
+Note: It may be possible that after 5 epochs (this is the value defined for patience in general), the model starts improving again and the validation error starts decreasing as well. Therefore, we need to take extra care while tuning this hyperparameter.
 
 [Table of Content](#0.1)
 
