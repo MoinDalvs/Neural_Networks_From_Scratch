@@ -983,6 +983,14 @@ The main aim of regularization is to reduce the over-complexity of the machine l
 
 #### Bias-Variance Tradeoff
 
+In order to understand how the deviation of the function is varied, bias and variance can be adopted. Bias is the measurement of deviation or error from the real value of function (Train data), variance is the measurement of deviation in the response variable function while estimating it over a different training sample of the dataset (Test Data)
+
+Therefore, for a generalized data model, we must keep bias possibly low while modelling that leads to high accuracy. And, one should not obtain greatly varied results from output, therefore, low variance is recommended for a model to perform good.
+
+The underlying association between bias and variance is closely related to the overfitting, underfitting and capacity in machine learning such that while calculating the generalization error (where bias and variance are crucial elements) increase in the model capacity can lead to increase in variance and decrease in bias.
+
+The trade-off is the tension amid error introduced by the bias and the variance.
+
 Bias vs variance tradeoff graph here sheds a bit more light on the nuances of this topic and demarcation:
 
 ![image](https://user-images.githubusercontent.com/99672298/186588607-d6505209-5c2c-4c8e-9153-b5aeafedf968.png)
@@ -1071,6 +1079,65 @@ To understand the above mentioned point, let us go through the following example
 **`In this, we penalize the absolute value of the weights. Unlike L2, the weights may be reduced to zero here. Hence, it is very useful when we are trying to compress our model. Otherwise, we usually prefer L2 over it.`**
 
 ![image](https://user-images.githubusercontent.com/99672298/186586553-6b31764f-562e-4473-a8b7-2ced4d49f5d7.png)
+![image](https://user-images.githubusercontent.com/99672298/186600743-36d9ff0e-b57f-4934-9fc6-53dac55dea3e.png)
+
+#### Intuitively Speaking
+Smaller weights reduce the impact of the hidden neurons. In that case, those neurons becomes negligible and the overall complexity of the neural network gets reduced.
+But we have to be careful. When chossing the regularization term $alpha$. The goal is to strike the right balance between low complexity of the model and accuracy.
+
++ **`If our $alpha$ value is to high, our model is too simple, but you run the risk of underfitting our data. Our model won't learn enough about the training data to make useful predictions.`**
++ **`If our $alpha$ value is too low, our model will be more complex and we run to the risk of overfitting our data. Our model will learn too much about the particularities of the training data will even pick up the noise in the data and then the model won't even be able to generalize to new data.`**
+
+[Table of Content](#0.1)
+
+### 6.2 What is Dropout?<a class="anchor" id="6.2"></a>
+
+#### Dropout Regularization
+The term 'dropout' refers to dropping out units (both hidden and visible) (neurons) in a neural network. Simply put, dropout refers to ignoring units (i.e. neurons) during the training phase of certain set of neurons which is chosen at random. By “ignoring”, I mean these units are not considered during a particular forward or backward pass. At each training phase, individual nodes are either dropout of the net with probability (1-p) or kept with probability p, so that a shallow network is left (less dense)
+
+#### Why do we need Dropout?
+Given that we know a bit about dropout, a question arises — why do we need dropout at all? Why do we need to literally shut-down parts of a neural networks?
+
+#### **`The answer to these questions is “to prevent over-fitting”.`**
+
+A fully connected layer occupies most of the parameters and hence, neurons develop co- dependency amongst each other during training which curbs the individual power of each neuron leading to over-fitting of training data.
+
++ Training Phase:
+
+Training Phase: For each hidden layer, for each training sample, for each iteration, ignore (zero out) a random fraction, p, of nodes (and corresponding activations).
+
++ Testing Phase:
+
+Use all activations, but reduce them by a factor p (to account for the missing activations during training).
+
+![image](https://user-images.githubusercontent.com/99672298/186606791-9548d398-9746-4b71-b6ac-2da89f5afef0.png)
+
+Dropout means, that during training with some probability "p" a number of neurons of the neural networks gets turned off during training.
+
+Let say p=0.5 you can observe on right approx half of the neurons are not active.
+
+![Filter Method](https://cdn.analyticsvidhya.com/wp-content/uploads/2018/04/1IrdJ5PghD9YoOyVAQ73MJw.gif)
+
+#### Experiment in Keras
+
+Let’s try this theory in practice. To see how dropout works, I build a deep net in Keras and tried to validate it on the CIFAR-10 dataset. The deep network is built had three convolution layers of size 64, 128 and 256 followed by two densely connected layers of size 512 and an output layer dense layer of size 10 (number of classes in the CIFAR-10 dataset).
+
+I took ReLU as the activation function for hidden layers and sigmoid for the output layer (these are standards, didn’t experiment much on changing these). Also, I used the standard categorical cross-entropy loss.
+
+Finally, I used dropout in all layers and increase the fraction of dropout from 0.0 (no dropout at all) to 0.9 with a step size of 0.1 and ran each of those to 20 epochs. The results look like this:
+
+![image](https://user-images.githubusercontent.com/99672298/186608357-7c217992-35f5-4e76-8ccf-426ae0ece39f.png)
+![image](https://user-images.githubusercontent.com/99672298/186608375-41061cb0-03a3-4df9-a50d-92f8cafc46bb.png)
+
+From the above graphs we can conclude that with increasing the dropout, there is some increase in validation accuracy and decrease in loss initially before the trend starts to go down.
+There could be two reasons for the trend to go down if dropout fraction is 0.2:
+
++ 0.2 is actual minima for the this dataset, network and the set parameters used
++ More epochs are needed to train the networks.
+
+This probability of choosing how many nodes should be dropped is the hyperparameter of the dropout function. As seen in the image above, dropout can be applied to both the hidden layers as well as the input layers.
+
+#### **`Large neural nets trained on relatively small datasets can overfit the training data.`**
 
 
 [Table of Content](#0.1)
