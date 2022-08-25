@@ -24,6 +24,8 @@
 	- 5.4 [How to know if our model is suffering from the Exploding/Vanishing gradient problem?](#5.4)
 6. [How to avoid Overfitting of Neural Networks?](#6)
 	- 6.1 [What is Regularization?](#6.1)
+	- 6.2 [What is Dropout?](#6.2)
+	- 6.3 [What is Neural Network Pruning?](#6.3)
 8. [Step by Step Working of the Artificial Neural Network](#7)
    
 
@@ -1092,6 +1094,27 @@ But we have to be careful. When chossing the regularization term $alpha$. The go
 
 ### 6.2 What is Dropout?<a class="anchor" id="6.2"></a>
 
+#### How to Dropout
+Dropout is implemented per-layer in a neural network.
+
+It can be used with most types of layers, such as dense fully connected layers, convolutional layers, and recurrent layers such as the long short-term memory network layer.
+
+Dropout may be implemented on any or all hidden layers in the network as well as the visible or input layer. It is not used on the output layer.
+
+Dropout is not used after training when making a prediction with the fit network.
+
+The weights of the network will be larger than normal because of dropout. Therefore, before finalizing the network, the weights are first scaled by the chosen dropout rate. The network can then be used as per normal to make predictions.
+
+If a unit is retained with probability p during training, the outgoing weights of that unit are multiplied by p at test time.
+
+The rescaling of the weights can be performed at training time instead, after each weight update at the end of the mini-batch. This is sometimes called “inverse dropout” and does not require any modification of weights during training. Both the Keras and PyTorch deep learning libraries implement dropout in this way.
+
+At test time, we scale down the output by the dropout rate. […] Note that this process can be implemented by doing both operations at training time and leaving the output unchanged at test time, which is often the way it’s implemented in practice
+
+Dropout works well in practice, perhaps replacing the need for weight regularization (e.g. weight decay) and activity regularization (e.g. representation sparsity).
+
+… dropout is more effective than other standard computationally inexpensive regularizers, such as weight decay, filter norm constraints and sparse activity regularization. Dropout may also be combined with other forms of regularization to yield a further improvement.
+
 #### Dropout Regularization
 The term 'dropout' refers to dropping out units (both hidden and visible) (neurons) in a neural network. Simply put, dropout refers to ignoring units (i.e. neurons) during the training phase of certain set of neurons which is chosen at random. By “ignoring”, I mean these units are not considered during a particular forward or backward pass. At each training phase, individual nodes are either dropout of the net with probability (1-p) or kept with probability p, so that a shallow network is left (less dense)
 
@@ -1137,8 +1160,128 @@ There could be two reasons for the trend to go down if dropout fraction is 0.2:
 
 This probability of choosing how many nodes should be dropped is the hyperparameter of the dropout function. As seen in the image above, dropout can be applied to both the hidden layers as well as the input layers.
 
+#### Tips for Using Dropout Regularization
+This section provides some tips for using dropout regularization with your neural network.
+
+#### Use With All Network Types
+Dropout regularization is a generic approach.
+
+It can be used with most, perhaps all, types of neural network models, not least the most common network types of Multilayer Perceptrons, Convolutional Neural Networks, and Long Short-Term Memory Recurrent Neural Networks.
+
+In the case of LSTMs, it may be desirable to use different dropout rates for the input and recurrent connections.
+
+#### Dropout Rate
+The default interpretation of the dropout hyperparameter is the probability of training a given node in a layer, where 1.0 means no dropout, and 0.0 means no outputs from the layer.
+
+A good value for dropout in a hidden layer is between 0.5 and 0.8. Input layers use a larger dropout rate, such as of 0.8.
+
+### Use a Larger Network
+It is common for larger networks (more layers or more nodes) to more easily overfit the training data.
+
+When using dropout regularization, it is possible to use larger networks with less risk of overfitting. In fact, a large network (more nodes per layer) may be required as dropout will probabilistically reduce the capacity of the network.
+
+A good rule of thumb is to divide the number of nodes in the layer before dropout by the proposed dropout rate and use that as the number of nodes in the new network that uses dropout. For example, a network with 100 nodes and a proposed dropout rate of 0.5 will require 200 nodes (100 / 0.5) when using dropout.
+
+**`If n is the number of hidden units in any layer and p is the probability of retaining a unit […] a good dropout net should have at least n/p units`**
+
+#### Use a Weight Constraint
+Network weights will increase in size in response to the probabilistic removal of layer activations.
+
+Large weight size can be a sign of an unstable network.
+
+To counter this effect a weight constraint can be imposed to force the norm (magnitude) of all weights in a layer to be below a specified value. For example, the maximum norm constraint is recommended with a value between 3-4.
+
+[…] we can use max-norm regularization. This constrains the norm of the vector of incoming weights at each hidden unit to be bound by a constant c. Typical values of c range from 3 to 4.
+
+This does introduce an additional hyperparameter that may require tuning for the model.
+
+#### Use With Smaller Datasets
+Like other regularization methods, dropout is more effective on those problems where there is a limited amount of training data and the model is likely to overfit the training data.
+
+Problems where there is a large amount of training data may see less benefit from using dropout.
+
+For very large datasets, regularization confers little reduction in generalization error. In these cases, the computational cost of using dropout and larger models may outweigh the benefit of regularization.
+
 #### **`Large neural nets trained on relatively small datasets can overfit the training data.`**
 
+[Table of Content](#0.1)
+
+### 6.3 What is Neural Network Pruning?<a class="anchor" id="6.3"></a>
+
+Much of the success of deep learning has come from building larger and larger neural networks. This allows these models to perform better on various tasks, but also makes them more expensive to use. Larger models take more storage space which makes them harder to distribute. Larger models also take more time to run and can require more expensive hardware. This is especially a concern if you are productionizing a model for a real-world application.
+
+Model compression aims to reduce the size of models while minimizing loss in accuracy or performance. Neural network pruning is a method of compression that involves removing weights from a trained model. In agriculture, pruning is cutting off unnecessary branches or stems of a plant. In machine learning, pruning is removing unnecessary neurons or weights. We will go over some basic concepts and methods of neural network pruning.
+
+#### Need of Inference optimization
+As we know that an efficient model is that model which optimizes memory usage and performance at the inference time. Deep Learning model inference is just as crucial as model training, and it is ultimately what determines the solution’s performance metrics. Once the deep learning model has been properly trained for a given application, the next stage is to guarantee that the model is deployed into a production-ready environment, which requires both the application and the model to be efficient and dependable. 
+
+Maintaining a healthy balance between model correctness and inference time is critical. The running cost of the implemented solution is determined by the inference time. It’s crucial to have memory-optimized and real-time (or lower latency) models since the system where your solution will be deployed may have memory limits.
+
+Developers are looking for novel and more effective ways to reduce the computing costs of neural networks as image processing, finance, facial recognition, facial authentication, and voice assistants all require real-time processing. Pruning is one of the most used procedures.
+
+#### What is Neural Network Pruning?
+Pruning is the process of deleting parameters from an existing neural network, which might involve removing individual parameters or groups of parameters, such as neurons. This procedure aims to keep the network’s accuracy while enhancing its efficiency. This can be done to cut down on the amount of computing power necessary to run the neural network.
+
+![image](https://user-images.githubusercontent.com/99672298/186634503-63b33500-175b-408c-adf7-c7fe98aaa91a.png)
+
+#### Types of Pruning
+Pruning can take many different forms, with the approach chosen based on our desired output. In some circumstances, speed takes precedence over memory, whereas in others, memory is sacrificed. The way sparsity structure, scoring, scheduling, and fine-tuning are handled by different pruning approaches.
+
+![image](https://user-images.githubusercontent.com/99672298/186634887-84db438a-8b0c-4673-8977-e760164e6201.png)
+
++ **`Structured and Unstructured Pruning`**
+
++ + **Remove weights or neurons?**
+
+There are different ways to prune a neural network. 
+
+Individual parameters are pruned using an unstructured pruning approach. This results in a sparse neural network, which, while lower in terms of parameter count, may not be configured in a way that promotes speed improvements. 
+
+Randomly zeroing out the parameters saves memory but may not necessarily improve computing performance because we end up conducting the same number of matrix multiplications as before. 
+
+Because we set specific weights in the weight matrix to zero, this is also known as Weight Pruning.
+
+(1) You can prune weights. This is done by setting individual parameters to zero and making the network sparse. This would lower the number of parameters in the model while keeping the architecture the same. 
+
+Weight-based pruning is more popular as it is easier to do without hurting the performance of the network. However, it requires sparse computations to be effective. This requires hardware support and a certain amount of sparsity to be efficient.
+
+(2) You can remove entire nodes from the network. This would make the network architecture itself smaller, while aiming to keep the accuracy of the initial larger network.
+
+Pruning nodes will allow dense computation which is more optimized. This allows the network to be run normally without sparse computation. This dense computation is more often better supported on hardware. However, removing entire neurons can more easily hurt the accuracy of the neural network.
+
+#### What to prune?
+#### **`A major challenge in pruning is determining what to prune. If you are removing weights or nodes from a model, you want the parameters you remove to be less useful. There are different heuristics and methods of determining which nodes are less important and can be removed with minimal effect on accuracy. You can use heuristics based on the weights or activations of a neuron to determine how important it is for the model’s performance. The goal is to remove more of the less important parameters.`**
+
+#### **`One of the simplest ways to prune is based on the magnitude of the weight. Removing a weight is essentially setting it to zero. You can minimize the effect on the network by removing weights that are already close to zero, meaning low in magnitude. This can be implemented by removing all weights below a certain threshold. To prune a neuron based on weight magnitude you can use the L2 norm of the neuron’s weights.`**
+
+#### **`Rather than just weights, activations on training data can be used as a criteria for pruning. When running a dataset through a network, certain statistics of the activations can be observed. You may observe that some neurons always outputs near-zero values. Those neurons can likely be removed with little impact on the model. The intuition is that if a neuron rarely activates with a high value, then it is rarely used in the model’s task.`**
+
+#### **`In addition to the magnitude of weights or activations, redundancy of parameters can mean a neuron can be removed. If two neurons in a layer have very similar weights or activations, it can mean they are doing the same thing. By this intuition, we can remove one of the neurons and preserve the same functionality.`**
+
+#### **`Ideally in a neural network, all the neurons have unique parameters and output activations that are significant in magnitude and not redundant. We want all the neurons are doing something unique, and remove those that are not.`**
+
+#### When to prune?
+A major consideration in pruning is where to put it in the training/testing machine learning timeline. If you are using a weight magnitude-based pruning approach, as described in the previous section, you would want to prune after training. However, after pruning, you may observe that the model performance has suffered. This can be fixed by fine-tuning, meaning retraining the model after pruning to restore accuracy.
+
+![image](https://user-images.githubusercontent.com/99672298/186636651-bd960b61-1dac-413e-ba16-c05f180700c4.png)
+
+The usage of pruning can change depending on the application and methods used. Sometimes fine-tuning or multiple iterations of pruning are not necessary. This depends on how much of the network is pruned.
+
+#### How to evaluate pruning?
+There multiple metrics to consider when evaluating a pruning method: accuracy, size, and computation time. Accuracy is needed to determine how the model performs on its task. Model size is how much bytes of storage the model takes. To determine computation time, you can use FLOPs (Floating point operations) as a metric. This is more consistent to measure than inference time and it does not depend on what system the model runs on.
+
+With pruning, there is a tradeoff between model performance and efficiency. You can prune heavily and have a smaller more efficient network, but also less accurate. Or you could prune lightly and have a highly performant network, that is also large and expensive to operate. This trade-off needs to be considered for different applications of the neural network.
+
+#### Steps to be followed while pruning:
+
+ + Determine the significance of each neuron.
+ + Prioritize the neurons based on their value (assuming there is a clearly defined measure for “importance”).
+ + Remove the neuron that is the least significant.
+ + Determine whether to prune further based on a termination condition (to be defined by the user).
+ + If unanticipated adjustments in data distribution may occur during deployment, don’t prune.
+ + If you only have a partial understanding of the distribution shifts throughout training and pruning, prune moderately.
+ + If you can account for all movements in the data distribution throughout training and pruning, prune to the maximum extent possible.
+ + When retraining, specifically consider data augmentation to maximize the prune potential.
 
 [Table of Content](#0.1)
 
