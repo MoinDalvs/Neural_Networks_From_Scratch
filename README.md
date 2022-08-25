@@ -113,6 +113,8 @@ Each time, a neural network is initialized with a different set of weights, resu
 + **Zero initialization**
 + **Random initialization**
 
+[Table of Content](#0.1)
+
 ### + **`3.2 Zero initialization :`**<a class="anchor" id="3.2"></a>
 
 In general practice biases are initialized with 0 and weights are initialized with random numbers, what if weights are initialized with 0?
@@ -145,6 +147,8 @@ Historically, weight initialization follows simple heuristics, such as:
 + These heuristics continue to work well in general.
 
 `We almost always initialize all the weights in the model to values drawn randomly from a Gaussian or uniform distribution. The choice of Gaussian or uniform distribution does not seem to matter very much, but has not been exhaustively studied. The scale of the initial distribution, however, does have a large effect on both the outcome of the optimization procedure and on the ability of the network to generalize.`
+
+[Table of Content](#0.1)
 
 ### +  **`3.3 Random initialization (Initialized weights randomly):`**<a class="anchor" id="3.3"></a>
 
@@ -245,6 +249,8 @@ Some also use the following technique for initialization :
 
 These methods serve as good starting points for initialization and mitigate the chances of exploding or vanishing gradients. They set the weights neither too much bigger than 1, nor too much less than 1. So, the gradients do not vanish or explode too quickly. **They help avoid slow convergence, also ensuring that we do not keep oscillating off the minima.**
 
+[Table of Content](#0.1)
+
 ### 3.6 Best Practices for Weight Initialization<a class="anchor" id="3.6"></a>
 
 👉 Use RELU or leaky RELU as the activation function, as they both are relatively robust to the vanishing or exploding gradient problems (especially for networks that are not too deep). In the case of leaky RELU, they never have zero gradients. Thus they never die and training continues.
@@ -331,6 +337,8 @@ A hidden layer does not directly contact input data or produce outputs for a mod
 A neural network may have more hidden than 1 layers.
 
 Typically, a differentiable nonlinear activation function is used in the hidden layers of a neural network. This allows the model to learn more complex functions than a network trained using a linear activation function.
+
+[Table of Content](#0.1)
 
 ### 4.2 Basic Types of Neural Network Activation Function<a class="anchor" id="4.2"></a>
 
@@ -779,6 +787,8 @@ f(x)=log (1+e^x)
 ![62b18a8dc83132e1a479b65d_neural-network-activation-function-cheat-sheet](https://user-images.githubusercontent.com/99672298/186478248-1b743493-b770-4646-b7da-eed1ffa7be0c.jpeg)
 ![26 07 2022_16 06 11_REC](https://user-images.githubusercontent.com/99672298/186486769-1d7f37c8-f1b4-42c1-b729-b10e0f99f4af.png)
 
+[Table of Content](#0.1)
+
 ___
 ### 4.4 How to choose the right Activation Function?<a class="anchor" id="4.4"></a>
 
@@ -864,6 +874,8 @@ Certain activation functions, like the logistic function (sigmoid), have a very 
 Observing the above graph of the Sigmoid function, we can see that for larger inputs (negative or positive), it saturates at 0 or 1 with a derivative very close to zero. Thus, when the backpropagation algorithm chips in, it virtually has no gradients to propagate backward in the network, and whatever little residual gradients exist keeps on diluting as the algorithm progresses down through the top layers. So, this leaves nothing for the lower layers.
 
 Similarly, in some cases suppose the initial weights assigned to the network generate some large loss. Now the gradients can accumulate during an update and result in very large gradients which eventually results in large updates to the network weights and leads to an unstable network. The parameters can sometimes become so large that they overflow and result in NaN values.
+
+[Table of Content](#0.1)
 
 ### 5.4 How to know if our model is suffering from the Exploding/Vanishing gradient problem?<a class="anchor" id="5.4"></a>
 
@@ -1350,4 +1362,22 @@ Once an input layer is determined, weight are assigned. These weights help deter
 
 All inputs are then multiplied by their respective weights and then summed. Afterwards, the output is passed through an activation function, which determines the output. If the ouput exceeds a given threshold, it 'fires' (or activates) the node, passing data to the next layer in the network. This results in the output of one node becoming in the input of the next node.
 
+___
 
+[Table of Content](#0.1)
+
+<div style="display:fill;
+            border-radius: false;
+            border-style: solid;
+            border-color:#000000;
+            border-style: false;
+            border-width: 2px;
+            color:#CF673A;
+            font-size:15px;
+            font-family: Georgia;
+            background-color:#E8DCCC;
+            text-align:center;
+            letter-spacing:0.1px;
+            padding: 0.1em;">
+
+**<h2>♡ Thank you for taking the time ♡**
